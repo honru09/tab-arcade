@@ -6,10 +6,9 @@
       <stop offset="1" stop-color="#38e1ff"/>
     </linearGradient>
   </defs>
-  <rect width="64" height="64" rx="15" fill="#0b1024"/>
-  <rect x="2.5" y="2.5" width="59" height="59" rx="13.5" fill="none" stroke="url(#g)" stroke-width="3"/>
-  <path fill="#f2f6ff" d="M21.5 23h21a11 11 0 0 1 11 11v3.2a6.3 6.3 0 0 1-10.9 4.3L39.4 38H24.6l-3.2 3.5A6.3 6.3 0 0 1 10.5 37.2V34a11 11 0 0 1 11-11z"/>
-  <path fill="#0b1024" d="M20.4 30h3v3h2.8v-3h3v-2.8h-3v-3h-2.8v3h-3z"/>
-  <circle cx="41.5" cy="30.5" r="2.1" fill="#ff5da2"/>
-  <circle cx="46.8" cy="35.8" r="2.1" fill="#38e1ff"/>
+  <rect width="64" height="64" rx="14" fill="#0b1024"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="url(#g)" stroke-width="3.5"/>
+  <path d="M24 19.5 L47.5 32 L24 44.5 Z" fill="url(#g)" stroke="url(#g)" stroke-width="3.5" stroke-linejoin="round"/>
+  <circle cx="25" cy="52.5" r="3" fill="#ff5da2"/>
+  <circle cx="36" cy="52.5" r="3" fill="#38e1ff"/>
 </svg>
