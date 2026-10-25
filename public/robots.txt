@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://honru09.github.io/tab-arcade/sitemap-index.xml
+Sitemap: https://tabarcade.online/sitemap-index.xml

@@ -21,7 +21,7 @@
 import { writeFileSync, mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 
-const SITE_BASE = 'https://honru09.github.io/tab-arcade';
+const SITE_BASE = 'https://tabarcade.online';
 const OUT = new URL('../src/data/games.json', import.meta.url).pathname;
 
 const GD_FEED = (page) =>

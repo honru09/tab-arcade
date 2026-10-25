@@ -5,7 +5,7 @@ TabArcade is a static, English-language portal of free browser games aimed at
 browser tab — no downloads, no installs, no sign-ups — and works on
 Chromebooks, laptops and phones.
 
-**Live site:** https://honru09.github.io/tab-arcade/
+**Live site:** https://tabarcade.online/
 
 Built with [Astro](https://astro.build) (fully static output), deployed to
 GitHub Pages by GitHub Actions on every push to `main`.
@@ -91,9 +91,12 @@ npm run preview    # preview the built site
 
 Push to `main` → `.github/workflows/deploy.yml` runs the official Astro
 GitHub Action (build) → `actions/deploy-pages` publishes to GitHub Pages.
-The site is a GitHub Pages *project* site, so `astro.config.mjs` sets
-`site: 'https://honru09.github.io'` and `base: '/tab-arcade'`; all internal
-links go through the `u()` helper in `src/lib/games.mjs` so the base path is
-applied everywhere. If the site moves to a custom domain, update `site`,
-`base`, the `SITE_BASE` constant in `scripts/fetch-games.mjs`, regenerate
-the data (embed referrer URLs change), and rebuild.
+The site serves from the custom domain **https://tabarcade.online** (root),
+so `astro.config.mjs` sets `site: 'https://tabarcade.online'` and
+`base: '/'`; `public/CNAME` carries the domain and the Pages API has the
+same cname set. All internal links go through the `u()` helper in
+`src/lib/games.mjs`. The old project URL
+`https://honru09.github.io/tab-arcade/` redirects to the custom domain.
+If the domain ever changes, update `site` in `astro.config.mjs`, the
+`SITE_BASE` constant in `scripts/fetch-games.mjs`, `public/CNAME` and the
+Pages cname, regenerate the data (embed referrer URLs change), and rebuild.

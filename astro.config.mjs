@@ -1,10 +1,10 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// GitHub Pages project site: https://honru09.github.io/tab-arcade/
+// Production site: https://tabarcade.online/ (GitHub Pages + custom domain)
 export default defineConfig({
-  site: 'https://honru09.github.io',
-  base: '/tab-arcade',
+  site: 'https://tabarcade.online',
+  base: '/',
   trailingSlash: 'always',
   integrations: [sitemap()],
 });
