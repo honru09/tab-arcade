@@ -53,8 +53,8 @@ const ANIM_SLUGS = new Set([
 
 export const animUrl = (game) => (game && ANIM_SLUGS.has(game.slug) ? u(`anim/${game.slug}.webp`) : null);
 
-/** Themed banner art for hub heroes (public/bg/<name>.jpg). */
-export const bannerUrl = (hub) => (hub && hub.banner ? u(`bg/${hub.banner}.jpg`) : null);
+/** Themed banner art for hub heroes (public/bg/<name>.webp). */
+export const bannerUrl = (hub) => (hub && hub.banner ? u(`bg/${hub.banner}.webp`) : null);
 
 /** Per-category accent color driving card glows, chips and stage lighting. */
 const ACCENTS = {

@@ -7,8 +7,9 @@ interface Props {
   canonical?: string;
   ogImage?: string;
   jsonLd?: object | object[];
+  noindex?: boolean;
 }
-const { title, description, canonical, ogImage, jsonLd } = Astro.props;
+const { title, description, canonical, ogImage, jsonLd, noindex } = Astro.props;
 const canon = canonical || new URL(Astro.url.pathname, Astro.site).href;
 const og = ogImage || 'https://tabarcade.online/og.jpg';
 const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
@@ -32,13 +33,19 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canon} />
+    {!noindex && <link rel="canonical" href={canon} />}
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <link rel="icon" href={u('favicon.svg')} type="image/svg+xml" />
+    {/* Every page renders feed thumbnails from these two CDNs; warming the
+        connections up front shaves a DNS+TLS round trip off the first cards
+        and off the game-page poster (the LCP element there). */}
+    <link rel="preconnect" href="https://img.gamedistribution.com" />
+    <link rel="preconnect" href="https://img.gamemonetize.com" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="TabArcade" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canon} />
+    {!noindex && <meta property="og:url" content={canon} />}
     <meta property="og:image" content={og} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -461,10 +468,14 @@ const nav = [
       .spot:hover { text-decoration: none; }
       .spot-dots { display: flex; gap: 7px; justify-content: center; margin-top: 12px; }
       .spot-dots button {
-        width: 9px; height: 9px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
-        background: rgba(255, 255, 255, 0.25); transition: background 0.2s, transform 0.2s;
+        /* The visible dot stays 9px, but the clickable box grows to 25px
+           via padding (background clipped to the content box) so the
+           control meets minimum target-size guidance. */
+        box-sizing: content-box; width: 9px; height: 9px; border-radius: 50%; border: 0;
+        padding: 8px; background-clip: content-box; cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.25); transition: background-color 0.2s, transform 0.2s;
       }
-      .spot-dots button.on { background: var(--amber); transform: scale(1.3); }
+      .spot-dots button.on { background-color: var(--amber); transform: scale(1.3); }
       @media (max-width: 820px) {
         .hero { grid-template-columns: 1fr; }
         .hero-visual { min-height: 218px; }
@@ -705,6 +716,28 @@ const nav = [
             btn.setAttribute('aria-expanded', String(open));
             btn.textContent = open ? btn.dataset.less : btn.dataset.more;
           });
+        });
+
+        /* Pop-out card art is a hover/focus flourish: fetch it only when a
+           card approaches the viewport instead of paying for every pop
+           (100+ KB each) during the initial load. */
+        const popIO =
+          'IntersectionObserver' in window
+            ? new IntersectionObserver(
+                (entries) => {
+                  for (const e of entries) {
+                    if (e.isIntersecting) {
+                      e.target.src = e.target.dataset.pop;
+                      popIO.unobserve(e.target);
+                    }
+                  }
+                },
+                { rootMargin: '600px 0px' },
+              )
+            : null;
+        document.querySelectorAll('img.pop[data-pop]').forEach((img) => {
+          if (popIO) popIO.observe(img);
+          else img.src = img.dataset.pop;
         });
 
         /* Animated covers + "alive" cards. The loop file is fetched only
