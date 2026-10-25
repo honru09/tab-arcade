@@ -26,21 +26,6 @@ const math = shelves.math().slice(0, 10);
 const io = shelves.io().slice(0, 10);
 const sports = shelves.sports().slice(0, 10);
 
-/* Hero spotlight: games with pop-out key art, spread across categories. */
-const bySlug = new Map(allGames.map((g) => [g.slug, g]));
-const spotlight = [
-  'snow-rider-neo',
-  'car-eats-car-3d',
-  'geometry-vibes-2-online',
-  'tennis-masters-2026',
-  'typeblade-shadow-dojo',
-]
-  .map((s) => bySlug.get(s))
-  .filter((g) => g && artUrl(g));
-
-const trending = shelves.popular().slice(0, 14);
-const catCount = new Set(allGames.flatMap((g) => g.categories)).size;
-
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -57,89 +42,47 @@ const jsonLd = {
   description="Play free browser games instantly: drifting, racing, endless runners, math puzzles and .io games. No downloads, no sign-ups — works on Chromebooks, laptops and phones."
   jsonLd={jsonLd}
 >
-  <section class="hero">
-    <div>
-      <h1>Free Browser Games — No Downloads, Just Play</h1>
-      <p class="lede">
-        TabArcade is a shelf of free games that open right in your browser tab. No downloads, no installs,
-        no sign-ups — and yes, they work on school Chromebooks, laptops and phones. Pick a game and you are
-        playing in seconds.
-      </p>
-      <div class="hero-ctas">
-        <a class="btn" href={u('best-unblocked-games/')}>▶ Play the Best Games</a>
-        <a class="btn ghost" href={u('unblocked-games-for-school/')}>Browse All Games</a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat"><b>{allGames.length}</b><span>Free games</span></div>
-        <div class="stat"><b>{catCount}</b><span>Categories</span></div>
-        <div class="stat"><b>0</b><span>Downloads</span></div>
-        <div class="stat"><b>100%</b><span>Web-based</span></div>
-      </div>
-    </div>
-    <div>
-      <div class="hero-visual" id="spotBox">
-        {
-          spotlight.map((g, i) => (
-            <a
-              class:list={['spot', { active: i === 0 }]}
-              href={gameUrl(g)}
-              aria-hidden={i !== 0}
-              tabindex={i === 0 ? undefined : -1}
-              style={`--acc:${accentFor(g)}`}
-            >
-              <img
-                src={i === 0 ? artUrl(g) : undefined}
-                data-src={i === 0 ? undefined : artUrl(g)}
-                alt={`Play ${g.title} online`}
-                width="560"
-                height="560"
-                loading={i === 0 ? 'eager' : 'lazy'}
-                fetchpriority={i === 0 ? 'high' : undefined}
-              />
-              <span class="spot-name">▶ {g.title}</span>
-            </a>
-          ))
-        }
-      </div>
-      <div class="spot-dots" id="spotDots">
-        {spotlight.map((g, i) => <button type="button" class={i === 0 ? 'on' : ''} aria-label={`Show ${g.title}`} />)}
-      </div>
-    </div>
-  </section>
-
-  <div class="marquee-band">
-    <div class="marquee-label">🔥 Trending now</div>
-    <div class="marquee">
-      <div class="marquee-track">
-        {
-          [...trending, ...trending].map((g, i) => (
-            <a class="mq-item" href={gameUrl(g)} aria-hidden={i >= trending.length}>
-              <img src={g.thumb} alt="" loading="lazy" width="68" height="68" />
-              {g.title}
-            </a>
-          ))
-        }
-      </div>
-    </div>
+  {/* v8 (Poki system): the hero panel, spotlight and trending marquee are
+      retired. A modest title strip carries the H1 + lede for SEO, then
+      the tiles start — Poki's first tile sits ~90px under its header. */}
+  <div class="title-strip">
+    <h1>Free Browser Games — No Downloads, Just Play</h1>
+    <p class="lede">
+      TabArcade is a shelf of free games that open right in your browser tab. No downloads, no installs,
+      no sign-ups — and yes, they work on school Chromebooks, laptops and phones. Pick a game and you are
+      playing in seconds.
+    </p>
   </div>
 
-  <h2>⭐ Featured Games</h2>
-  <GameGrid games={featured} />
+  <section class="shelf">
+    <h2>⭐ Featured Games</h2>
+    <GameGrid games={featured} mosaic />
+  </section>
 
-  <h2>🏎️ Driving &amp; Drifting <a class="more" href={u('driving-games/')}>all driving games →</a></h2>
-  <GameGrid games={driving} />
+  <div class="band band-alt">
+    <h2>🏎️ Driving &amp; Drifting <a class="more" href={u('driving-games/')}>all driving games →</a></h2>
+    <GameGrid games={driving} />
+  </div>
 
-  <h2>🏃 Running Games <a class="more" href={u('running-games/')}>all running games →</a></h2>
-  <GameGrid games={running} />
+  <section class="shelf">
+    <h2>🏃 Running Games <a class="more" href={u('running-games/')}>all running games →</a></h2>
+    <GameGrid games={running} />
+  </section>
 
-  <h2>🧮 Math &amp; Puzzle Games <a class="more" href={u('math-games/')}>all math games →</a></h2>
-  <GameGrid games={math} />
+  <div class="band band-alt">
+    <h2>🧮 Math &amp; Puzzle Games <a class="more" href={u('math-games/')}>all math games →</a></h2>
+    <GameGrid games={math} />
+  </div>
 
-  <h2>🌐 .io Games <a class="more" href={u('io-games/')}>all .io games →</a></h2>
-  <GameGrid games={io} />
+  <section class="shelf">
+    <h2>🌐 .io Games <a class="more" href={u('io-games/')}>all .io games →</a></h2>
+    <GameGrid games={io} />
+  </section>
 
-  <h2>⚽ Sports Games <a class="more" href={u('2-player-games/')}>2 player games →</a></h2>
-  <GameGrid games={sports} />
+  <div class="band band-alt">
+    <h2>⚽ Sports Games <a class="more" href={u('2-player-games/')}>2 player games →</a></h2>
+    <GameGrid games={sports} />
+  </div>
 
   <h2>Why TabArcade?</h2>
   <div class="expandable">
@@ -223,55 +166,6 @@ const jsonLd = {
           sessionStorage.setItem('ta-gotd', today);
         } catch (e) { /* ignore */ }
       }, 1400);
-    })();
-  </script>
-
-  <script>
-    // Rotate the hero spotlight. Pauses for reduced motion / hidden tab.
-    (() => {
-      const spots = [...document.querySelectorAll('#spotBox .spot')];
-      const dots = [...document.querySelectorAll('#spotDots button')];
-      if (spots.length < 2) return;
-      let cur = 0;
-      let timer = 0;
-      /* Non-first spotlight art is deferred (data-src in the markup) so the
-         hero's initial load carries one image, not five; hydrate a spot
-         just before it is shown, and prefetch the rest when idle. */
-      const hydrate = (spot) => {
-        const img = spot.querySelector('img[data-src]');
-        if (img) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
-      };
-      const show = (n) => {
-        spots[cur].classList.remove('active');
-        spots[cur].setAttribute('aria-hidden', 'true');
-        spots[cur].tabIndex = -1;
-        dots[cur]?.classList.remove('on');
-        cur = (n + spots.length) % spots.length;
-        hydrate(spots[cur]);
-        spots[cur].classList.add('active');
-        spots[cur].setAttribute('aria-hidden', 'false');
-        spots[cur].tabIndex = 0;
-        dots[cur]?.classList.add('on');
-      };
-      const play = () => {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-        timer = window.setInterval(() => show(cur + 1), 3600);
-      };
-      const stop = () => window.clearInterval(timer);
-      dots.forEach((d, i) =>
-        d.addEventListener('click', () => {
-          stop();
-          show(i);
-          play();
-        }),
-      );
-      document.addEventListener('visibilitychange', () => (document.hidden ? stop() : play()));
-      play();
-      const idle = window.requestIdleCallback || ((f) => window.setTimeout(f, 1800));
-      idle(() => spots.forEach(hydrate));
     })();
   </script>
 </Base>
