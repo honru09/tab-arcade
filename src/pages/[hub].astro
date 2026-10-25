@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import GameGrid from '../components/GameGrid.astro';
 import { hubs } from '../data/hubs.mjs';
 import { shelves, allGames } from '../lib/games.mjs';
+import { accentFor } from '../lib/art.mjs';
 
 export function getStaticPaths() {
   return hubs.map((hub) => ({ params: { hub: hub.slug }, props: { hub } }));
@@ -10,6 +11,7 @@ export function getStaticPaths() {
 
 const { hub } = Astro.props;
 const games = (shelves[hub.shelf] ? shelves[hub.shelf]() : allGames).slice(0, 48);
+const accent = accentFor(games[0]);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -27,9 +29,11 @@ const jsonLd = {
 ---
 
 <Base title={hub.metaTitle} description={hub.metaDescription} jsonLd={jsonLd}>
-  <h1>{hub.h1}</h1>
-  <div class="prose">
-    {hub.intro.map((p) => <p>{p}</p>)}
+  <div class="hub-hero" style={`--acc:${accent}`}>
+    <h1>{hub.h1}</h1>
+    <div class="prose">
+      {hub.intro.map((p) => <p>{p}</p>)}
+    </div>
   </div>
 
   <h2>Play Now — {games.length} Free Games</h2>
