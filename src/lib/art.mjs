@@ -27,31 +27,13 @@ const ART_SLUGS = new Set([
 export const artUrl = (game) => (game && ART_SLUGS.has(game.slug) ? u(`art/${game.slug}.webp`) : null);
 
 /**
- * Animated covers (public/anim/<slug>.webp): seamless ~2.4s loops composited
- * from the key art over a scrolling themed background (redesign/animate.py).
- * Cards swap the static feed thumb for the loop on hover / when the card is
- * alive in view. color-sort-party is intentionally absent — its key art is a
- * translucent splash that vanishes over a background, so it keeps the
- * Ken Burns treatment instead.
+ * Animated covers: RETIRED in the v5 pass. The loops (composited from the
+ * key art) used to swap in over the original feed thumbnail on hover; the
+ * rule now is covers are always the original feed artwork, and generated
+ * art only ever appears as an overlay flourish (pop-out art, spotlight,
+ * stage art, banners, GOTD). The loop files were removed from public/anim
+ * (they also cost 300-580 KB per card on mobile).
  */
-const ANIM_SLUGS = new Set([
-  'snow-rider-neo',
-  'car-eats-car-3d',
-  'drag-shift-street-race',
-  'wheelie-spooky',
-  'geometry-vibes-2-online',
-  'cube-snake-2048',
-  'tennis-masters-2026',
-  'football-penalty-2026',
-  'typeblade-shadow-dojo',
-  'rocketman',
-  'shooter-soldiers-vs-zombies',
-  'zombie-sprint',
-  'speedy-runner',
-  'war-space',
-]);
-
-export const animUrl = (game) => (game && ANIM_SLUGS.has(game.slug) ? u(`anim/${game.slug}.webp`) : null);
 
 /** Themed banner art for hub heroes (public/bg/<name>.webp). */
 export const bannerUrl = (hub) => (hub && hub.banner ? u(`bg/${hub.banner}.webp`) : null);

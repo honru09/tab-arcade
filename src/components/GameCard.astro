@@ -1,9 +1,8 @@
 ---
 import { gameUrl } from '../lib/games.mjs';
-import { artUrl, animUrl, accentFor } from '../lib/art.mjs';
+import { artUrl, accentFor } from '../lib/art.mjs';
 const { game, index = 0 } = Astro.props;
 const art = artUrl(game);
-const anim = animUrl(game);
 const accent = accentFor(game);
 const cat = game.categories[0] || 'Game';
 const tag = (game.tags || []).find((t) => t.toLowerCase() !== cat.toLowerCase());
@@ -11,7 +10,7 @@ const ribbon = game.featured ? 'hot' : game.source === 'gm' ? 'new' : null;
 ---
 
 <a
-  class:list={['card', { 'has-pop': !!art, 'has-anim': !!anim }]}
+  class:list={['card', { 'has-pop': !!art }]}
   href={gameUrl(game)}
   style={`--acc:${accent};--d:${(index % 10) * 45}ms`}
   data-tilt
@@ -26,20 +25,9 @@ const ribbon = game.featured ? 'hot' : game.source === 'gm' ? 'new' : null;
         width="512"
         height="384"
       />
-      {
-        anim && (
-          <img
-            class="anim"
-            data-anim={anim}
-            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            width="480"
-            height="360"
-          />
-        )
-      }
+      {/* Covers are always the original feed thumbnail (v5 rule): the
+          animated-loop swap was retired — no generated image ever replaces
+          the cover. Generated art appears only as the pop-out overlay. */}
       <span class="fx" aria-hidden="true"></span>
       {
         ribbon && (
