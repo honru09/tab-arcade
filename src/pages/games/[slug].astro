@@ -11,6 +11,15 @@ export function getStaticPaths() {
 const { game } = Astro.props;
 const related = relatedGames(game, 6);
 const faqs = gameFaqs(game);
+const dot = game.description.indexOf('. ');
+const teaser = dot > 40 ? game.description.slice(0, dot + 1) : game.description.slice(0, 150);
+const ins = (game.instructions || '').toLowerCase();
+const ctrl = [];
+if (/arrow|wasd|keyboard/.test(ins)) ctrl.push('⌨️ Keyboard');
+if (/mouse|click/.test(ins)) ctrl.push('🖱️ Mouse');
+if (/space/.test(ins)) ctrl.push('␣ Spacebar');
+if (/touch|tap|swipe/.test(ins) || game.mobile) ctrl.push('👆 Touch');
+if (!ctrl.length) ctrl.push('🎮 On-screen controls');
 const ratio = Math.round((game.height / game.width) * 1000) / 10;
 const art = artUrl(game);
 const accent = accentFor(game);
@@ -98,26 +107,53 @@ const jsonLd = [
     document.querySelectorAll('.fs-btn').forEach((b) => b.addEventListener('click', goFs));
   </script>
 
-  <h2>About {game.title}</h2>
-  <div class="prose">
-    <p>{game.description}</p>
-    {
-      game.tags.length > 0 && (
-        <p>
-          Tags: {game.tags.join(' · ')}
-        </p>
-      )
-    }
-  </div>
+  <p class="teaser"><b>{game.title}</b> — {teaser}</p>
 
-  <h2>How to Play {game.title}</h2>
-  <div class="prose">
-    <p>{game.instructions || `Open the game above and follow the on-screen prompts. ${game.title} is designed to be picked up in seconds — most browser games use the arrow keys, WASD, the mouse, or touch controls.`}</p>
-    <p>
-      Tip: click the Fullscreen button for the biggest play area, especially on a Chromebook.
-      If the game seems stuck loading, wait a few seconds and refresh once — browser games stream
-      their assets on first load.
-    </p>
+  <div class="drawers two" style={`--acc:${accent}`}>
+    <div class="drawer">
+      <button class="drawer-head" type="button" aria-expanded="false">
+        <span>📖 About this game</span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </button>
+      <div class="drawer-body">
+        <div class="drawer-inner">
+          <div class="pad">
+            <p>{game.description}</p>
+            {
+              game.tags.length > 0 && (
+                <span class="chips">
+                  {game.tags.map((t) => (
+                    <span class="chip alt">{t}</span>
+                  ))}
+                </span>
+              )
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="drawer">
+      <button class="drawer-head" type="button" aria-expanded="false">
+        <span>🕹️ How to play</span>
+        <span class="ctrl-chips chips" style="margin-top:0">
+          {ctrl.map((c) => <span class="chip">{c}</span>)}
+        </span>
+        <span class="chev" aria-hidden="true">▾</span>
+      </button>
+      <div class="drawer-body">
+        <div class="drawer-inner">
+          <div class="pad">
+            <p>{game.instructions || `Open the game above and follow the on-screen prompts. ${game.title} is designed to be picked up in seconds — most browser games use the arrow keys, WASD, the mouse, or touch controls.`}</p>
+            <p>
+              Tip: click the Fullscreen button for the biggest play area, especially on a Chromebook.
+              If the game seems stuck loading, wait a few seconds and refresh once — browser games stream
+              their assets on first load.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <h2>{game.title} FAQ</h2>

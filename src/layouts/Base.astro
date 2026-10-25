@@ -10,6 +10,7 @@ interface Props {
 }
 const { title, description, canonical, ogImage, jsonLd } = Astro.props;
 const canon = canonical || new URL(Astro.url.pathname, Astro.site).href;
+const og = ogImage || 'https://tabarcade.online/og.jpg';
 const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
 const nav = [
@@ -38,16 +39,23 @@ const nav = [
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canon} />
-    {ogImage && <meta property="og:image" content={ogImage} />}
-    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={og} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {ogImage && <meta name="twitter:image" content={ogImage} />}
+    <meta name="twitter:image" content={og} />
     {
       ldList.map((ld) => (
         <script type="application/ld+json" set:html={JSON.stringify(ld)} />
       ))
     }
+    <noscript>
+      <style>
+        .drawer-body, .exp-rest { grid-template-rows: 1fr !important; }
+        .exp-btn { display: none !important; }
+        body .card { opacity: 1 !important; }
+      </style>
+    </noscript>
     <style is:global>
       :root {
         --bg: #070a16;
@@ -120,15 +128,19 @@ const nav = [
       }
       nav.main a:hover { color: var(--text); background: rgba(255, 255, 255, 0.07); text-decoration: none; }
 
-      main { padding: 26px 0 44px; }
+      main { padding: 30px 0 54px; }
       h1 {
         font-family: var(--disp); font-size: clamp(26px, 4vw, 38px); font-weight: 900;
         letter-spacing: -0.02em; margin: 0 0 10px; line-height: 1.12;
       }
       h2 {
         font-family: var(--disp); font-size: clamp(20px, 2.6vw, 25px); font-weight: 800;
-        letter-spacing: -0.01em; margin: 36px 0 14px; display: flex; align-items: baseline;
-        gap: 10px; flex-wrap: wrap;
+        letter-spacing: -0.01em; margin: 46px 0 16px; display: flex; align-items: center;
+        gap: 11px; flex-wrap: wrap;
+      }
+      h2::before {
+        content: ""; width: 5px; height: 0.92em; border-radius: 3px; background: var(--grad);
+        flex: 0 0 auto;
       }
       h2 .more { font-size: 13.5px; font-weight: 700; margin-left: auto; }
       .lede { color: var(--muted); max-width: 760px; font-size: 16px; }
@@ -139,6 +151,7 @@ const nav = [
         display: grid; gap: 18px;
         grid-template-columns: repeat(auto-fill, minmax(212px, 1fr));
       }
+      @media (min-width: 900px) { .grid { gap: 21px; } }
       .card {
         --acc: var(--amber); --rx: 0deg; --ry: 0deg;
         position: relative; display: block; color: var(--text);
@@ -165,21 +178,68 @@ const nav = [
         background: radial-gradient(closest-side, var(--acc), transparent);
         opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
       }
-      .card:hover .card-art::after, .card:focus-visible .card-art::after { opacity: 0.4; }
-      .card-art .thumb {
-        position: relative; z-index: 1; width: 100%; aspect-ratio: 4/3; object-fit: cover;
-        display: block; border-radius: 14px; background: var(--panel2);
+      .card:hover .card-art::after, .card:focus-visible .card-art::after, .card.alive .card-art::after { opacity: 0.4; }
+      /* The frame: clips the Ken Burns / animated cover, carries the shadow
+         and performs the hover breakout transform. */
+      .thumb-wrap {
+        position: relative; z-index: 1; display: block; border-radius: 14px; overflow: hidden;
+        background: var(--panel2);
         box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-        transition: transform 0.38s cubic-bezier(0.2, 0.7, 0.3, 1.45), filter 0.38s ease;
+        transition: transform 0.38s cubic-bezier(0.2, 0.7, 0.3, 1.45), box-shadow 0.38s ease;
       }
-      /* The breakout: art scales past the frame with a layered shadow. */
-      .card:hover .thumb, .card:focus-visible .thumb {
+      .card:hover .thumb-wrap, .card:focus-visible .thumb-wrap {
         transform: scale(1.17) translateY(-9px) rotate(-1.6deg);
-        filter: saturate(1.18) brightness(1.05);
         box-shadow: 0 26px 34px -10px rgba(0, 0, 0, 0.7), 0 10px 22px -6px var(--acc);
       }
+      .card-art .thumb {
+        /* height:auto is load-bearing: with both width/height attributes
+           present, Chromium treats the height attribute as a definite
+           height and ignores aspect-ratio, stretching cards to 384px. */
+        width: 100%; height: auto; aspect-ratio: 4/3; object-fit: cover; display: block;
+        transition: filter 0.38s ease;
+      }
+      .card:hover .thumb, .card:focus-visible .thumb { filter: saturate(1.18) brightness(1.05); }
+      /* "Alive" state: slow Ken Burns pan/zoom inside the frame. */
+      .card.alive .thumb, .card:hover .thumb, .card:focus-visible .thumb {
+        animation: kb 7s ease-in-out infinite alternate;
+      }
+      @keyframes kb {
+        from { transform: scale(1.03) translate(0.6%, 0.4%); }
+        to { transform: scale(1.16) translate(-1.8%, -2.2%); }
+      }
+      /* Animated cover loop, swapped in over the thumb by JS. */
+      .card-art .anim {
+        position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%;
+        object-fit: cover; opacity: 0; transition: opacity 0.35s ease; pointer-events: none;
+      }
+      .card.playing .anim { opacity: 1; }
+      /* Speed-lines / particles shimmer layered over the cover. */
+      .card-art .fx {
+        position: absolute; inset: 0; z-index: 3; pointer-events: none; opacity: 0;
+        mix-blend-mode: screen; transition: opacity 0.3s ease;
+        background-image:
+          repeating-linear-gradient(100deg, transparent 0 44px, rgba(255, 255, 255, 0.14) 44px 46px, transparent 46px 88px),
+          radial-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1.7px);
+        background-size: 240px 100%, 26px 26px;
+      }
+      .card.alive .fx, .card:hover .fx, .card:focus-visible .fx {
+        opacity: 1; animation: fx-move 1.5s linear infinite;
+      }
+      @keyframes fx-move {
+        from { background-position: 0 0, 0 0; }
+        to { background-position: -240px 0, 13px 26px; }
+      }
+      .ribbon {
+        position: absolute; z-index: 4; top: 8px; left: 8px;
+        display: inline-flex; align-items: center; gap: 4px;
+        font-size: 10.5px; font-weight: 900; letter-spacing: 0.09em;
+        padding: 3.5px 8px; border-radius: 7px; color: #22112e;
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
+      }
+      .ribbon.hot { background: linear-gradient(92deg, #ffd23e, #ff5da2); }
+      .ribbon.new { background: linear-gradient(92deg, #38e1ff, #4ade80); }
       .card-art .pop {
-        position: absolute; z-index: 2; left: 50%; bottom: -3%;
+        position: absolute; z-index: 4; left: 50%; bottom: -3%;
         width: 94%; max-height: 128%; object-fit: contain; pointer-events: none;
         opacity: 0; transform: translate(-50%, 12%) scale(0.82);
         filter: drop-shadow(0 16px 16px rgba(0, 0, 0, 0.55));
@@ -189,7 +249,7 @@ const nav = [
         opacity: 1; transform: translate(-50%, -15%) scale(1.12);
       }
       .play-badge {
-        position: absolute; z-index: 3; right: 8px; bottom: 8px;
+        position: absolute; z-index: 5; right: 8px; bottom: 8px;
         width: 38px; height: 38px; border-radius: 50%;
         display: flex; align-items: center; justify-content: center;
         background: var(--grad); color: #131022; font-size: 14px; padding-left: 2px;
@@ -299,11 +359,25 @@ const nav = [
         display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 10px; align-items: center;
       }
       .hero::before {
-        content: ""; position: absolute; inset: 0; pointer-events: none;
+        content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
         background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.07) 45%, transparent 60%);
         background-size: 250% 100%; animation: hero-shine 7s ease-in-out infinite;
       }
       @keyframes hero-shine { 0%, 100% { background-position: 120% 0; } 50% { background-position: -30% 0; } }
+      /* Drifting aurora mesh behind the hero content. */
+      .hero::after {
+        content: ""; position: absolute; inset: -28%; z-index: 0; pointer-events: none;
+        background:
+          radial-gradient(360px 250px at 22% 30%, rgba(139, 92, 246, 0.34), transparent 70%),
+          radial-gradient(400px 270px at 78% 64%, rgba(56, 225, 255, 0.25), transparent 70%),
+          radial-gradient(300px 220px at 56% 12%, rgba(255, 93, 162, 0.22), transparent 70%);
+        filter: blur(12px); animation: aurora 16s ease-in-out infinite alternate;
+      }
+      @keyframes aurora {
+        from { transform: translate(-2.5%, -1.5%) scale(1); }
+        to { transform: translate(2.5%, 2%) scale(1.07); }
+      }
+      .hero > div { position: relative; z-index: 1; }
       .hero h1 { font-size: clamp(30px, 4.8vw, 54px); line-height: 1.04; margin-bottom: 14px; }
       .hero .lede { font-size: clamp(15px, 1.6vw, 17.5px); max-width: 560px; }
       .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
@@ -372,15 +446,110 @@ const nav = [
 
       /* ---------- hub hero band ---------- */
       .hub-hero {
-        border-radius: 24px; padding: clamp(20px, 3.4vw, 34px);
+        border-radius: 24px; padding: clamp(22px, 3.6vw, 38px);
         border: 1px solid rgba(255, 255, 255, 0.12);
         background:
           radial-gradient(560px 240px at 90% -20%, var(--acc, rgba(139, 92, 246, 0.35)), transparent 65%),
           linear-gradient(160deg, #121a36, #0a0f24 65%);
+        background-size: cover; background-position: center;
         margin-bottom: 8px;
       }
-      .hub-hero h1 { margin-bottom: 12px; }
+      .hub-hero.has-banner {
+        background-blend-mode: normal;
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 24px 44px -22px rgba(0, 0, 0, 0.8);
+      }
+      .hub-hero h1 { margin-bottom: 10px; }
+      .hub-hero .tagline {
+        font-size: clamp(15px, 1.8vw, 17.5px); font-weight: 600; color: #e6edff; max-width: 640px;
+        text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65);
+      }
+      .hub-hero.has-banner h1 { text-shadow: 0 3px 18px rgba(0, 0, 0, 0.7); }
       .hub-hero .prose { color: #c3d0ea; }
+
+      /* ---------- drawers & expandables (progressive disclosure) ---------- */
+      .teaser { color: var(--muted); max-width: 820px; font-size: 15.5px; margin: 20px 0 4px; }
+      .teaser b { color: var(--text); }
+      .drawers { display: grid; gap: 14px; margin: 16px 0 6px; max-width: 980px; }
+      @media (min-width: 920px) { .drawers.two { grid-template-columns: 1fr 1fr; align-items: start; } }
+      .drawer {
+        border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.02));
+        -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+      }
+      .drawer-head {
+        width: 100%; display: flex; align-items: center; gap: 10px; text-align: left;
+        background: none; border: 0; cursor: pointer; color: var(--text);
+        font-family: var(--disp); font-size: 16.5px; font-weight: 800; letter-spacing: -0.01em;
+        padding: 15px 18px;
+      }
+      .drawer-head .chev { margin-left: 8px; color: var(--muted); transition: transform 0.35s ease; flex: 0 0 auto; }
+      .drawer-head .ctrl-chips { margin-left: auto; }
+      .drawer.open .drawer-head .chev { transform: rotate(180deg); }
+      .drawer-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s cubic-bezier(0.2, 0.7, 0.3, 1); }
+      .drawer.open .drawer-body { grid-template-rows: 1fr; }
+      .drawer-inner { overflow: hidden; min-height: 0; }
+      .drawer-inner .pad { padding: 2px 18px 17px; }
+      .drawer-inner p { color: #cdd8ee; margin: 0 0 12px; font-size: 15px; }
+      .drawer-inner p:last-child { margin-bottom: 0; }
+      .ctrl-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+      .expandable .exp-rest { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.5s cubic-bezier(0.2, 0.7, 0.3, 1); }
+      .expandable.open .exp-rest { grid-template-rows: 1fr; }
+      .expandable .exp-clip { overflow: hidden; min-height: 0; }
+      .exp-btn {
+        margin-top: 12px; background: rgba(255, 255, 255, 0.06); color: var(--text);
+        border: 1px solid var(--line); border-radius: 999px; padding: 8px 18px;
+        font-weight: 800; font-size: 13.5px; cursor: pointer; transition: background 0.2s, transform 0.15s;
+      }
+      .exp-btn:hover { background: rgba(255, 255, 255, 0.11); transform: translateY(-1px); }
+      /* FAQ items join the same glass drawer family. */
+      .faq details { transition: border-color 0.25s ease, background 0.25s ease; }
+      .faq details[open ] { border-color: rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.06); }
+      .faq summary { list-style: none; display: flex; align-items: center; gap: 8px; }
+      .faq summary::-webkit-details-marker { display: none; }
+      .faq summary::after { content: "▾"; margin-left: auto; color: var(--muted); transition: transform 0.3s ease; }
+      .faq details[open ] summary::after { transform: rotate(180deg); }
+
+      /* ---------- game of the day modal ---------- */
+      .gotd {
+        position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center;
+        padding: 18px; background: rgba(4, 6, 14, 0.68);
+        -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+        opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
+      }
+      .gotd.show { opacity: 1; pointer-events: auto; }
+      .gotd-card {
+        position: relative; width: min(430px, 100%); margin-top: 74px; text-align: center;
+        border-radius: 26px; padding: 0 26px 24px;
+        background: linear-gradient(165deg, #1a2547, #0b1024 72%);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.85), 0 0 60px -18px var(--acc, rgba(255, 176, 32, 0.55));
+        transform: translateY(18px) scale(0.95); transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1.3);
+      }
+      .gotd.show .gotd-card { transform: none; }
+      .gotd-art {
+        width: 208px; height: 208px; object-fit: contain; margin: -86px auto 2px;
+        filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.6));
+        animation: floaty 5s ease-in-out infinite;
+      }
+      .gotd .kicker {
+        display: inline-block; font-size: 11.5px; font-weight: 900; letter-spacing: 0.14em;
+        color: #22112e; background: var(--grad); padding: 4.5px 12px; border-radius: 999px;
+      }
+      .gotd h3 { font-family: var(--disp); font-size: 26px; font-weight: 900; letter-spacing: -0.02em; margin: 12px 0 6px; }
+      .gotd p { color: var(--muted); font-size: 14.5px; margin: 0 0 18px; }
+      .gotd-close {
+        position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%;
+        border: 1px solid var(--line); background: rgba(255, 255, 255, 0.07); color: var(--text);
+        font-size: 15px; cursor: pointer; line-height: 1;
+      }
+      .gotd-close:hover { background: rgba(255, 255, 255, 0.15); }
+
+      /* ---------- 404 ---------- */
+      .nf { text-align: center; padding: 12px 0 4px; }
+      .nf img { width: min(340px, 72vw); border-radius: 24px; box-shadow: 0 30px 60px -18px rgba(0, 0, 0, 0.8); }
+      .nf h1 { font-size: clamp(34px, 6vw, 58px); margin-top: 22px; }
+      .nf .lede { margin: 0 auto; }
+      .nf .hero-ctas { justify-content: center; }
 
       footer.site {
         border-top: 1px solid var(--line);
@@ -410,6 +579,7 @@ const nav = [
         }
         .marquee-track { animation: none; }
         body.js-anim .card { opacity: 1; }
+        .card .thumb, .card-art .fx, .hero::after, .gotd-art { animation: none !important; }
       }
     </style>
   </head>
@@ -461,6 +631,67 @@ const nav = [
           );
           cards.forEach((c) => io.observe(c));
         }
+        /* Drawers + "read more" expandables (progressive disclosure). */
+        document.querySelectorAll('.drawer-head').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const d = btn.closest('.drawer');
+            const open = d.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+          });
+        });
+        document.querySelectorAll('.exp-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            const x = btn.closest('.expandable');
+            const open = x.classList.toggle('open');
+            btn.setAttribute('aria-expanded', String(open));
+            btn.textContent = open ? btn.dataset.less : btn.dataset.more;
+          });
+        });
+
+        /* Animated covers + "alive" cards. The loop file is fetched only
+           when a card is hovered/focused (desktop) or becomes the most
+           visible card in the viewport (touch) — never under reduced
+           motion, so idle pages pay nothing for them. */
+        const playAnim = (card) => {
+          if (card.dataset.played) return;
+          card.dataset.played = '1';
+          const img = card.querySelector('img.anim');
+          if (!img) return;
+          img.addEventListener('load', () => card.classList.add('playing'), { once: true });
+          img.src = img.dataset.anim;
+        };
+        if (!reduce) {
+          document.querySelectorAll('.card.has-anim').forEach((c) => {
+            c.addEventListener('pointerenter', () => playAnim(c));
+            c.addEventListener('focus', () => playAnim(c));
+          });
+          if (!window.matchMedia('(pointer: fine)').matches && 'IntersectionObserver' in window) {
+            const ratios = new Map();
+            const ioAlive = new IntersectionObserver(
+              (entries) => {
+                for (const e of entries) ratios.set(e.target, e.intersectionRatio);
+                let best = null;
+                let br = 0.55;
+                ratios.forEach((r, el) => {
+                  if (r > br) {
+                    br = r;
+                    best = el;
+                  }
+                });
+                document.querySelectorAll('.card.alive').forEach((el) => {
+                  if (el !== best) el.classList.remove('alive');
+                });
+                if (best) {
+                  best.classList.add('alive');
+                  playAnim(best);
+                }
+              },
+              { threshold: [0, 0.3, 0.55, 0.75, 0.95] },
+            );
+            cards.forEach((c) => ioAlive.observe(c));
+          }
+        }
+
         if (!reduce && window.matchMedia('(pointer: fine)').matches) {
           document.querySelectorAll('[data-tilt]').forEach((el) => {
             let raf = 0;

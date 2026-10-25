@@ -17,9 +17,44 @@ const ART_SLUGS = new Set([
   'typeblade-shadow-dojo',
   'rocketman',
   'shooter-soldiers-vs-zombies',
+  'wheelie-spooky',
+  'zombie-sprint',
+  'speedy-runner',
+  'football-penalty-2026',
+  'war-space',
 ]);
 
 export const artUrl = (game) => (game && ART_SLUGS.has(game.slug) ? u(`art/${game.slug}.webp`) : null);
+
+/**
+ * Animated covers (public/anim/<slug>.webp): seamless ~2.4s loops composited
+ * from the key art over a scrolling themed background (redesign/animate.py).
+ * Cards swap the static feed thumb for the loop on hover / when the card is
+ * alive in view. color-sort-party is intentionally absent — its key art is a
+ * translucent splash that vanishes over a background, so it keeps the
+ * Ken Burns treatment instead.
+ */
+const ANIM_SLUGS = new Set([
+  'snow-rider-neo',
+  'car-eats-car-3d',
+  'drag-shift-street-race',
+  'wheelie-spooky',
+  'geometry-vibes-2-online',
+  'cube-snake-2048',
+  'tennis-masters-2026',
+  'football-penalty-2026',
+  'typeblade-shadow-dojo',
+  'rocketman',
+  'shooter-soldiers-vs-zombies',
+  'zombie-sprint',
+  'speedy-runner',
+  'war-space',
+]);
+
+export const animUrl = (game) => (game && ANIM_SLUGS.has(game.slug) ? u(`anim/${game.slug}.webp`) : null);
+
+/** Themed banner art for hub heroes (public/bg/<name>.jpg). */
+export const bannerUrl = (hub) => (hub && hub.banner ? u(`bg/${hub.banner}.jpg`) : null);
 
 /** Per-category accent color driving card glows, chips and stage lighting. */
 const ACCENTS = {

@@ -2,7 +2,22 @@
 import Base from '../layouts/Base.astro';
 import GameGrid from '../components/GameGrid.astro';
 import { shelves, allGames, gameUrl, u } from '../lib/games.mjs';
-import { artUrl } from '../lib/art.mjs';
+import { artUrl, accentFor } from '../lib/art.mjs';
+
+/* Game of the Day pool: every game with pop-out key art. The client picks
+   one deterministically by date, so all visitors see the same pick. */
+const gotdPool = allGames
+  .filter((g) => artUrl(g))
+  .map((g) => {
+    const dot = g.description.indexOf('. ');
+    return {
+      title: g.title,
+      url: gameUrl(g),
+      art: artUrl(g),
+      accent: accentFor(g),
+      blurb: (dot > 40 ? g.description.slice(0, dot + 1) : g.description.slice(0, 140)).slice(0, 150),
+    };
+  });
 
 const featured = shelves.featured();
 const driving = shelves.driving().slice(0, 10);
@@ -112,21 +127,80 @@ const jsonLd = {
   <GameGrid games={sports} />
 
   <h2>Why TabArcade?</h2>
-  <div class="prose">
-    <p>
-      School laptops and Chromebooks block almost every way of installing a game — but they cannot block
-      the web itself. Every game on TabArcade runs as a web page, so there is nothing to install and
-      nothing to update. Rounds are short by design: an endless-runner attempt, a drift run or a puzzle
-      fits a lunch break or the last minutes of a free period, and the fullscreen button on each game
-      page gives you the whole screen when you want it.
-    </p>
-    <p>
-      Browse the shelves above, or start from our hand-picked
-      <a href={u('best-unblocked-games/')}>best unblocked games</a> list, the
-      <a href={u('classroom-games/')}>classroom games</a> shelf, or the
-      <a href={u('unblocked-games-for-chromebook/')}>Chromebook games</a> hub.
-    </p>
+  <div class="expandable">
+    <div class="prose">
+      <p>
+        School laptops and Chromebooks block almost every way of installing a game — but they cannot block
+        the web itself. Every game on TabArcade runs as a web page, so there is nothing to install and
+        nothing to update. Rounds are short by design: an endless-runner attempt, a drift run or a puzzle
+        fits a lunch break or the last minutes of a free period, and the fullscreen button on each game
+        page gives you the whole screen when you want it.
+      </p>
+      <div class="exp-rest">
+        <div class="exp-clip">
+          <p>
+            Browse the shelves above, or start from our hand-picked
+            <a href={u('best-unblocked-games/')}>best unblocked games</a> list, the
+            <a href={u('classroom-games/')}>classroom games</a> shelf, or the
+            <a href={u('unblocked-games-for-chromebook/')}>Chromebook games</a> hub.
+          </p>
+        </div>
+      </div>
+    </div>
+    <button class="exp-btn" type="button" aria-expanded="false" data-more="Read more ▾" data-less="Show less ▴">Read more ▾</button>
   </div>
+
+  <div class="gotd" id="gotd" role="dialog" aria-modal="true" aria-label="Game of the day" hidden>
+    <div class="gotd-card" id="gotdCard">
+      <button class="gotd-close" id="gotdClose" type="button" aria-label="Close">✕</button>
+      <img class="gotd-art" id="gotdArt" alt="" width="560" height="560" />
+      <span class="kicker">⭐ GAME OF THE DAY</span>
+      <h3 id="gotdTitle"></h3>
+      <p id="gotdBlurb"></p>
+      <a class="btn" id="gotdPlay" href="#">▶ Play Now — Free</a>
+    </div>
+  </div>
+  <script define:vars={{ gotdPool }}>
+    // Game of the Day: same pick for everyone on a given date, shown once
+    // per session, dismissible via button / backdrop / Escape.
+    (() => {
+      if (!gotdPool.length) return;
+      const today = new Date().toDateString();
+      let seen = null;
+      try {
+        seen = sessionStorage.getItem('ta-gotd');
+      } catch (e) { /* private mode */ }
+      if (seen === today) return;
+      const pick = gotdPool[Math.floor(Date.now() / 86400000) % gotdPool.length];
+      const box = document.getElementById('gotd');
+      document.getElementById('gotdArt').src = pick.art;
+      document.getElementById('gotdTitle').textContent = pick.title;
+      document.getElementById('gotdBlurb').textContent = pick.blurb;
+      document.getElementById('gotdPlay').href = pick.url;
+      document.getElementById('gotdCard').style.setProperty('--acc', pick.accent);
+      const close = () => {
+        box.classList.remove('show');
+        window.setTimeout(() => box.setAttribute('hidden', ''), 380);
+        document.removeEventListener('keydown', onKey);
+      };
+      const onKey = (e) => {
+        if (e.key === 'Escape') close();
+      };
+      document.getElementById('gotdClose').addEventListener('click', close);
+      document.getElementById('gotdPlay').addEventListener('click', close);
+      box.addEventListener('click', (e) => {
+        if (e.target === box) close();
+      });
+      document.addEventListener('keydown', onKey);
+      window.setTimeout(() => {
+        box.removeAttribute('hidden');
+        requestAnimationFrame(() => box.classList.add('show'));
+        try {
+          sessionStorage.setItem('ta-gotd', today);
+        } catch (e) { /* ignore */ }
+      }, 1400);
+    })();
+  </script>
 
   <script>
     // Rotate the hero spotlight. Pauses for reduced motion / hidden tab.

@@ -9,6 +9,8 @@ export const hubs = [
     slug: 'unblocked-games-for-school',
     shelf: 'schoolMix',
     h1: 'Unblocked Games for School',
+    tagline: 'The whole shelf loads in one tab — no downloads, no sign-ups, Chromebook-ready.',
+    banner: 'bg-neon',
     metaTitle: 'Unblocked Games for School — Free Browser Games, No Download | TabArcade',
     metaDescription:
       'Free browser games that load in a normal tab with no downloads or sign-ups. Racing, running, puzzle and .io games that work on school Chromebooks.',
@@ -21,6 +23,8 @@ export const hubs = [
     slug: 'math-games',
     shelf: 'math',
     h1: 'Math Games',
+    tagline: 'Numbers, logic and merge puzzles that sneak in a workout for your brain.',
+    banner: 'bg-grid',
     metaTitle: 'Math Games Unblocked — Free Number, Logic & Puzzle Games | TabArcade',
     metaDescription:
       'Free math and logic games that play in your browser: 2048 merges, number puzzles, strategy and brain-training games. No download, works on Chromebooks.',
@@ -33,6 +37,8 @@ export const hubs = [
     slug: 'unblocked-games-for-chromebook',
     shelf: 'popular',
     h1: 'Unblocked Games for Chromebook',
+    tagline: 'Built for the laptop you already have — every game runs in Chrome, nothing to install.',
+    banner: 'bg-city',
     metaTitle: 'Unblocked Games for Chromebook — No Downloads, Just Play | TabArcade',
     metaDescription:
       'Games that work on Chromebooks: no installs, no extensions, no downloads. Every TabArcade game runs in Chrome on school and home Chromebooks.',
@@ -45,6 +51,8 @@ export const hubs = [
     slug: 'classroom-games',
     shelf: 'classroom',
     h1: 'Classroom Games',
+    tagline: 'Quick, quiet rounds of math, logic and puzzles — free periods were made for this.',
+    banner: 'bg-party',
     metaTitle: 'Classroom Games — Free Browser Games for School Breaks | TabArcade',
     metaDescription:
       'Classroom-friendly free games for school breaks: puzzles, runners, driving and .io games that run in a browser tab on any Chromebook. No downloads.',
@@ -57,6 +65,8 @@ export const hubs = [
     slug: '2-player-games',
     shelf: 'twoPlayer',
     h1: '2 Player Games',
+    tagline: 'One keyboard, two players. Settle it right here.',
+    banner: 'bg-stadium',
     metaTitle: '2 Player Games Unblocked — Play Side by Side in Your Browser | TabArcade',
     metaDescription:
       'Free 2 player browser games: share a keyboard or play online with a friend. Tennis, battles, sports and multiplayer .io games — no download needed.',
@@ -69,6 +79,8 @@ export const hubs = [
     slug: 'io-games',
     shelf: 'io',
     h1: 'IO Games',
+    tagline: 'Live multiplayer in your browser — jump into a match in seconds.',
+    banner: 'bg-space',
     metaTitle: 'IO Games Unblocked — Free Multiplayer Browser Games | TabArcade',
     metaDescription:
       'Free .io games that play in your browser: grow, battle and outlast real players in quick multiplayer matches. No downloads, works on Chromebooks.',
@@ -81,6 +93,8 @@ export const hubs = [
     slug: 'driving-games',
     shelf: 'driving',
     h1: 'Driving Games',
+    tagline: 'Drift it, race it, park it badly — the best driving games on one shelf.',
+    banner: 'bg-road-night',
     metaTitle: 'Driving Games Unblocked — Free Drifting, Racing & Car Games | TabArcade',
     metaDescription:
       'Free driving games in your browser: drifting, racing, parking and endless car games. No downloads or sign-ups — play on Chromebook, PC or phone.',
@@ -93,6 +107,8 @@ export const hubs = [
     slug: 'running-games',
     shelf: 'running',
     h1: 'Running Games',
+    tagline: 'Endless runners and sprint games. One more try is never just one.',
+    banner: 'bg-track',
     metaTitle: 'Running Games Unblocked — Endless Runners & Parkour Games | TabArcade',
     metaDescription:
       'Free endless runner games in your browser: dodge, jump and slide through slope-style runs, tunnels and parkour courses. No download, Chromebook friendly.',
@@ -105,6 +121,8 @@ export const hubs = [
     slug: 'games-like-cool-math-games',
     shelf: 'logic',
     h1: 'Games Like Cool Math Games',
+    tagline: 'The clever stuff: logic, strategy and puzzles with real brain burn.',
+    banner: 'bg-dojo',
     metaTitle: 'Games Like Cool Math Games — Free Logic, Puzzle & Strategy Games | TabArcade',
     metaDescription:
       'Looking for games like Cool Math Games? Free logic puzzles, strategy, number and thinking games that run in your browser — no downloads, no sign-up.',
@@ -117,6 +135,8 @@ export const hubs = [
     slug: 'best-unblocked-games',
     shelf: 'best',
     h1: 'Best Unblocked Games',
+    tagline: 'Our hall of fame — the games players finish, replay and argue about.',
+    banner: 'bg-snow',
     metaTitle: 'Best Unblocked Games — Top Free Browser Games to Play Now | TabArcade',
     metaDescription:
       'Our hand-picked best unblocked games: the runners, drifters, puzzles and .io titles worth your break time. Free, no downloads, works on Chromebooks.',

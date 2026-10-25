@@ -1,0 +1,28 @@
+---
+import Base from '../layouts/Base.astro';
+import GameGrid from '../components/GameGrid.astro';
+import { shelves, u } from '../lib/games.mjs';
+
+const popular = shelves.popular().slice(0, 6);
+---
+
+<Base
+  title="Page Not Found — TabArcade"
+  description="That page drifted off the map. Jump back into TabArcade's free browser games — no downloads, no sign-ups."
+>
+  <div class="nf">
+    <img src={u('art/404.webp')} alt="A lost astronaut drifting in space" width="720" height="480" />
+    <h1>404 — <span class="grad-text">This Level Doesn't Exist</span></h1>
+    <p class="lede">
+      The page you were looking for floated off into deep space. No worries — the games are all still here,
+      and they still load in a normal browser tab with zero downloads.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn" href={u()}>🏠 Back to the Games</a>
+      <a class="btn ghost" href={u('best-unblocked-games/')}>⭐ Best Unblocked Games</a>
+    </div>
+  </div>
+
+  <h2>🎮 Play These Instead</h2>
+  <GameGrid games={popular} />
+</Base>
