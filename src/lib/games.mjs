@@ -132,6 +132,10 @@ export function gameFaqs(game) {
       a: `Yes. ${game.title} is completely free to play on TabArcade. There are no downloads, no installs and no sign-up — the game loads in your browser and you can start playing right away.`,
     },
     {
+      q: `Is ${game.title} unblocked at school?`,
+      a: `${game.title} runs in a normal browser tab with nothing to install, so it works anywhere you can open TabArcade — including school Chromebooks on most networks.`,
+    },
+    {
       q: `Can I play ${game.title} on a Chromebook?`,
       a: `Yes. ${game.title} runs in a regular browser tab, so it works on school and home Chromebooks as well as Windows, Mac and Linux computers. Just open the page and press play — nothing needs to be installed.`,
     },

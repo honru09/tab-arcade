@@ -24,21 +24,31 @@ const ratio = Math.round((game.height / game.width) * 1000) / 10;
 const art = artUrl(game);
 const accent = accentFor(game);
 
-const title = `Play ${game.title} Online Free — No Download | TabArcade`;
-const description = game.description.slice(0, 158);
+const title = `Play ${game.title} Unblocked — Free Online, No Download | TabArcade`;
+// Meta description (research/GROWTH.md §2.3): the intent pattern plus a
+// one-line hook from the game's own first sentence. This replaces the raw
+// feed copy the old template sliced, which is identical on every portal
+// embedding the same feeds.
+const flatDesc = game.description.replace(/\s+/g, ' ').trim();
+const mDot = flatDesc.indexOf('. ');
+const hook = mDot > 40 ? flatDesc.slice(0, mDot + 1) : flatDesc.slice(0, 120);
+let description = `Play ${game.title} unblocked free on TabArcade — no download, no sign-up. Runs in your browser on Chromebooks, PC and mobile. ${hook}`;
+if (description.length > 205) description = description.slice(0, 202).replace(/\s+\S*$/, '') + '…';
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'VideoGame',
     name: game.title,
-    description: game.description,
+    description,
     url: game.pageUrl,
     image: game.thumb,
     genre: game.categories,
     gamePlatform: ['Web Browser', 'Chromebook', 'Mobile'],
     applicationCategory: 'Game',
     operatingSystem: 'Any (browser)',
+    isAccessibleForFree: true,
+    inLanguage: 'en',
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   },
   {
@@ -54,8 +64,8 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'TabArcade', item: 'https://tabarcade.online/' },
-      { '@type': 'ListItem', position: 2, name: game.categories[0] || 'Games', item: 'https://tabarcade.online/unblocked-games-for-school/' },
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://tabarcade.online/' },
+      { '@type': 'ListItem', position: 2, name: 'Games', item: 'https://tabarcade.online/unblocked-games-for-school/' },
       { '@type': 'ListItem', position: 3, name: game.title, item: game.pageUrl },
     ],
   },
@@ -67,7 +77,7 @@ const jsonLd = [
     <a href={u()}>Home</a> › <a href={u('unblocked-games-for-school/')}>Games</a> › {game.title}
   </div>
 
-  <h1>{game.title}</h1>
+  <h1>Play {game.title} Unblocked</h1>
   <p class="lede">
     Play {game.title} free in your browser — no download, no sign-up. Works on Chromebooks, laptops and phones.
   </p>
@@ -75,14 +85,31 @@ const jsonLd = [
   <div class="stage" style={`--acc:${accent}`}>
     {art && <img class="stage-art" src={art} alt="" aria-hidden="true" width="560" height="560" loading="lazy" />}
     <div class="player-shell" id="playerShell" style={`aspect-ratio: ${game.width} / ${game.height}; max-height: 78vh;`}>
-      <iframe
-        src={game.embedUrl}
-        title={`Play ${game.title}`}
-        loading="lazy"
-        allow="fullscreen; autoplay; gamepad"
-        allowfullscreen
-        scrolling="no"
-      ></iframe>
+      <button
+        class="facade"
+        id="playFacade"
+        type="button"
+        data-embed={game.embedUrl}
+        data-title={`Play ${game.title}`}
+        aria-label={`Play ${game.title} now`}
+      >
+        <img class="facade-poster" src={game.thumb} alt="" aria-hidden="true" width="512" height="384" fetchpriority="high" />
+        <span class="facade-shade" aria-hidden="true"></span>
+        <span class="facade-btn" aria-hidden="true">▶</span>
+        <span class="facade-cap">
+          <b>Play {game.title}</b>
+          <small>Free · No download · Starts right in your browser</small>
+        </span>
+      </button>
+      <noscript>
+        <iframe
+          src={game.embedUrl}
+          title={`Play ${game.title}`}
+          allow="fullscreen; autoplay; gamepad"
+          allowfullscreen
+          scrolling="no"
+        ></iframe>
+      </noscript>
     </div>
   </div>
   <div class="player-bar">
@@ -99,10 +126,28 @@ const jsonLd = [
   </div>
   <script>
     document.body.classList.add('has-sticky');
+    // Click-to-play facade (research/GROWTH.md §2.6): the third-party
+    // player iframe is injected only on a play click, so its scripts and
+    // ad stack stay out of the initial load (LCP/CLS/INP on Chromebooks).
+    const shell = document.getElementById('playerShell');
+    const facade = document.getElementById('playFacade');
+    let started = false;
+    const startGame = () => {
+      if (started || !shell || !facade) return;
+      started = true;
+      const ifr = document.createElement('iframe');
+      ifr.src = facade.dataset.embed;
+      ifr.title = facade.dataset.title;
+      ifr.allow = 'fullscreen; autoplay; gamepad';
+      ifr.allowFullscreen = true;
+      ifr.setAttribute('scrolling', 'no');
+      facade.replaceWith(ifr);
+    };
+    facade?.addEventListener('click', startGame);
     const goFs = () => {
-      const el = document.getElementById('playerShell');
-      if (el?.requestFullscreen) el.requestFullscreen();
-      else el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      startGame();
+      if (shell?.requestFullscreen) shell.requestFullscreen();
+      else shell?.scrollIntoView({ behavior: 'smooth', block: 'center' });
     };
     document.querySelectorAll('.fs-btn').forEach((b) => b.addEventListener('click', goFs));
   </script>

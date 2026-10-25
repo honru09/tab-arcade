@@ -17,19 +17,29 @@ const heroBg = banner
   ? `background-image: linear-gradient(100deg, rgba(7,10,22,.88) 22%, rgba(7,10,22,.55) 58%, rgba(7,10,22,.30)), radial-gradient(560px 240px at 90% -20%, ${accent}59, transparent 65%), url(${banner});`
   : '';
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'ItemList',
-  name: hub.h1,
-  description: hub.metaDescription,
-  numberOfItems: games.length,
-  itemListElement: games.map((g, i) => ({
-    '@type': 'ListItem',
-    position: i + 1,
-    name: g.title,
-    url: g.pageUrl,
-  })),
-};
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: hub.h1,
+    description: hub.metaDescription,
+    numberOfItems: games.length,
+    itemListElement: games.map((g, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: g.title,
+      url: g.pageUrl,
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://tabarcade.online/' },
+      { '@type': 'ListItem', position: 2, name: hub.h1, item: `https://tabarcade.online/${hub.slug}/` },
+    ],
+  },
+];
 ---
 
 <Base title={hub.metaTitle} description={hub.metaDescription} jsonLd={jsonLd}>

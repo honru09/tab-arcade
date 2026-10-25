@@ -48,6 +48,7 @@ const jsonLd = {
   url: 'https://tabarcade.online/',
   description:
     'Free browser games with no downloads or sign-ups. Racing, running, puzzle, math and .io games that work on Chromebooks, laptops and phones.',
+  publisher: { '@type': 'Organization', name: 'TabArcade', url: 'https://tabarcade.online/' },
 };
 ---
 
@@ -134,7 +135,8 @@ const jsonLd = {
         the web itself. Every game on TabArcade runs as a web page, so there is nothing to install and
         nothing to update. Rounds are short by design: an endless-runner attempt, a drift run or a puzzle
         fits a lunch break or the last minutes of a free period, and the fullscreen button on each game
-        page gives you the whole screen when you want it.
+        page gives you the whole screen when you want it. In a hurry? The
+        <a href={u('all-games/')}>all games A–Z list</a> puts every title on one page.
       </p>
       <div class="exp-rest">
         <div class="exp-clip">

@@ -91,9 +91,11 @@ default when the data is regenerated).
 
 | Path | What |
 |---|---|
-| `src/pages/index.astro` | Home: hero, featured grid, category sections |
-| `src/pages/games/[slug].astro` | One page per game: playable iframe + fullscreen button, About, How to Play, FAQ (template-generated), related games, VideoGame + FAQPage + Breadcrumb JSON-LD |
-| `src/pages/[hub].astro` | Hub pages for the 10 classroom/math/hub keywords (copy in `src/data/hubs.mjs`, each with an original intro) |
+| `src/pages/index.astro` | Home: hero, featured grid, category sections, WebSite + Organization (publisher) JSON-LD |
+| `src/pages/games/[slug].astro` | One page per game: click-to-play facade (the player iframe is injected only on a play click), fullscreen button, About, How to Play, FAQ (template-generated), related games, extended VideoGame + FAQPage + BreadcrumbList JSON-LD |
+| `src/pages/[hub].astro` | Hub pages for the 10 classroom/math/hub keywords (copy in `src/data/hubs.mjs`, each with an original intro), ItemList + BreadcrumbList JSON-LD |
+| `src/pages/all-games.astro` | `/all-games/` A–Z index of the full catalog (crawl safety net for games the hub shelves truncate), ItemList + BreadcrumbList JSON-LD |
+| `scripts/indexnow-submit.mjs` | IndexNow batch submission from the built sitemap (see the IndexNow section) |
 | `src/lib/games.mjs` | Merged catalog accessor (games.json + games-gm.json), shelves (category filters), related-games scoring, FAQ generator, base-path URL helper |
 | `src/layouts/Base.astro` | Shared layout: title/meta/canonical/OG tags, nav, global styles |
 | `public/robots.txt` | Points crawlers at the sitemap |
@@ -102,6 +104,25 @@ default when the data is regenerated).
 Positioning rule (from the keyword research): always phrase the site as
 "free browser games — no downloads, works on Chromebooks". Never use
 "bypass school filters" framing.
+
+## IndexNow (Bing / Yandex / Naver / Seznam)
+
+The IndexNow key file lives in `public/` (`<key>.txt`, content = the key)
+and deploys to `https://tabarcade.online/<key>.txt`. The submit script
+reads every URL from the **built** sitemap and POSTs the full set to
+`api.indexnow.org` in one batch:
+
+```bash
+npm run build
+npm run indexnow                  # submit all sitemap URLs
+npm run indexnow -- --dry-run     # print the URL list, send nothing
+```
+
+**Run `npm run indexnow` after HTTPS is live** — IndexNow validates the
+key file over HTTPS, so submitting before the GitHub Pages certificate
+finishes provisioning fails validation. After future content deploys,
+re-run it to announce the changed URL set. Google does not participate in
+IndexNow; Google discovery runs through Search Console + the sitemap.
 
 ## Local development
 
