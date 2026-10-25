@@ -1,0 +1,8 @@
+---
+import GameCard from './GameCard.astro';
+const { games } = Astro.props;
+---
+
+<div class="grid">
+  {games.map((g) => <GameCard game={g} />)}
+</div>

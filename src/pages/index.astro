@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import GameGrid from '../components/GameGrid.astro';
+import { shelves, u } from '../lib/games.mjs';
+
+const featured = shelves.featured();
+const driving = shelves.driving().slice(0, 10);
+const running = shelves.running().slice(0, 10);
+const math = shelves.math().slice(0, 10);
+const io = shelves.io().slice(0, 10);
+const sports = shelves.sports().slice(0, 10);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'TabArcade',
+  url: 'https://honru09.github.io/tab-arcade/',
+  description:
+    'Free browser games with no downloads or sign-ups. Racing, running, puzzle, math and .io games that work on Chromebooks, laptops and phones.',
+};
+---
+
+<Base
+  title="TabArcade — Free Browser Games, No Downloads | Play on Chromebook"
+  description="Play free browser games instantly: drifting, racing, endless runners, math puzzles and .io games. No downloads, no sign-ups — works on Chromebooks, laptops and phones."
+  jsonLd={jsonLd}
+>
+  <h1>Free Browser Games — No Downloads, Just Play</h1>
+  <p class="lede">
+    TabArcade is a shelf of free games that open right in your browser tab. No downloads, no installs,
+    no sign-ups — and yes, they work on school Chromebooks, laptops and phones. Pick a game and you are
+    playing in seconds.
+  </p>
+
+  <h2>⭐ Featured Games</h2>
+  <GameGrid games={featured} />
+
+  <h2>🏎️ Driving &amp; Drifting <a href={u('driving-games/')} style="font-size:14px">all driving games →</a></h2>
+  <GameGrid games={driving} />
+
+  <h2>🏃 Running Games <a href={u('running-games/')} style="font-size:14px">all running games →</a></h2>
+  <GameGrid games={running} />
+
+  <h2>🧮 Math &amp; Puzzle Games <a href={u('math-games/')} style="font-size:14px">all math games →</a></h2>
+  <GameGrid games={math} />
+
+  <h2>🌐 .io Games <a href={u('io-games/')} style="font-size:14px">all .io games →</a></h2>
+  <GameGrid games={io} />
+
+  <h2>⚽ Sports Games <a href={u('2-player-games/')} style="font-size:14px">2 player games →</a></h2>
+  <GameGrid games={sports} />
+
+  <h2>Why TabArcade?</h2>
+  <div class="prose">
+    <p>
+      School laptops and Chromebooks block almost every way of installing a game — but they cannot block
+      the web itself. Every game on TabArcade runs as a web page, so there is nothing to install and
+      nothing to update. Rounds are short by design: an endless-runner attempt, a drift run or a puzzle
+      fits a lunch break or the last minutes of a free period, and the fullscreen button on each game
+      page gives you the whole screen when you want it.
+    </p>
+    <p>
+      Browse the shelves above, or start from our hand-picked
+      <a href={u('best-unblocked-games/')}>best unblocked games</a> list, the
+      <a href={u('classroom-games/')}>classroom games</a> shelf, or the
+      <a href={u('unblocked-games-for-chromebook/')}>Chromebook games</a> hub.
+    </p>
+  </div>
+</Base>

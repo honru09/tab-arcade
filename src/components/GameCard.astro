@@ -1,0 +1,12 @@
+---
+import { gameUrl } from '../lib/games.mjs';
+const { game } = Astro.props;
+---
+
+<a class="card" href={gameUrl(game)}>
+  <img src={game.thumb} alt={`Play ${game.title} online`} loading="lazy" width="512" height="384" />
+  <div class="meta">
+    <div class="t">{game.title}</div>
+    <span class="chip alt">{game.categories[0] || 'Game'}</span>
+  </div>
+</a>

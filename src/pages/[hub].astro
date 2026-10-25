@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import GameGrid from '../components/GameGrid.astro';
+import { hubs } from '../data/hubs.mjs';
+import { shelves, allGames } from '../lib/games.mjs';
+
+export function getStaticPaths() {
+  return hubs.map((hub) => ({ params: { hub: hub.slug }, props: { hub } }));
+}
+
+const { hub } = Astro.props;
+const games = (shelves[hub.shelf] ? shelves[hub.shelf]() : allGames).slice(0, 48);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: hub.h1,
+  description: hub.metaDescription,
+  numberOfItems: games.length,
+  itemListElement: games.map((g, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: g.title,
+    url: g.pageUrl,
+  })),
+};
+---
+
+<Base title={hub.metaTitle} description={hub.metaDescription} jsonLd={jsonLd}>
+  <h1>{hub.h1}</h1>
+  <div class="prose">
+    {hub.intro.map((p) => <p>{p}</p>)}
+  </div>
+
+  <h2>Play Now — {games.length} Free Games</h2>
+  <GameGrid games={games} />
+
+  <div class="prose" style="margin-top:26px">
+    <p>
+      Every game above runs in a normal browser tab with no downloads or sign-ups, on Chromebooks,
+      laptops and phones. Looking for something else? Browse the full
+      <a href={import.meta.env.BASE_URL}>TabArcade</a> catalog from the home page.
+    </p>
+  </div>
+</Base>
