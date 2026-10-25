@@ -1,6 +1,44 @@
-import games from '../data/games.json';
+import gdGames from '../data/games.json';
+import gmGames from '../data/games-gm.json';
 
-export const allGames = games;
+export { gdGames, gmGames };
+
+const normTitle = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+
+/**
+ * Merged catalog accessor — the single place pages/components read games from.
+ * GD games keep their order; GM games are interleaved (1 after every 4 GD
+ * games) so they surface in home grids and hubs, not just on their own pages.
+ * Duplicates lose to GD: a GM entry whose slug or normalized title is already
+ * in the GD catalog (or earlier in the merge) is dropped.
+ */
+function mergeCatalogs(primary, extra) {
+  const seenSlugs = new Set();
+  const seenTitles = new Set();
+  const keep = (g) => {
+    const t = normTitle(g.title);
+    if (seenSlugs.has(g.slug) || seenTitles.has(t)) return false;
+    seenSlugs.add(g.slug);
+    seenTitles.add(t);
+    return true;
+  };
+  const out = [];
+  let j = 0;
+  primary.forEach((g, i) => {
+    if (keep(g)) out.push(g);
+    if ((i + 1) % 4 === 0 && j < extra.length) {
+      const e = extra[j++];
+      if (keep(e)) out.push(e);
+    }
+  });
+  while (j < extra.length) {
+    const e = extra[j++];
+    if (keep(e)) out.push(e);
+  }
+  return out;
+}
+
+export const allGames = mergeCatalogs(gdGames, gmGames);
 
 /** Join the Astro base path with a site-relative path. */
 export function u(path = '') {
