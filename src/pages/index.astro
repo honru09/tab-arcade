@@ -80,7 +80,7 @@ const jsonLd = {
       <div class="hero-visual" id="spotBox">
         {
           spotlight.map((g, i) => (
-            <a class:list={['spot', { active: i === 0 }]} href={gameUrl(g)} aria-hidden={i !== 0}>
+            <a class:list={['spot', { active: i === 0 }]} href={gameUrl(g)} aria-hidden={i !== 0} style={`--acc:${accentFor(g)}`}>
               <img src={artUrl(g)} alt={`Play ${g.title} online`} width="560" height="560" loading={i === 0 ? 'eager' : 'lazy'} />
               <span class="spot-name">▶ {g.title}</span>
             </a>
