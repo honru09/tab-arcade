@@ -5,22 +5,23 @@ TabArcade is an unblocked free browser games portal built for Chromebooks, deskt
 ## 1. Audience & Core Task
 
 - **Target Audience**: Students on school Chromebooks, laptop users and mobile players seeking fast, unblocked web games.
-- **Core Value Proposition**: Instant play in 2 taps. No friction, no popups blocking the first click, no bloated app wrappers.
+- **Core Value Proposition**: Instant play in 1 tap (auto-loads on arrival). No friction, no extra click to start, no popups blocking the first click, no bloated app wrappers.
 - **Audience Demand Hierarchy**: Agility & endless running > driving & drifting > .io multiplayer > sports (football/soccer, 2-player) > puzzle & merge (high session length) > shooter > casual & simulation.
 
-## 2. Core Journey: 2 Taps to Play
+## 2. Core Journey: 1 Tap to Play (Auto-Load Journey)
 
 1. **Tap 1 (Browse to Game Page)**:
    - User enters homepage or category hub.
    - Immediate feedback on tile press (120ms transform/opacity, visible focus ring).
    - Intent prefetch: pointerenter, focusin, or touchstart on any game tile or search result prefetches the destination game page (`link rel="prefetch"` once per URL).
    - User lands on player-first game page.
-2. **Tap 2 (Start Playing)**:
+2. **Auto-Load & Instant Play**:
    - Player arrives near top of viewport (desktop top ≤170px, mobile top ≤200px).
-   - Facade poster displays original game art with high-contrast play button.
-   - `pointerdown` on facade initiates instant iframe creation.
-   - In-frame LOADING state renders within 150ms: dimmed poster, reduced-motion safe spinner, "Loading {title}…", hint line.
-   - On iframe `load`, game fades in (160ms), player marks `data-state="playing"`, and focus transfers directly into the iframe so arrow keys and space drive gameplay immediately.
+   - The game auto-loads automatically on page arrival — zero extra clicks required.
+   - While loading, the frame displays the designed LOADING state: dimmed poster art, reduced-motion safe spinner, "Loading {title}…", and hint line ("First load can take a few seconds").
+   - Tapping the poster/loading area during loading is a harmless no-op (no double iframe).
+   - On iframe `load`, game crossfades in (160ms), facade is fully hidden (`display: none`), player marks `data-state="playing"`, and keyboard focus transfers directly into the iframe ONLY if the player is within the viewport at that moment (preventing scroll hijacking if the user scrolled away) so arrow keys and space drive gameplay immediately.
+   - 12s timeout protects against slow or blocked embeds with [Try again] (re-arms timeout) and [Browse more games] recovery paths.
 
 ## 3. Product Structure & Key Pages
 
@@ -61,7 +62,7 @@ TabArcade is an unblocked free browser games portal built for Chromebooks, deskt
 - **Contextual Mobile Sticky Bar**:
   - Position fixed bottom bar with solid dark background.
   - Monitored by `IntersectionObserver`: completely hidden while the player is on screen, appears when scrolled away.
-  - Dynamic button label: "Play" before activation, "Back to game" once playing.
+  - Dynamic button label: "Play" prior to start, "Back to game" once loading or playing.
   - Tap scrolls player smoothly into viewport center and activates if needed.
 
 ## 4. Revenue-First Ordering Engine

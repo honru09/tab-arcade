@@ -106,6 +106,7 @@ const searchIndex = JSON.stringify(
         --theatre-z: 99999;
       }
       * { box-sizing: border-box; }
+      [hidden] { display: none !important; }
       html { scroll-behavior: smooth; }
       body {
         margin: 0;
@@ -184,6 +185,7 @@ const searchIndex = JSON.stringify(
         background: var(--panel2); border: 1px solid var(--line);
         border-radius: 16px; box-shadow: var(--shadow-card-hover); overflow: hidden;
       }
+      .search-results[hidden] { display: none !important; }
       .search-results a {
         display: flex; align-items: center; gap: 10px; padding: 8px 12px;
         color: var(--text); font-weight: 700; font-size: 14px;
@@ -405,10 +407,13 @@ const searchIndex = JSON.stringify(
 
       /* Facade */
       .facade {
-        position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+        position: absolute; inset: 0; width: 100%; height: 100%;
         padding: 0; border: 0; cursor: pointer; background: #000; color: var(--text);
         font: inherit; overflow: hidden; z-index: 2; text-align: left;
+        transition: opacity 160ms ease;
       }
+      .facade:not([hidden]) { display: block; }
+      .facade[hidden] { display: none !important; }
       .facade:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
       .facade-poster {
         position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
@@ -441,10 +446,11 @@ const searchIndex = JSON.stringify(
       /* Loading state (spec §2.3) */
       .player-loading {
         position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3;
-        display: flex; align-items: center; justify-content: center;
+        align-items: center; justify-content: center;
         background: #070a16; overflow: hidden;
       }
-      .player-loading[hidden] { display: none; }
+      .player-loading:not([hidden]) { display: flex; }
+      .player-loading[hidden] { display: none !important; }
       .loading-poster-dim {
         position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
         opacity: 0.28; filter: grayscale(40%);
@@ -465,10 +471,11 @@ const searchIndex = JSON.stringify(
       /* Error state (spec §2.3) */
       .player-error {
         position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4;
-        display: flex; align-items: center; justify-content: center;
+        align-items: center; justify-content: center;
         background: #0d1328; padding: 24px;
       }
-      .player-error[hidden] { display: none; }
+      .player-error:not([hidden]) { display: flex; }
+      .player-error[hidden] { display: none !important; }
       .error-content {
         text-align: center; max-width: 420px;
         display: flex; flex-direction: column; align-items: center; gap: 16px;
@@ -501,6 +508,7 @@ const searchIndex = JSON.stringify(
       .toolbar-btn:active { transform: scale(0.96); }
       .toolbar-btn.next-btn { background: var(--panel3); border-color: rgba(255, 255, 255, 0.2); }
       .toolbar-btn.next-btn:hover { background: color-mix(in srgb, var(--cyan) 20%, var(--panel3)); }
+      .icon-expand[hidden], .icon-compress[hidden] { display: none !important; }
 
       /* Theatre mode fixed overlay (spec §2.4) */
       .player-shell.theatre-mode {
@@ -511,13 +519,14 @@ const searchIndex = JSON.stringify(
       }
       .theatre-exit-btn {
         position: absolute; top: 14px; right: 14px; z-index: 10;
-        display: inline-flex; align-items: center; gap: 6px;
+        align-items: center; gap: 6px;
         padding: 8px 14px; border-radius: 999px;
         background: rgba(13, 19, 40, 0.92); border: 1px solid rgba(255, 255, 255, 0.3);
         color: #ffffff; font-size: 13.5px; font-weight: 800; cursor: pointer;
       }
       .theatre-exit-btn:hover { background: #182242; }
-      .theatre-exit-btn[hidden] { display: none; }
+      .theatre-exit-btn:not([hidden]) { display: inline-flex; }
+      .theatre-exit-btn[hidden] { display: none !important; }
 
       /* Desktop >=1100px Two-column layout (spec §2.4) */
       .game-layout { display: block; }
@@ -533,7 +542,7 @@ const searchIndex = JSON.stringify(
         background: var(--panel); border: 1px solid var(--line);
         border-radius: 16px; padding: 14px;
       }
-      .rail-box[hidden] { display: none; }
+      .rail-box[hidden] { display: none !important; }
       .rail-heading {
         font-family: var(--disp); font-size: 15px; font-weight: 800;
         margin: 0 0 12px; color: var(--text); display: flex; align-items: center; gap: 8px;
@@ -568,9 +577,10 @@ const searchIndex = JSON.stringify(
         box-shadow: 0 16px 34px rgba(0, 0, 0, 0.65);
         transform: translateY(120%); transition: transform 0.25s ease;
       }
+      .sticky-play[hidden] { display: none !important; }
       @media (max-width: 760px) {
-        .sticky-play { display: flex; }
-        .sticky-play.is-active { transform: translateY(0); }
+        .sticky-play:not([hidden]) { display: flex; }
+        .sticky-play.is-active:not([hidden]) { transform: translateY(0); }
         body.has-sticky { padding-bottom: 74px; }
       }
       .sticky-play .sp-t {

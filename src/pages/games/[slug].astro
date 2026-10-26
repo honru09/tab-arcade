@@ -283,7 +283,7 @@ const jsonLd = [
   </div>
 
   {/* Contextual mobile sticky bar (spec §2.4) */}
-  <div class="sticky-play" id="stickyPlay">
+  <div class="sticky-play" id="stickyPlay" hidden>
     <span class="sp-t">{game.title}</span>
     <button class="btn" id="stickyPlayBtn" type="button">Play</button>
   </div>
@@ -312,6 +312,15 @@ const jsonLd = [
       let isTheatre = false;
       let loadTimer = null;
       let currentIframe = null;
+
+      const isPlayerInViewport = () => {
+        const target = frame || shell;
+        if (!target) return false;
+        const rect = target.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const vw = window.innerWidth || document.documentElement.clientWidth;
+        return rect.bottom > 0 && rect.top < vh && rect.right > 0 && rect.left < vw;
+      };
 
       const showLoading = () => {
         facade.hidden = true;
@@ -363,10 +372,12 @@ const jsonLd = [
         ifr.addEventListener('load', () => {
           if (loadTimer) clearTimeout(loadTimer);
           showPlaying();
-          try {
-            ifr.focus();
-            if (ifr.contentWindow) ifr.contentWindow.focus();
-          } catch (e) {}
+          if (isPlayerInViewport()) {
+            try {
+              ifr.focus({ preventScroll: true });
+              if (ifr.contentWindow) ifr.contentWindow.focus();
+            } catch (e) {}
+          }
         });
         iframeWrap.appendChild(ifr);
         currentIframe = ifr;
@@ -375,16 +386,24 @@ const jsonLd = [
       const startOrRestart = () => {
         started = true;
         isPlaying = false;
+        if (stickyBtn) stickyBtn.textContent = 'Back to game';
         showLoading();
         armTimeout();
         buildIframe();
       };
 
-      // Pointerdown starts loading immediately; click/Enter/Space complete activation
-      facade.addEventListener('pointerdown', () => {
+      // Auto-load on page ready (spec §2.3 amended)
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => startOrRestart());
+      } else {
+        startOrRestart();
+      }
+
+      // Tapping during loading / after start is a harmless no-op (no double iframe)
+      facade.addEventListener('pointerdown', (e) => {
         if (!started) startOrRestart();
       });
-      facade.addEventListener('click', () => {
+      facade.addEventListener('click', (e) => {
         if (!started) startOrRestart();
       });
       facade.addEventListener('keydown', (e) => {
@@ -392,6 +411,12 @@ const jsonLd = [
           e.preventDefault();
           startOrRestart();
         }
+      });
+      loading?.addEventListener('pointerdown', (e) => {
+        e.preventDefault();
+      });
+      loading?.addEventListener('click', (e) => {
+        e.preventDefault();
       });
 
       restartBtn?.addEventListener('click', () => {
@@ -471,7 +496,9 @@ const jsonLd = [
           ([entry]) => {
             if (entry.isIntersecting) {
               stickyBar.classList.remove('is-active');
+              stickyBar.hidden = true;
             } else {
+              stickyBar.hidden = false;
               stickyBar.classList.add('is-active');
             }
           },
