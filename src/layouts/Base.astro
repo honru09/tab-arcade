@@ -1,5 +1,5 @@
 ---
-import { u, allGames, gameUrl } from '../lib/games.mjs';
+import { u, allGames, gameUrl, scoreGame } from '../lib/games.mjs';
 
 interface Props {
   title: string;
@@ -8,8 +8,9 @@ interface Props {
   ogImage?: string;
   jsonLd?: object | object[];
   noindex?: boolean;
+  embedOrigin?: string;
 }
-const { title, description, canonical, ogImage, jsonLd, noindex } = Astro.props;
+const { title, description, canonical, ogImage, jsonLd, noindex, embedOrigin } = Astro.props;
 const canon = canonical || new URL(Astro.url.pathname, Astro.site).href;
 const og = ogImage || 'https://tabarcade.online/og.jpg';
 const ldList = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
@@ -25,11 +26,9 @@ const nav = [
   ['Best Games', u('best-unblocked-games/')],
 ];
 
-/* Header search index (v8, Poki's header pattern): title + page + thumb
-   for every game, inlined as JSON and filtered client-side. Escaped so a
-   title can never break out of the script element. */
+/* Header search index: ranked revenue-first */
 const searchIndex = JSON.stringify(
-  allGames.map((g) => ({ t: g.title, u: gameUrl(g), i: g.thumb })),
+  allGames.map((g) => ({ t: g.title, u: gameUrl(g), i: g.thumb, s: scoreGame(g) })),
 ).replace(/</g, '\\u003c');
 ---
 
@@ -47,11 +46,12 @@ const searchIndex = JSON.stringify(
     <link rel="icon" href={u('icon-192.png')} type="image/png" sizes="192x192" />
     <link rel="icon" href={u('icon-512.png')} type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href={u('apple-touch-icon.png')} />
-    {/* Every page renders feed thumbnails from these two CDNs; warming the
-        connections up front shaves a DNS+TLS round trip off the first cards
-        and off the game-page poster (the LCP element there). */}
+    {/* Every page renders feed thumbnails from these two CDNs */}
     <link rel="preconnect" href="https://img.gamedistribution.com" />
     <link rel="preconnect" href="https://img.gamemonetize.com" />
+    {/* Per-game embed origin preconnect (spec §2.3) */}
+    {embedOrigin && <link rel="preconnect" href={embedOrigin} />}
+    {embedOrigin && <link rel="dns-prefetch" href={embedOrigin} />}
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="TabArcade" />
     <meta property="og:title" content={title} />
@@ -81,19 +81,11 @@ const searchIndex = JSON.stringify(
         --panel2: #182242;
         --panel3: #212d55;
         --line: rgba(148, 178, 255, 0.16);
-        /* Resting/hover card shadows lifted from Hooda Math's token pair
-           (--shadow / --shadow-hover), re-valued for a dark surface ramp.
-           Cards sit ON the page as solid objects; they are never glass. */
         --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.45), 0 10px 24px -12px rgba(0, 0, 0, 0.55);
         --shadow-card-hover: 0 2px 4px rgba(0, 0, 0, 0.5), 0 20px 36px -12px rgba(0, 0, 0, 0.65);
-        /* v8 tile tokens (Poki system): one radius, one shadow pair for the
-           square art tiles that now carry every grid on the site. */
         --radius-tile: 20px;
         --shadow-tile: 0 2px 6px rgba(0, 0, 0, 0.4), 0 16px 30px -14px rgba(0, 0, 0, 0.6);
         --shadow-tile-hover: 0 4px 10px rgba(0, 0, 0, 0.5), 0 24px 40px -14px rgba(0, 0, 0, 0.7);
-        /* Poki's geometric page texture, navy family: low-poly facets at
-           3-5% over the solid page color. It sits behind content only —
-           every surface above it stays opaque (v6 discipline). */
         --geo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='280' height='280' viewBox='0 0 280 280'%3E%3Cpolygon points='0,0 150,0 60,110' fill='%23608cff' fill-opacity='0.05'/%3E%3Cpolygon points='150,0 280,0 280,90 170,120' fill='%2338e1ff' fill-opacity='0.035'/%3E%3Cpolygon points='60,110 170,120 90,280 0,200' fill='%23608cff' fill-opacity='0.04'/%3E%3Cpolygon points='170,120 280,90 280,280 190,280' fill='%238b5cf6' fill-opacity='0.032'/%3E%3Cpolygon points='90,280 190,280 170,120' fill='%2338e1ff' fill-opacity='0.03'/%3E%3Cpolygon points='0,110 60,110 0,200' fill='%2338e1ff' fill-opacity='0.025'/%3E%3C/svg%3E");
         --text: #f2f6ff;
         --muted: #9fb0cc;
@@ -103,6 +95,15 @@ const searchIndex = JSON.stringify(
         --pink: #ff5da2;
         --grad: linear-gradient(92deg, #ffd23e, #ff5da2 48%, #38e1ff);
         --disp: "Avenir Next", "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
+
+        /* v9 player tokens */
+        --player-bg: #000000;
+        --player-border: rgba(255, 255, 255, 0.22);
+        --player-radius: 20px;
+        --player-shadow: 0 30px 60px -18px rgba(0, 0, 0, 0.8);
+        --toolbar-bg: #0d1328;
+        --theatre-bg: #000000;
+        --theatre-z: 99999;
       }
       * { box-sizing: border-box; }
       html { scroll-behavior: smooth; }
@@ -115,11 +116,6 @@ const searchIndex = JSON.stringify(
         line-height: 1.55;
         overflow-x: hidden;
       }
-      /* v6 removed the ambient glow layer (neon blobs + blueprint grid);
-         v8 adds back exactly one Poki trait: a quiet geometric facet
-         texture over the solid page color. It is page furniture only —
-           decoration still never sits behind body text on a surface: every
-           panel, drawer and bar above it remains fully opaque. */
       a { color: var(--cyan); text-decoration: none; }
       a:hover { text-decoration: underline; }
       :focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; border-radius: 6px; }
@@ -127,7 +123,6 @@ const searchIndex = JSON.stringify(
 
       /* ---------- header ---------- */
       header.site {
-        /* Solid bar, like every leader's header — no glass, no blur. */
         background: #0a0f22;
         border-bottom: 1px solid var(--line);
         position: sticky; top: 0; z-index: 50;
@@ -158,7 +153,7 @@ const searchIndex = JSON.stringify(
       }
       nav.main a:hover { color: var(--text); background: var(--panel2); text-decoration: none; }
 
-      main { padding: 18px 0 54px; }
+      main { padding: 10px 0 54px; }
       h1 {
         font-family: var(--disp); font-size: clamp(26px, 4vw, 38px); font-weight: 900;
         letter-spacing: -0.02em; margin: 0 0 10px; line-height: 1.12;
@@ -174,11 +169,8 @@ const searchIndex = JSON.stringify(
       }
       h2 .more { font-size: 13.5px; font-weight: 700; margin-left: auto; }
       .lede { color: var(--muted); max-width: 760px; font-size: 16px; }
-      /* Gradient text survives ONLY in the logo wordmark (.logo span).
-         Headings are solid ink, like the leaders'. (.grad-text was removed
-         from the h1s in the v6 pass; the class is gone with them.) */
 
-      /* ---------- header search (v8, Poki's bar) ---------- */
+      /* ---------- header search ---------- */
       .search { position: relative; flex: 1 1 180px; max-width: 430px; min-width: 110px; }
       .search input {
         width: 100%; padding: 9px 16px; border-radius: 999px;
@@ -200,14 +192,8 @@ const searchIndex = JSON.stringify(
       .search-results img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; flex: 0 0 auto; }
       .search-results span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-      /* ---------- home title strip (v8) ---------- */
-      /* The hero panel is retired: Poki puts a slim header, a breath of
-         copy, then games. The H1 and lede stay in the DOM for SEO at
-         modest visual size so the first tile lands in the first ~200px. */
+      /* ---------- home title strip ---------- */
       .title-strip { padding: 2px 0 0; }
-      /* The H1 sits on one line: at phone widths a fixed 15px is the
-         measured size at which the fixed H1 copy fits the wrap (Baloo 2
-         is wide); desktop gets a modest 29px cap. */
       .title-strip h1 { font-size: clamp(20px, 3vw, 29px); margin-bottom: 4px; }
       @media (max-width: 640px) { .title-strip h1 { font-size: 15px; } }
       .title-strip .lede {
@@ -216,10 +202,7 @@ const searchIndex = JSON.stringify(
       }
       .shelf > h2:first-child { margin-top: 12px; }
 
-      /* ---------- section bands (v8) ---------- */
-      /* Full-bleed shelf bands (Poki's dark Halloween band is the model):
-         alternating surface steps separate the home shelves. The
-         padding-inline trick keeps band content aligned with .wrap. */
+      /* ---------- section bands ---------- */
       .band {
         margin: 38px calc(50% - 50vw) 0;
         padding: 4px max(16px, calc(50vw - 574px)) 30px;
@@ -227,11 +210,7 @@ const searchIndex = JSON.stringify(
       .band > h2:first-child { margin-top: 20px; }
       .band-alt { background: #0c1330; }
 
-      /* ---------- game tiles (v8, Poki system) ---------- */
-      /* Square full-bleed art, one radius, one shadow pair, no chrome
-         under the tile. Columns step 2 / 3 / 4 / 6; the mosaic variant
-         uses 2 / 3 / 6 so its 18-cell supercell (see GameGrid) divides
-         evenly at every step. */
+      /* ---------- game tiles (Poki system) ---------- */
       .tiles {
         display: grid; gap: 12px;
         grid-template-columns: repeat(2, 1fr);
@@ -246,13 +225,12 @@ const searchIndex = JSON.stringify(
         position: relative; display: block; aspect-ratio: 1;
         border-radius: var(--radius-tile); overflow: hidden;
         background: var(--panel2); box-shadow: var(--shadow-tile);
-        transition: transform 0.22s ease, box-shadow 0.22s ease;
+        transition: transform 0.18s ease, box-shadow 0.18s ease, opacity 0.12s ease;
       }
       .tile.big { grid-column: span 2; grid-row: span 2; }
       .tile-img { width: 100%; height: 100%; object-fit: cover; display: block; }
       .tile:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
-      /* Hover title pill: fades in over the art's bottom edge, hover-
-         capable devices only (Poki's label behaviour). */
+      .tile:active { transform: scale(0.97); opacity: 0.92; }
       .tile-cap {
         position: absolute; z-index: 3; left: 10px; bottom: 10px;
         max-width: calc(100% - 20px); padding: 6px 12px; border-radius: 999px;
@@ -266,10 +244,9 @@ const searchIndex = JSON.stringify(
         .tile:hover, .tile:focus-visible { transform: translateY(-3px); box-shadow: var(--shadow-tile-hover); }
         .tile:hover .tile-cap, .tile:focus-visible .tile-cap { opacity: 1; transform: none; }
       }
-      /* Corner ribbon rides ON the art now (the tile is the whole card). */
       .tile .ribbon { top: 10px; left: 10px; }
 
-      /* ---------- chips & ribbons (game pages + tile badges) ---------- */
+      /* ---------- chips & ribbons ---------- */
       .ribbon {
         position: absolute; z-index: 4; top: 8px; left: 8px;
         display: inline-flex; align-items: center; gap: 4px;
@@ -282,10 +259,6 @@ const searchIndex = JSON.stringify(
       .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
       .chip {
         display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.02em;
-        /* Raw accents are glow colors: as 11px text on panel2 the worst
-           (orange) composited at 5.5:1 in the v6 rendered-pixel audit.
-           Text gets the accent lightened toward white; the chip's border
-           and the card art keep the raw accent. */
         color: color-mix(in srgb, var(--acc, #ffd9a0) 58%, #ffffff); background: var(--panel2);
         border: 1px solid rgba(255, 255, 255, 0.14);
         border-radius: 999px; padding: 2.5px 9px;
@@ -293,9 +266,7 @@ const searchIndex = JSON.stringify(
       .chip.alt { background: var(--panel2); color: var(--muted); border-color: var(--line); font-weight: 700; }
       .player-bar .chip, .hub-hero .chip { --acc: var(--amber); }
 
-      /* ---------- rails (game page related) ---------- */
-      /* Related games: a swipeable row of square tiles on small screens,
-         a uniform tile grid on desktop. */
+      /* ---------- rails (horizontal swipe on mobile) ---------- */
       @media (max-width: 760px) {
         .tiles.rail {
           display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
@@ -319,124 +290,297 @@ const searchIndex = JSON.stringify(
       .crumbs a { color: var(--muted); font-weight: 600; }
       .crumbs a:hover { color: var(--text); }
 
-      /* ---------- player stage ---------- */
-      .stage { position: relative; margin-top: 20px; padding-top: 54px; }
-      /* The frame carries the player's aspect ratio + height cap (moved off
-         .player-shell) so key art anchors to the visible player box: the
-         shell's width shrinks when max-height clamps, and art anchored to
-         the full-width .stage floated in the gutter / bled off the poster.
-         The padding-top band is reserved burst space — art overflows into
-         it and can never reach the lede. The old .stage::before wash read
-         as a muddy smear bar above the player; the accent now lives in a
-         bounded plate behind the art. */
-      .stage-frame { position: relative; max-height: 78vh; }
-      .stage-frame.has-art::before {
-        /* v6: solid disc plate behind the stage art (was a translucent
-           radial glow). The art bursts from a piece of furniture, not
-           from a haze. v7: the plate is contained fully inside the frame
-           (it previously rode 56px above the frame's top edge, where the
-           part the art didn't cover read as a stray semicircle floating
-           over the page background). Behind the opaque shell it now does
-           its job invisibly — no shapes outside the frame, ever. */
-        content: ""; position: absolute; z-index: 0; right: 20px; top: 20px;
-        width: 240px; height: 240px; border-radius: 50%; pointer-events: none;
-        background: color-mix(in srgb, var(--acc, #ffb020) 24%, var(--panel2));
-        border: 1px solid var(--line);
-      }
-      .stage-frame .player-shell { width: 100%; height: 100%; }
-      .player-shell {
-        position: relative; z-index: 1; background: #000;
-        border: 1px solid rgba(255, 255, 255, 0.22); border-radius: var(--radius-tile); overflow: hidden;
-        box-shadow: 0 30px 60px -18px rgba(0, 0, 0, 0.8);
-      }
-      .player-shell iframe { width: 100%; height: 100%; border: 0; display: block; }
-      /* Click-to-play facade: poster + play button filling the shell until
-         the real player iframe is injected on click (GROWTH §2.6). */
-      .facade {
-        position: absolute; inset: 0; width: 100%; height: 100%; display: block;
-        padding: 0; border: 0; cursor: pointer; background: #000; color: var(--text);
-        font: inherit; overflow: hidden;
-      }
-      .facade-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-      .facade-shade {
-        /* Poki's game-page treatment: one clean bottom scrim over the
-           poster so the caption zone is predictably dark. (The accent
-           radial that used to bloom behind the play button is gone.) */
-        position: absolute; inset: 0;
-        background: linear-gradient(180deg, rgba(5, 8, 18, 0.08), rgba(5, 8, 18, 0.55) 80%);
-      }
-      .facade-btn {
-        position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
-        width: 84px; height: 84px; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        background: var(--grad); color: #16102a; font-size: 29px; padding-left: 5px;
-        box-shadow: 0 18px 40px -8px rgba(255, 93, 162, 0.7), 0 0 0 10px rgba(255, 255, 255, 0.08);
-        transition: transform 0.2s ease;
-      }
-      .facade:hover .facade-btn, .facade:focus-visible .facade-btn { transform: translate(-50%, -50%) scale(1.09); }
-      .facade-cap {
-        position: absolute; left: 0; right: 0; bottom: 0; display: block;
-        padding: 36px 16px 14px; text-align: center;
-        background: linear-gradient(transparent, rgba(4, 6, 14, 0.86));
-      }
-      .facade-cap b {
-        display: block; font-family: var(--disp); font-size: clamp(17px, 2.4vw, 22px);
-        font-weight: 900; letter-spacing: -0.01em;
-      }
-      .facade-cap small { color: #c3cfe8; font-weight: 700; font-size: 12.5px; letter-spacing: 0.02em; }
-      .stage-art {
-        position: absolute; z-index: 3; right: 8px; top: -52px; width: 176px;
-        max-height: 232px; object-fit: contain; pointer-events: none;
-        filter: drop-shadow(0 16px 20px rgba(0, 0, 0, 0.55));
-        animation: floaty 5s ease-in-out infinite;
-      }
-      @keyframes floaty { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-9px) rotate(1deg); } }
-      .player-bar {
-        display: flex; justify-content: space-between; align-items: center; gap: 10px;
-        padding: 12px 2px 0; flex-wrap: wrap;
-      }
+      /* ---------- buttons ---------- */
       .btn {
         background: var(--grad); color: #16102a; font-weight: 800; border: 0;
         border-radius: 999px; padding: 10px 20px; cursor: pointer; font-size: 14.5px;
         box-shadow: 0 10px 24px -8px rgba(255, 93, 162, 0.65);
         transition: transform 0.15s ease, box-shadow 0.15s ease;
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        text-decoration: none;
       }
-      .btn:hover { transform: translateY(-1px) scale(1.03); }
+      .btn:hover { transform: translateY(-1px) scale(1.03); text-decoration: none; }
       .btn:active { transform: scale(0.97); }
       .btn.ghost {
         background: var(--panel2); color: var(--text);
         border: 1px solid var(--line); box-shadow: none;
       }
-      .sticky-play {
-        display: none; position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 60;
-        align-items: center; gap: 10px; padding: 9px 9px 9px 15px; border-radius: 16px;
-        background: #0d1328;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
+      .btn.ghost:hover { background: var(--panel3); }
+
+      /* ---------- static game of the day banner (spec §3.4) ---------- */
+      .gotd-shelf { margin-bottom: 18px; }
+      .gotd-banner {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--radius-tile);
+        padding: 14px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: var(--shadow-card);
       }
-      .sticky-play .sp-t { font-weight: 800; font-size: 14px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-      @media (max-width: 760px) {
-        .sticky-play { display: flex; }
-        body.has-sticky { padding-bottom: 74px; }
-        .stage { padding-top: 40px; }
-        .stage-art { width: 116px; top: -36px; right: 4px; max-height: 150px; }
-        .stage-frame.has-art::before { width: 132px; height: 132px; }
-        /* v6: surfaces are solid at every width now (the v5 near-solid
-           mobile overrides are subsumed — nothing here uses backdrop
-           blur anymore). The GOTD scrim deepens slightly on mobile. */
-        .gotd { background: rgba(4, 6, 14, 0.82); }
+      .gotd-badge {
+        display: inline-flex; align-items: center; gap: 5px;
+        font-size: 11px; font-weight: 900; letter-spacing: 0.12em;
+        color: #22112e; background: var(--grad);
+        padding: 3.5px 10px; border-radius: 999px; width: fit-content;
+      }
+      .gotd-content {
+        display: flex; align-items: center; gap: 16px;
+      }
+      .gotd-thumb-link {
+        width: 100px; height: 75px; border-radius: 12px;
+        overflow: hidden; flex: 0 0 auto; display: block;
+        background: var(--panel2);
+      }
+      .gotd-thumb-link img { width: 100%; height: 100%; object-fit: cover; display: block; }
+      .gotd-info { flex: 1 1 auto; min-width: 0; }
+      .gotd-info h3 {
+        font-family: var(--disp); font-size: 17px; font-weight: 800;
+        margin: 0 0 3px; color: var(--text); line-height: 1.25;
+      }
+      .gotd-info h3 a { color: var(--text); }
+      .gotd-info h3 a:hover { color: var(--cyan); text-decoration: none; }
+      .gotd-info p {
+        font-size: 13px; color: var(--muted); margin: 0 0 8px;
+        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+      }
+      .gotd-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+      .gotd-actions .btn { padding: 6px 14px; font-size: 13px; }
+      @media (max-width: 600px) {
+        .gotd-content { flex-direction: column; align-items: stretch; }
+        .gotd-thumb-link { width: 100%; height: 130px; }
       }
 
-      /* CTA rows (404 page) — the home hero that owned these retired in
-         v8; the row itself stays for the 404. */
-      .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
-      .hero-ctas .btn { font-size: 15.5px; padding: 12px 24px; }
+      /* ---------- player layout & components (spec §2) ---------- */
+      .back-nav { margin-bottom: 4px; }
+      .back-link {
+        display: inline-flex; align-items: center; gap: 4px;
+        font-size: 12.5px; font-weight: 700; color: var(--muted);
+      }
+      .back-link:hover { color: var(--text); text-decoration: none; }
+
+      .game-header { margin-bottom: 8px; }
+      .game-header h1 {
+        font-size: clamp(20px, 3vw, 26px); margin: 0 0 4px; line-height: 1.15;
+      }
+      .game-meta-chips { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+      /* Ratio-correct frame solved from height budget (spec §2.2) */
+      .player-frame {
+        --game-w: 16;
+        --game-h: 9;
+        --ratio: calc(var(--game-w) / var(--game-h));
+        --h-budget: calc(min(78svh, 680px) - 52px);
+        width: min(100%, calc(var(--h-budget) * var(--ratio)));
+        max-width: 100%;
+        aspect-ratio: var(--game-w) / var(--game-h);
+        max-height: var(--h-budget);
+        margin-inline: auto;
+        position: relative;
+      }
+      @media (max-width: 760px) {
+        .player-frame {
+          --h-budget: calc(72svh - 48px);
+          width: min(100%, calc(var(--h-budget) * var(--ratio)));
+          max-height: var(--h-budget);
+        }
+      }
+
+      .player-shell {
+        position: relative; width: 100%; height: 100%;
+        background: var(--player-bg, #000);
+        border: 1px solid var(--player-border, rgba(255, 255, 255, 0.22));
+        border-radius: var(--radius-tile);
+        overflow: hidden;
+        box-shadow: 0 30px 60px -18px rgba(0, 0, 0, 0.8);
+      }
+      .player-shell iframe {
+        width: 100%; height: 100%; border: 0; display: block;
+        opacity: 0; transition: opacity 160ms ease;
+      }
+      .player-shell[data-state="playing"] iframe { opacity: 1; }
+
+      .player-iframe-wrap { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+      /* Facade */
+      .facade {
+        position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+        padding: 0; border: 0; cursor: pointer; background: #000; color: var(--text);
+        font: inherit; overflow: hidden; z-index: 2; text-align: left;
+      }
+      .facade:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+      .facade-poster {
+        position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block;
+      }
+      .facade-shade {
+        position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(5, 8, 18, 0.12) 0%, rgba(5, 8, 18, 0.65) 80%);
+      }
+      .facade-btn {
+        position: absolute; left: 50%; top: 46%; transform: translate(-50%, -50%);
+        width: 80px; height: 80px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        background: var(--grad); color: #16102a;
+        box-shadow: 0 18px 40px -8px rgba(255, 93, 162, 0.7), 0 0 0 8px rgba(255, 255, 255, 0.1);
+        transition: transform 0.18s ease;
+      }
+      .facade:hover .facade-btn, .facade:focus-visible .facade-btn { transform: translate(-50%, -50%) scale(1.08); }
+      .facade:active .facade-btn { transform: translate(-50%, -50%) scale(0.96); }
+      .facade-cap {
+        position: absolute; left: 0; right: 0; bottom: 0; display: block;
+        padding: 32px 16px 14px; text-align: center;
+        background: linear-gradient(transparent, rgba(4, 6, 14, 0.92));
+      }
+      .facade-cap b {
+        display: block; font-family: var(--disp); font-size: clamp(17px, 2.4vw, 22px);
+        font-weight: 900; letter-spacing: -0.01em; color: #ffffff;
+      }
+      .facade-cap small { color: #c3cfe8; font-weight: 700; font-size: 12.5px; letter-spacing: 0.02em; }
+
+      /* Loading state (spec §2.3) */
+      .player-loading {
+        position: absolute; inset: 0; width: 100%; height: 100%; z-index: 3;
+        display: flex; align-items: center; justify-content: center;
+        background: #070a16; overflow: hidden;
+      }
+      .player-loading[hidden] { display: none; }
+      .loading-poster-dim {
+        position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+        opacity: 0.28; filter: grayscale(40%);
+      }
+      .loading-scrim { position: absolute; inset: 0; background: rgba(7, 10, 22, 0.75); }
+      .loading-content {
+        position: relative; z-index: 2; text-align: center; padding: 20px;
+        display: flex; flex-direction: column; align-items: center; gap: 12px;
+      }
+      .player-spinner { width: 48px; height: 48px; animation: playerSpin 0.9s linear infinite; }
+      @keyframes playerSpin { to { transform: rotate(360deg); } }
+      .loading-title {
+        font-family: var(--disp); font-size: clamp(16px, 2.2vw, 20px); font-weight: 800;
+        color: #ffffff; max-width: 90%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .loading-hint { font-size: 13px; font-weight: 600; color: var(--muted); }
+
+      /* Error state (spec §2.3) */
+      .player-error {
+        position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4;
+        display: flex; align-items: center; justify-content: center;
+        background: #0d1328; padding: 24px;
+      }
+      .player-error[hidden] { display: none; }
+      .error-content {
+        text-align: center; max-width: 420px;
+        display: flex; flex-direction: column; align-items: center; gap: 16px;
+      }
+      .error-msg {
+        font-family: var(--disp); font-size: clamp(17px, 2.4vw, 22px); font-weight: 800; color: #ffffff;
+      }
+      .error-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+      /* Player toolbar (spec §2.4) */
+      .player-toolbar {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        padding: 9px 14px; background: var(--toolbar-bg, #0d1328);
+        border: 1px solid var(--line); border-radius: 14px; margin-top: 10px;
+      }
+      .toolbar-title {
+        font-family: var(--disp); font-size: 15px; font-weight: 800; color: var(--text);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        flex: 1 1 auto; min-width: 0;
+      }
+      .toolbar-actions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+      .toolbar-btn {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 7px 13px; border-radius: 999px; border: 1px solid var(--line);
+        background: var(--panel2); color: var(--text); font-family: inherit;
+        font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap;
+        transition: background 0.18s ease, transform 0.12s ease;
+      }
+      .toolbar-btn:hover { background: var(--panel3); text-decoration: none; }
+      .toolbar-btn:active { transform: scale(0.96); }
+      .toolbar-btn.next-btn { background: var(--panel3); border-color: rgba(255, 255, 255, 0.2); }
+      .toolbar-btn.next-btn:hover { background: color-mix(in srgb, var(--cyan) 20%, var(--panel3)); }
+
+      /* Theatre mode fixed overlay (spec §2.4) */
+      .player-shell.theatre-mode {
+        position: fixed !important; inset: 0 !important; width: 100vw !important; height: 100dvh !important;
+        max-width: 100vw !important; max-height: 100dvh !important; z-index: var(--theatre-z, 99999) !important;
+        border-radius: 0 !important; border: 0 !important; margin: 0 !important;
+        background: var(--theatre-bg, #000000) !important; box-shadow: none !important;
+      }
+      .theatre-exit-btn {
+        position: absolute; top: 14px; right: 14px; z-index: 10;
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 8px 14px; border-radius: 999px;
+        background: rgba(13, 19, 40, 0.92); border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #ffffff; font-size: 13.5px; font-weight: 800; cursor: pointer;
+      }
+      .theatre-exit-btn:hover { background: #182242; }
+      .theatre-exit-btn[hidden] { display: none; }
+
+      /* Desktop >=1100px Two-column layout (spec §2.4) */
+      .game-layout { display: block; }
+      @media (min-width: 1100px) {
+        .game-layout {
+          display: grid; grid-template-columns: minmax(0, 1fr) 300px;
+          gap: 26px; align-items: start;
+        }
+      }
+      .game-rail-col { display: flex; flex-direction: column; gap: 18px; margin-top: 24px; }
+      @media (min-width: 1100px) { .game-rail-col { margin-top: 0; } }
+      .rail-box {
+        background: var(--panel); border: 1px solid var(--line);
+        border-radius: 16px; padding: 14px;
+      }
+      .rail-box[hidden] { display: none; }
+      .rail-heading {
+        font-family: var(--disp); font-size: 15px; font-weight: 800;
+        margin: 0 0 12px; color: var(--text); display: flex; align-items: center; gap: 8px;
+      }
+      .rail-heading::before {
+        content: ""; width: 4px; height: 0.9em; border-radius: 2px;
+        background: var(--amber); display: inline-block;
+      }
+      .rail-items { display: flex; flex-direction: column; gap: 8px; }
+      .rail-card {
+        display: flex; align-items: center; gap: 10px; padding: 6px 8px;
+        border-radius: 10px; background: var(--panel2);
+        transition: background 0.18s ease, transform 0.12s ease; text-decoration: none;
+      }
+      .rail-card:hover { background: var(--panel3); text-decoration: none; transform: translateX(2px); }
+      .rail-card:active { transform: scale(0.98); }
+      .rail-card img {
+        width: 68px; height: 51px; border-radius: 8px; object-fit: cover; flex: 0 0 auto;
+      }
+      .rail-card-text { min-width: 0; flex: 1 1 auto; }
+      .rail-card-title {
+        font-size: 13px; font-weight: 700; color: var(--text);
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      }
+      .rail-card-cat { font-size: 11.5px; font-weight: 600; color: var(--muted); }
+
+      /* Contextual mobile sticky bar (spec §2.4) */
+      .sticky-play {
+        display: none; position: fixed; left: 10px; right: 10px; bottom: 10px; z-index: 60;
+        align-items: center; gap: 10px; padding: 9px 12px; border-radius: 16px;
+        background: #0d1328; border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.65);
+        transform: translateY(120%); transition: transform 0.25s ease;
+      }
+      @media (max-width: 760px) {
+        .sticky-play { display: flex; }
+        .sticky-play.is-active { transform: translateY(0); }
+        body.has-sticky { padding-bottom: 74px; }
+      }
+      .sticky-play .sp-t {
+        font-weight: 800; font-size: 14px; flex: 1;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #ffffff;
+      }
+      .sticky-play .btn { padding: 8px 16px; font-size: 13.5px; flex: 0 0 auto; }
 
       /* ---------- hub hero band ---------- */
       .hub-hero {
-        /* Solid panel by default; with a banner, [hub].astro layers a
-           near-opaque scrim over the art so the h1/tagline zone is a
-           predictable dark surface (v6). */
         border-radius: var(--radius-tile); padding: clamp(22px, 3.6vw, 38px);
         border: 1px solid rgba(255, 255, 255, 0.12);
         background: var(--panel);
@@ -455,7 +599,7 @@ const searchIndex = JSON.stringify(
       .hub-hero.has-banner h1 { text-shadow: 0 3px 18px rgba(0, 0, 0, 0.7); }
       .hub-hero .prose { color: #c3d0ea; }
 
-      /* ---------- drawers & expandables (progressive disclosure) ---------- */
+      /* ---------- drawers & expandables ---------- */
       .teaser { color: var(--muted); max-width: 820px; font-size: 15.5px; margin: 20px 0 4px; }
       .teaser b { color: var(--text); }
       .drawers { display: grid; gap: 14px; margin: 16px 0 6px; max-width: 980px; }
@@ -490,64 +634,12 @@ const searchIndex = JSON.stringify(
         font-weight: 800; font-size: 13.5px; cursor: pointer; transition: background 0.2s, transform 0.15s;
       }
       .exp-btn:hover { background: var(--panel3); transform: translateY(-1px); }
-      /* FAQ items join the same glass drawer family. */
       .faq details { transition: border-color 0.25s ease, background 0.25s ease; }
-      .faq details[open ] { border-color: rgba(255, 255, 255, 0.3); background: var(--panel2); }
+      .faq details[open] { border-color: rgba(255, 255, 255, 0.3); background: var(--panel2); }
       .faq summary { list-style: none; display: flex; align-items: center; gap: 8px; }
       .faq summary::-webkit-details-marker { display: none; }
       .faq summary::after { content: "▾"; margin-left: auto; color: var(--muted); transition: transform 0.3s ease; }
-      .faq details[open ] summary::after { transform: rotate(180deg); }
-
-      /* ---------- game of the day modal ---------- */
-      .gotd {
-        /* Modal scrim only (every leader uses a plain dark overlay for
-           dialogs — Hooda's is rgba(0,0,0,.45)); the blur is gone and the
-           card below is a flat solid panel. */
-        position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center;
-        padding: 18px; background: rgba(4, 6, 14, 0.78);
-        opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
-      }
-      .gotd.show { opacity: 1; pointer-events: auto; }
-      .gotd-card {
-        position: relative; width: min(430px, 100%); margin-top: 74px; text-align: center;
-        border-radius: 26px; padding: 0 26px 24px;
-        background: #141e3d;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.85);
-        transform: translateY(18px) scale(0.95); transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1.3);
-      }
-      .gotd.show .gotd-card { transform: none; }
-      .gotd-art {
-        width: 208px; height: 208px; object-fit: contain; margin: -86px auto 2px;
-        filter: drop-shadow(0 22px 22px rgba(0, 0, 0, 0.6));
-        animation: floaty 5s ease-in-out infinite;
-      }
-      /* The modal stays in the DOM after dismissal (opacity 0); without
-         this, its art kept bobbing invisibly and forced a repaint of the
-         modal layer every frame for the rest of the session — a real
-         contributor to the mobile jank. Float only while shown. */
-      .gotd:not(.show) .gotd-art { animation: none; }
-      .gotd .kicker {
-        display: inline-block; font-size: 11.5px; font-weight: 900; letter-spacing: 0.14em;
-        color: #22112e; background: var(--grad); padding: 4.5px 12px; border-radius: 999px;
-      }
-      .gotd h3 { font-family: var(--disp); font-size: 26px; font-weight: 900; letter-spacing: -0.02em; margin: 12px 0 6px; }
-      .gotd p { color: var(--muted); font-size: 14.5px; margin: 0 0 18px; }
-      .gotd-close {
-        position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%;
-        border: 1px solid var(--line); background: var(--panel2); color: var(--text);
-        font-size: 15px; cursor: pointer; line-height: 1;
-      }
-      .gotd-close:hover { background: var(--panel3); }
-      @media (max-width: 640px) {
-        .gotd-card { margin-top: 58px; padding: 0 18px 20px; }
-        .gotd-art { width: 164px; height: 164px; margin-top: -70px; }
-      }
-      /* Mobile: the GOTD art's float loop stops (a still image is the
-         mobile default on every leader). */
-      @media (max-width: 820px) {
-        .gotd-art { animation: none; }
-      }
+      .faq details[open] summary::after { transform: rotate(180deg); }
 
       /* ---------- 404 ---------- */
       .nf { text-align: center; padding: 12px 0 4px; }
@@ -555,11 +647,13 @@ const searchIndex = JSON.stringify(
       .nf h1 { font-size: clamp(34px, 6vw, 58px); margin-top: 22px; }
       .nf .lede { margin: 0 auto; }
       .nf .hero-ctas { justify-content: center; }
+      .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+      .hero-ctas .btn { font-size: 15.5px; padding: 12px 24px; }
 
       footer.site {
         border-top: 1px solid var(--line);
         background: #0a0f22;
-        color: var(--muted); font-size: 13px; padding: 26px 0 34px; margin-top: 16px;
+        color: var(--muted); font-size: 13px; padding: 26px 0 34px; margin-top: 26px;
       }
       footer.site .links { display: flex; gap: 6px 16px; flex-wrap: wrap; margin-bottom: 12px; }
       footer.site .links a { color: var(--muted); font-weight: 600; }
@@ -570,14 +664,18 @@ const searchIndex = JSON.stringify(
         header.site .bar { flex-wrap: wrap; gap: 5px 14px; padding-top: 7px; padding-bottom: 7px; }
         .logo { font-size: 22px; }
         .logo-mark { width: 26px; height: 26px; border-radius: 7px; }
-        /* Poki's bar on mobile: logo + search share the first row, the
-           category nav scrolls on its own row below. */
         .search { order: 1; flex: 1 1 120px; max-width: none; }
         .search input { padding: 8px 13px; font-size: 13.5px; }
         nav.main { order: 2; width: 100%; padding-bottom: 1px; }
-        nav.main a { padding: 6px 10px; } /* ~34px tall tap targets */
-        main { padding-top: 6px; }
+        nav.main a { padding: 6px 10px; }
+        main { padding-top: 4px; }
         h2 { margin-top: 20px; }
+        .back-nav { margin-bottom: 2px; }
+        .back-link { font-size: 12px; }
+        .game-header { margin-bottom: 6px; }
+        .game-header h1 { font-size: clamp(15.5px, 4.2vw, 18px); margin: 0 0 3px; line-height: 1.15; }
+        .game-meta-chips { gap: 4px; }
+        .game-meta-chips .chip { font-size: 10px; padding: 1.5px 7px; }
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -586,7 +684,7 @@ const searchIndex = JSON.stringify(
           animation-duration: 0.01ms !important; animation-iteration-count: 1 !important;
           transition-duration: 0.01ms !important;
         }
-        .gotd-art, .stage-art { animation: none !important; }
+        .player-spinner { animation: none !important; }
       }
     </style>
   </head>
@@ -625,7 +723,7 @@ const searchIndex = JSON.stringify(
     </footer>
     <script>
       (() => {
-        /* Drawers + "read more" expandables (progressive disclosure). */
+        /* Drawers + "read more" expandables */
         document.querySelectorAll('.drawer-head').forEach((btn) => {
           btn.addEventListener('click', () => {
             const d = btn.closest('.drawer');
@@ -642,15 +740,13 @@ const searchIndex = JSON.stringify(
           });
         });
 
-        /* Header search (v8): filter the inlined game index as you type;
-           Enter (or a tap) goes straight to the game page. Results are
-           real links, so keyboard and touch both work without ceremony. */
+        /* Header search: revenue-first results ranking */
         const idxEl = document.getElementById('gameIndex');
         const input = document.getElementById('siteSearch');
         const box = document.getElementById('searchResults');
         if (idxEl && input && box) {
           let games = [];
-          try { games = JSON.parse(idxEl.textContent); } catch (e) { /* no index, no search */ }
+          try { games = JSON.parse(idxEl.textContent); } catch (e) {}
           let items = [];
           let sel = 0;
           const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -661,7 +757,14 @@ const searchIndex = JSON.stringify(
           input.addEventListener('input', () => {
             const q = input.value.trim().toLowerCase();
             if (!q || !games.length) { close(); return; }
-            items = games.filter((g) => g.t.toLowerCase().includes(q)).slice(0, 8);
+            items = games
+              .filter((g) => g.t.toLowerCase().includes(q))
+              .sort((a, b) => {
+                const aPrefix = a.t.toLowerCase().startsWith(q) ? 1000 : 0;
+                const bPrefix = b.t.toLowerCase().startsWith(q) ? 1000 : 0;
+                return (bPrefix + (b.s || 0)) - (aPrefix + (a.s || 0));
+              })
+              .slice(0, 8);
             sel = 0;
             box.innerHTML = items
               .map((g) => `<a href="${esc(g.u)}"><img src="${esc(g.i)}" alt="" loading="lazy" width="40" height="40"><span>${esc(g.t)}</span></a>`)
@@ -684,6 +787,29 @@ const searchIndex = JSON.stringify(
             if (!e.target.closest('.search')) close();
           });
         }
+
+        /* Intent prefetch (spec §2.1): link rel=prefetch injected once per URL */
+        const prefetched = new Set();
+        const prefetch = (url) => {
+          if (!url || prefetched.has(url)) return;
+          try {
+            const parsed = new URL(url, window.location.origin);
+            if (parsed.origin !== window.location.origin) return;
+            if (!parsed.pathname.includes('/games/')) return;
+            prefetched.add(parsed.href);
+            const link = document.createElement('link');
+            link.rel = 'prefetch';
+            link.href = parsed.href;
+            document.head.appendChild(link);
+          } catch (e) {}
+        };
+        const onIntent = (e) => {
+          const a = e.target && e.target.closest && e.target.closest('a[href*="/games/"]');
+          if (a && a.href) prefetch(a.href);
+        };
+        document.addEventListener('pointerenter', onIntent, { capture: true, passive: true });
+        document.addEventListener('focusin', onIntent, { capture: true, passive: true });
+        document.addEventListener('touchstart', onIntent, { capture: true, passive: true });
       })();
     </script>
   </body>

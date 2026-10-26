@@ -1,23 +1,11 @@
 ---
 import Base from '../layouts/Base.astro';
 import GameGrid from '../components/GameGrid.astro';
-import { shelves, allGames, gameUrl, u } from '../lib/games.mjs';
-import { artUrl, accentFor } from '../lib/art.mjs';
+import { shelves, allGames, gameUrl, u, getGameOfTheDay } from '../lib/games.mjs';
 
-/* Game of the Day pool: every game with pop-out key art. The client picks
-   one deterministically by date, so all visitors see the same pick. */
-const gotdPool = allGames
-  .filter((g) => artUrl(g))
-  .map((g) => {
-    const dot = g.description.indexOf('. ');
-    return {
-      title: g.title,
-      url: gameUrl(g),
-      art: artUrl(g),
-      accent: accentFor(g),
-      blurb: (dot > 40 ? g.description.slice(0, dot + 1) : g.description.slice(0, 140)).slice(0, 150),
-    };
-  });
+const gotd = getGameOfTheDay();
+const dot = gotd.description.indexOf('. ');
+const gotdBlurb = (dot > 40 ? gotd.description.slice(0, dot + 1) : gotd.description.slice(0, 140)).slice(0, 150);
 
 const featured = shelves.featured();
 const driving = shelves.driving().slice(0, 10);
@@ -42,9 +30,6 @@ const jsonLd = {
   description="Play free browser games instantly: drifting, racing, endless runners, math puzzles and .io games. No downloads, no sign-ups — works on Chromebooks, laptops and phones."
   jsonLd={jsonLd}
 >
-  {/* v8 (Poki system): the hero panel, spotlight and trending marquee are
-      retired. A modest title strip carries the H1 + lede for SEO, then
-      the tiles start — Poki's first tile sits ~90px under its header. */}
   <div class="title-strip">
     <h1>Free Browser Games — No Downloads, Just Play</h1>
     <p class="lede">
@@ -54,7 +39,30 @@ const jsonLd = {
     </p>
   </div>
 
+  {/* Client-side Jump back in rail (spec §2.1) */}
+  <div id="jumpBackInRail"></div>
+
+  {/* Featured shelf with static Game of the Day pick (spec §3.4) */}
   <section class="shelf">
+    <div class="gotd-shelf">
+      <div class="gotd-banner">
+        <div class="gotd-badge">⭐ GAME OF THE DAY</div>
+        <div class="gotd-content">
+          <a href={gameUrl(gotd)} class="gotd-thumb-link" aria-label={`Play ${gotd.title}`}>
+            <img src={gotd.thumb} alt="" width="512" height="384" loading="eager" />
+          </a>
+          <div class="gotd-info">
+            <h3><a href={gameUrl(gotd)}>{gotd.title}</a></h3>
+            <p>{gotdBlurb}</p>
+            <div class="gotd-actions">
+              <a href={gameUrl(gotd)} class="btn">Play Now →</a>
+              <span class="chip">{gotd.categories[0]}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <h2>⭐ Featured Games</h2>
     <GameGrid games={featured} mosaic />
   </section>
@@ -109,63 +117,31 @@ const jsonLd = {
     <button class="exp-btn" type="button" aria-expanded="false" data-more="Read more ▾" data-less="Show less ▴">Read more ▾</button>
   </div>
 
-  <div class="gotd" id="gotd" role="dialog" aria-modal="true" aria-label="Game of the day" hidden>
-    <div class="gotd-card" id="gotdCard">
-      <button class="gotd-close" id="gotdClose" type="button" aria-label="Close">✕</button>
-      <img class="gotd-art" id="gotdArt" alt="" width="560" height="560" />
-      <span class="kicker">⭐ GAME OF THE DAY</span>
-      <h3 id="gotdTitle"></h3>
-      <p id="gotdBlurb"></p>
-      <a class="btn" id="gotdPlay" href="#">▶ Play Now — Free</a>
-    </div>
-  </div>
-  <script define:vars={{ gotdPool }}>
-    // Game of the Day: same pick for everyone on a given date, shown once
-    // per session, dismissible via button / backdrop / Escape.
+  <script>
     (() => {
-      if (!gotdPool.length) return;
-      const today = new Date().toDateString();
-      let seen = null;
+      // Jump back in rail (spec §2.1)
       try {
-        seen = sessionStorage.getItem('ta-gotd');
-      } catch (e) { /* private mode */ }
-      if (seen === today) return;
-      const pick = gotdPool[Math.floor(Date.now() / 86400000) % gotdPool.length];
-      const box = document.getElementById('gotd');
-      document.getElementById('gotdArt').src = pick.art;
-      document.getElementById('gotdTitle').textContent = pick.title;
-      document.getElementById('gotdBlurb').textContent = pick.blurb;
-      document.getElementById('gotdPlay').href = pick.url;
-      document.getElementById('gotdCard').style.setProperty('--acc', pick.accent);
-      let lastFocus = null;
-      const close = () => {
-        box.classList.remove('show');
-        window.setTimeout(() => box.setAttribute('hidden', ''), 380);
-        document.removeEventListener('keydown', onKey);
-        if (lastFocus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
-      };
-      const onKey = (e) => {
-        if (e.key === 'Escape') close();
-      };
-      document.getElementById('gotdClose').addEventListener('click', close);
-      document.getElementById('gotdPlay').addEventListener('click', close);
-      box.addEventListener('click', (e) => {
-        if (e.target === box) close();
-      });
-      document.addEventListener('keydown', onKey);
-      window.setTimeout(() => {
-        box.removeAttribute('hidden');
-        lastFocus = document.activeElement;
-        requestAnimationFrame(() => {
-          box.classList.add('show');
-          // Move focus into the dialog so keyboard/screen-reader users
-          // land on it (and Escape/close returns focus to the page).
-          document.getElementById('gotdClose').focus({ preventScroll: true });
-        });
-        try {
-          sessionStorage.setItem('ta-gotd', today);
-        } catch (e) { /* ignore */ }
-      }, 1400);
+        const raw = localStorage.getItem('ta-recent');
+        const list = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(list) || !list.length) return;
+        const container = document.getElementById('jumpBackInRail');
+        if (!container) return;
+        const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const shelf = document.createElement('section');
+        shelf.className = 'shelf jump-back-in-shelf';
+        shelf.innerHTML = `
+          <h2>🕒 Jump Back In</h2>
+          <div class="tiles rail">
+            ${list.slice(0, 8).map((item) => `
+              <a class="tile" href="${esc(item.url)}" title="${esc(item.title)}" aria-label="Play ${esc(item.title)} online">
+                <img class="tile-img" src="${esc(item.thumb)}" alt="" loading="lazy" width="512" height="384" />
+                <span class="tile-cap">${esc(item.title)}</span>
+              </a>
+            `).join('')}
+          </div>
+        `;
+        container.appendChild(shelf);
+      } catch (e) {}
     })();
   </script>
 </Base>
