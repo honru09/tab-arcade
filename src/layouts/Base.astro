@@ -140,7 +140,7 @@ const searchIndex = JSON.stringify(
         color: var(--text); white-space: nowrap;
         display: inline-flex; align-items: center; gap: 9px;
       }
-      .logo-mark { width: 30px; height: 30px; border-radius: 8px; display: block; flex: 0 0 auto; }
+      .logo-mark { width: 30px; height: 30px; display: block; flex: 0 0 auto; }
       .logo span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
       .logo:hover { text-decoration: none; }
       nav.main {
@@ -673,7 +673,7 @@ const searchIndex = JSON.stringify(
         header.site { background: #0a0f22; }
         header.site .bar { flex-wrap: wrap; gap: 5px 14px; padding-top: 7px; padding-bottom: 7px; }
         .logo { font-size: 22px; }
-        .logo-mark { width: 26px; height: 26px; border-radius: 7px; }
+        .logo-mark { width: 26px; height: 26px; }
         .search { order: 1; flex: 1 1 120px; max-width: none; }
         .search input { padding: 8px 13px; font-size: 13.5px; }
         nav.main { order: 2; width: 100%; padding-bottom: 1px; }
@@ -701,7 +701,24 @@ const searchIndex = JSON.stringify(
   <body>
     <header class="site">
       <div class="wrap bar">
-        <a class="logo" href={u()}><img class="logo-mark" src={u('favicon.svg')} alt="" width="30" height="30" />Tab<span>Arcade</span></a>
+        <a class="logo" href={u()}>
+          <svg class="logo-mark" viewBox="0 0 64 64" width="30" height="30" fill="none" aria-hidden="true">
+            <defs>
+              <linearGradient id="ta-logo-grad" x1="8" y1="8" x2="56" y2="58" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#00F0FF" />
+                <stop offset="100%" stop-color="#008BE8" />
+              </linearGradient>
+            </defs>
+            <rect x="15" y="6" width="10" height="6" rx="2.5" fill="#008BE8" />
+            <rect x="39" y="6" width="10" height="6" rx="2.5" fill="#008BE8" />
+            <rect x="8" y="10" width="48" height="48" rx="15" fill="url(#ta-logo-grad)" />
+            <path d="M 21.5 24 C 21.5 23.2 22.2 22.5 23 22.5 L 24.5 22.5 C 25.3 22.5 26 23.2 26 24 L 26 28 L 30 28 C 30.8 28 31.5 28.7 31.5 29.5 L 31.5 31 C 31.5 31.8 30.8 32.5 30 32.5 L 26 32.5 L 26 36.5 C 26 37.3 25.3 38 24.5 38 L 23 38 C 22.2 38 21.5 37.3 21.5 36.5 L 21.5 32.5 L 17.5 32.5 C 16.7 32.5 16 31.8 16 31 L 16 29.5 C 16 28.7 16.7 28 17.5 28 L 21.5 28 Z" fill="#0B1020" />
+            <circle cx="42" cy="30.5" r="7" fill="#FF2A85" />
+            <circle cx="44" cy="28.5" r="2.2" fill="#FFFFFF" />
+            <path d="M 24 43 Q 32 51 40 43" stroke="#0B1020" stroke-width="4.5" stroke-linecap="round" />
+          </svg>
+          Tab<span>Arcade</span>
+        </a>
         <div class="search" role="search">
           <input id="siteSearch" type="search" placeholder="Search games…" aria-label="Search games" autocomplete="off" />
           <div class="search-results" id="searchResults" hidden></div>

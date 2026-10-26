@@ -113,3 +113,18 @@ A fast, tactile browser games shelf whose primary mission is transitioning a vis
 
 - Strict compliance with `prefers-reduced-motion`: animation iterations drop to instant transitions; spinners remain stationary.
 - Keyboard navigation: visible `:focus-visible` rings, dialogs manage and restore focus, and iframe automatically receives focus on start.
+
+## 8. Brand Mark & Icon System
+
+- **Hero Mark**: TB-E 'BotPad' — an authentic hardware-inspired mascot face built from gaming anatomy:
+  - **Left Eye**: Deep navy (`#0B1020`) gaming controller D-pad cross cut-out.
+  - **Right Eye**: Oversized hot pink (`#FF2A85`) arcade action pushbutton with white specular highlight.
+  - **Mouth**: Joyful dark navy smile arc (`#0B1020`), evoking tactile retro mascot charm.
+  - **Chassis**: Electric cyan gradient squircle (`#00F0FF` → `#008BE8`) topped by dual tactile controller bumper ears.
+  - **Semiotic Discipline**: 0% video/streaming play-triangle cues. Completely eliminates confusion with video streaming services (YouTube/Twitch) and ensures study-hall school-safe teacher perception.
+- **Source Files**:
+  - Master vector mark: `redesign/logo-v9/round2/tb-concept-e-mark.svg`
+  - Master lockup: `redesign/logo-v9/round2/tb-concept-e-lockup.svg`
+- **Favicon & Icon Simplification**:
+  - `favicon.svg` (and `favicon-32.png`): Engineered for low-resolution 16×16 and 32×32 tab bar legibility. D-pad cross arms use clean 90° corners (eliminating subpixel anti-aliasing blur from tiny corner radiuses), reinforced 5.0-unit stroke weights on the 64 grid, concentrated specular highlight to preserve rich hot-pink saturation on the action button, and a strong smile arc. Renders crisp with transparent background across both dark and light browser tab themes.
+  - **Maskable & App Icons** (`icon-192.png`, `icon-512.png`, `apple-touch-icon.png`, `icon-app.svg`): Feature a solid deep-navy background (`#0B1020`) matching the site's dark palette, with the BotPad mark scaled and centered within the W3C 80% safe zone circle (diameter 409.6px on 512 grid) to guarantee zero clipping under Android squircle/circle masks or iOS rounded icon frames.
