@@ -189,17 +189,52 @@ export const shelves = {
     return allGames.filter((g) => slugs.has(g.slug));
   },
   popular: () => [...allGames].slice(0, 36),
-  driving: () => allGames.filter((g) => hasCat(g, ['Racing & Driving'])),
+  driving: () =>
+    allGames.filter(
+      (g) =>
+        hasCat(g, ['Racing & Driving']) &&
+        !['float-for-brainrots', 'boombitz-bomb-chips'].includes(g.slug),
+    ),
   running: () =>
     allGames.filter(
       (g) => hasCat(g, ['Agility']) || /run|rush|dash|runner|endless|tunnel|slope/i.test(text(g)),
     ),
-  math: () =>
-    allGames.filter(
-      (g) =>
-        hasCat(g, ['Puzzle', 'Merge', 'Educational', 'Match-3', 'Cards', 'Mahjong & Connect', 'Boardgames', 'Quiz']) ||
-        /2048|math|number|merge|count/i.test(g.title),
-    ),
+  math: () => {
+    const mathCatEdu = ['Educational', 'Quiz'];
+    const mathCatPuzzle = [
+      'Puzzle',
+      'Merge',
+      'Match-3',
+      'Cards',
+      'Mahjong & Connect',
+      'Boardgames',
+      'Educational',
+      'Quiz',
+    ];
+    const mathRegex = /2048|math|number|count|merge|quiz|trivia|sudoku|calc/i;
+    const strict = allGames.filter((g) => {
+      const cats = g.categories || [];
+      const tags = g.tags || [];
+      if (hasCat(g, mathCatEdu)) return true;
+      if (hasCat(g, mathCatPuzzle)) {
+        if (mathRegex.test(g.title) || tags.some((t) => mathRegex.test(t))) return true;
+      }
+      return false;
+    });
+    if (strict.length < 8) {
+      const strictSlugs = new Set(strict.map((g) => g.slug));
+      const relaxed = allGames.filter((g) => {
+        if (strictSlugs.has(g.slug)) return true;
+        const cats = g.categories || [];
+        const tags = g.tags || [];
+        if (cats.includes('Merge')) return true;
+        if (/2048|merge/i.test(g.title) || tags.some((t) => /2048|merge/i.test(t))) return true;
+        return false;
+      });
+      return relaxed;
+    }
+    return strict;
+  },
   io: () => {
     const list = allGames.filter((g) => hasCat(g, ['.IO']));
     const firstSafe = list.findIndex((g) => !MARQUEE_EXCLUDE.has(g.slug));
@@ -303,4 +338,82 @@ export function gameFaqs(game) {
         : `${game.title} plays in any modern mobile browser, but it is best enjoyed with a keyboard and a larger screen, for example on a Chromebook or laptop. Use the fullscreen button above the game for more room.`,
     },
   ];
+}
+
+/**
+ * Cross-shelf deduplication for home pages (B2):
+ * - Process shelves in page order
+ * - A game shown in 2 earlier home shelves is skipped
+ * - No two home shelves may share more than 40% of the smaller shelf
+ */
+export function buildHomeShelves(shelfSpecs) {
+  const appearances = new Map();
+  const completed = [];
+
+  for (const spec of shelfSpecs) {
+    const selected = [];
+    const pool = spec.pool || [];
+    const max = spec.max || 10;
+
+    for (const game of pool) {
+      if (selected.length >= max) break;
+      const count = appearances.get(game.slug) || 0;
+      if (count >= 2) continue;
+      if (selected.some((s) => s.slug === game.slug)) continue;
+
+      let violates = false;
+      for (const prev of completed) {
+        let inter = 0;
+        for (const pg of prev.games) {
+          if (pg.slug === game.slug || selected.some((s) => s.slug === pg.slug)) {
+            inter++;
+          }
+        }
+        const smaller = Math.min(prev.games.length, max);
+        if (smaller > 0 && inter / smaller > 0.40) {
+          violates = true;
+          break;
+        }
+      }
+
+      if (!violates) {
+        selected.push(game);
+      }
+    }
+
+    // Backfill from pool if needed without exceeding count 2 or 40% overlap
+    if (selected.length < Math.min(max, pool.length)) {
+      for (const game of pool) {
+        if (selected.length >= max) break;
+        const count = appearances.get(game.slug) || 0;
+        if (count >= 2) continue;
+        if (selected.some((s) => s.slug === game.slug)) continue;
+
+        let violates = false;
+        for (const prev of completed) {
+          let inter = 0;
+          for (const pg of prev.games) {
+            if (pg.slug === game.slug || selected.some((s) => s.slug === pg.slug)) {
+              inter++;
+            }
+          }
+          const smaller = Math.min(prev.games.length, selected.length + 1);
+          if (smaller > 0 && inter / smaller > 0.40) {
+            violates = true;
+            break;
+          }
+        }
+        if (!violates) {
+          selected.push(game);
+        }
+      }
+    }
+
+    for (const g of selected) {
+      appearances.set(g.slug, (appearances.get(g.slug) || 0) + 1);
+    }
+    completed.push({ name: spec.name, games: selected });
+  }
+
+  return completed;
 }

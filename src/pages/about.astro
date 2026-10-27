@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../lib/games.mjs';
+
+const title = 'About TabArcade — Free Browser Games';
+const description = 'TabArcade is a free shelf of instant browser games designed to run right in your web browser tab on Chromebooks, laptops and phones.';
+const canonical = 'https://tabarcade.online/about/';
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <div class="crumbs">
+    <a href={u()}>Home</a> › About TabArcade
+  </div>
+
+  <article class="prose" style="margin-top: 16px;">
+    <h1>About TabArcade</h1>
+    <p class="lede">
+      TabArcade is an independent catalog of free, instant web games designed to run right inside
+      your browser tab with zero downloads, no installations, and no sign-ups.
+    </p>
+
+    <h2>What We Do</h2>
+    <p>
+      We believe web games should just work. Every title on TabArcade is an HTML5 browser game that
+      launches in seconds without plugins or app store downloads. Whether you are playing on a school
+      Chromebook, a home laptop, a tablet, or a mobile phone, our pages load fast and keep controls simple.
+    </p>
+
+    <h2>Who TabArcade Is For</h2>
+    <p>
+      TabArcade is built for casual players, students on a quick break between classes, and anyone looking
+      for straightforward fun. Rounds are intentionally snackable: a quick drift run, a 2048 number puzzle,
+      or a two-player challenge you can share on one keyboard.
+    </p>
+
+    <h2>Game Licensing &amp; Feeds</h2>
+    <p>
+      All games on TabArcade are provided through licensed HTML5 web distribution platforms, including
+      GameDistribution and GameMonetize, and remain the intellectual property of their respective creators
+      and developers. We regularly test and curate the catalog to ensure games run reliably across modern
+      browsers and devices.
+    </p>
+
+    <h2>Updates &amp; Curation</h2>
+    <p>
+      We add new games regularly while pruning titles that fail performance tests or break on low-power
+      hardware like Chromebooks. If you spot a game that fails to load or have suggestions for new genres,
+      please <a href={u('contact/')}>contact us</a>.
+    </p>
+  </article>
+</Base>

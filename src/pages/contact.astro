@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../lib/games.mjs';
+
+const title = 'Contact Us — TabArcade';
+const description = 'Get in touch with the TabArcade team: report a broken game, raise a content concern, or discuss business inquiries.';
+const canonical = 'https://tabarcade.online/contact/';
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <div class="crumbs">
+    <a href={u()}>Home</a> › Contact Us
+  </div>
+
+  <article class="prose" style="margin-top: 16px;">
+    <h1>Contact TabArcade</h1>
+    <p class="lede">
+      Have a question, feedback, or need help? We would love to hear from you. Send us an email directly at:
+    </p>
+
+    <p style="margin: 20px 0;">
+      <a href="mailto:hongrun01@gmail.com" class="btn" style="display: inline-block; font-size: 16px; padding: 12px 24px;">
+        ✉️ hongrun01@gmail.com
+      </a>
+    </p>
+
+    <h2>What to Write About</h2>
+    <p>Feel free to reach out regarding any of the following:</p>
+    <ul>
+      <li>
+        <strong>Broken or Unplayable Games:</strong> If a game fails to load, shows an error screen, or has broken
+        controls, please let us know the game title, device (e.g. Chromebook, Windows, iPhone), and browser.
+      </li>
+      <li>
+        <strong>Content &amp; Safety Concerns:</strong> If you believe a game violates copyright or contains inappropriate
+        material, contact us for immediate review and prompt takedown.
+      </li>
+      <li>
+        <strong>Business &amp; Game Submissions:</strong> Developers and distribution platforms interested in listing
+        HTML5 games or exploring partnerships are welcome to reach out.
+      </li>
+    </ul>
+
+    <p>We aim to respond to inquiries within 1 to 2 business days.</p>
+  </article>
+</Base>

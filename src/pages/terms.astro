@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../lib/games.mjs';
+
+const title = 'Terms of Use — TabArcade';
+const description = 'TabArcade terms of use: game ownership, free access, content availability, and service disclaimers.';
+const canonical = 'https://tabarcade.online/terms/';
+---
+
+<Base title={title} description={description} canonical={canonical}>
+  <div class="crumbs">
+    <a href={u()}>Home</a> › Terms of Use
+  </div>
+
+  <article class="prose" style="margin-top: 16px;">
+    <h1>Terms of Use</h1>
+    <p class="lede">
+      By using TabArcade, you agree to these simple terms of service.
+    </p>
+
+    <h2>Free Access</h2>
+    <p>
+      TabArcade offers free access to web games for personal, non-commercial entertainment. You may browse, search,
+      and play games without paying fees or creating an account.
+    </p>
+
+    <h2>Game Ownership &amp; Intellectual Property</h2>
+    <p>
+      All games, characters, logos, sound effects, and graphics displayed or embedded on TabArcade belong to their
+      respective owners, publishers, and licensed feed partners (such as GameDistribution and GameMonetize). TabArcade
+      does not claim ownership over any third-party game assets.
+    </p>
+
+    <h2>Catalog Availability</h2>
+    <p>
+      We strive to keep the catalog online and functional, but game availability is subject to change without notice.
+      Individual games may be modified, updated, or removed at any time due to developer decisions or licensing changes.
+    </p>
+
+    <h2>Disclaimer of Warranties</h2>
+    <p>
+      TabArcade and all embedded games are provided on an "as is" and "as available" basis without warranties of any
+      kind, whether express or implied. We do not warrant that gameplay will be uninterrupted, error-free, or compatible
+      with every browser and device configuration.
+    </p>
+
+    <h2>Questions or Copyright Inquiries</h2>
+    <p>
+      If you are a copyright owner and have questions about content appearing on our site, please contact us promptly at
+      <a href="mailto:hongrun01@gmail.com">hongrun01@gmail.com</a> for review and resolution.
+    </p>
+  </article>
+</Base>

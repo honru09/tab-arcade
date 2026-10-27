@@ -1,17 +1,29 @@
 ---
 import Base from '../layouts/Base.astro';
 import GameGrid from '../components/GameGrid.astro';
-import { shelves, allGames, gameUrl, u, getGameOfTheDay } from '../lib/games.mjs';
+import { shelves, allGames, gameUrl, u, getGameOfTheDay, buildHomeShelves } from '../lib/games.mjs';
 
 const gotd = getGameOfTheDay();
-const featured = shelves.featured();
-const newGames = shelves.newGames();
-const driving = shelves.driving().slice(0, 10);
-const running = shelves.running().slice(0, 10);
-const math = shelves.math().slice(0, 10);
-const io = shelves.io().slice(0, 10);
-const twoPlayer = shelves.twoPlayer().slice(0, 10);
-const breaks = shelves.breaks().slice(0, 10);
+const rawHomeShelves = [
+  { name: 'featured', pool: shelves.featured(), max: 16 },
+  { name: 'new', pool: shelves.newGames(), max: 12 },
+  { name: 'driving', pool: shelves.driving(), max: 10 },
+  { name: 'running', pool: shelves.running(), max: 10 },
+  { name: 'math', pool: shelves.math(), max: 10 },
+  { name: 'io', pool: shelves.io(), max: 10 },
+  { name: 'twoPlayer', pool: shelves.twoPlayer(), max: 10 },
+  { name: 'breaks', pool: shelves.breaks(), max: 10 },
+];
+const dedupedShelves = buildHomeShelves(rawHomeShelves);
+const shelfMap = new Map(dedupedShelves.map((s) => [s.name, s.games]));
+const featured = shelfMap.get('featured') || [];
+const newGames = shelfMap.get('new') || [];
+const driving = shelfMap.get('driving') || [];
+const running = shelfMap.get('running') || [];
+const math = shelfMap.get('math') || [];
+const io = shelfMap.get('io') || [];
+const twoPlayer = shelfMap.get('twoPlayer') || [];
+const breaks = shelfMap.get('breaks') || [];
 
 const jsonLd = {
   '@context': 'https://schema.org',
