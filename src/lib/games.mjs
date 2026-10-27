@@ -181,6 +181,12 @@ export const shelves = {
   io: () => allGames.filter((g) => hasCat(g, ['.IO'])),
   sports: () => allGames.filter((g) => hasCat(g, ['Sports', 'Football'])),
   puzzle: () => allGames.filter((g) => hasCat(g, ['Puzzle', 'Merge', 'Match-3'])),
+  breaks: () =>
+    allGames.filter(
+      (g) =>
+        hasCat(g, ['Agility', 'Puzzle', 'Merge', 'Match-3']) ||
+        /endless|runner|running|dash|slope|merge|puzzle|2048|tetris|tunnel/i.test(text(g)),
+    ),
   twoPlayer: () => {
     const direct = allGames.filter((g) => /2 player|two player|multiplayer|1 ?vs ?1|versus/i.test(text(g)));
     const extra = allGames.filter(

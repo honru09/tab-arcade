@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import GameGrid from '../components/GameGrid.astro';
 import { hubs } from '../data/hubs.mjs';
-import { shelves, allGames, u } from '../lib/games.mjs';
+import { shelves, allGames, gameUrl, u } from '../lib/games.mjs';
 import { accentFor, bannerUrl } from '../lib/art.mjs';
 
 export function getStaticPaths() {
@@ -48,11 +48,29 @@ const jsonLd = [
     <p class="tagline">{hub.tagline}</p>
   </div>
 
+  {/* LP1 (Poki): sibling-category cards instead of a filter UI */}
+  <nav class="sib-row" aria-label="More game categories">
+    {hubs.filter((h) => h.slug !== hub.slug).map((h) => (
+      <a class="sib-card" href={u(`${h.slug}/`)}>{h.h1}</a>
+    ))}
+  </nav>
+
   {/* Client-side Jump back in rail (spec §2.1) */}
   <div id="jumpBackInRail"></div>
 
   <h2>Play Now — {games.length} Free Games</h2>
   <GameGrid games={games} />
+
+  {/* LP1 (Poki): sibling-category cards + top-picks strip. Top picks are our
+      own revenue-first shelf order, labeled as such — no invented ratings. */}
+  <section class="top-picks">
+    <h2>Top picks in {hub.h1}</h2>
+    <ol>
+      {games.slice(0, 5).map((g) => (
+        <li><a href={gameUrl(g)}>{g.title}</a></li>
+      ))}
+    </ol>
+  </section>
 
   <div class="expandable" style="margin-top:30px">
     <div class="prose">

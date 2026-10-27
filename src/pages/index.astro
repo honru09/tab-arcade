@@ -12,7 +12,8 @@ const driving = shelves.driving().slice(0, 10);
 const running = shelves.running().slice(0, 10);
 const math = shelves.math().slice(0, 10);
 const io = shelves.io().slice(0, 10);
-const sports = shelves.sports().slice(0, 10);
+const twoPlayer = shelves.twoPlayer().slice(0, 10);
+const breaks = shelves.breaks().slice(0, 10);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -88,17 +89,22 @@ const jsonLd = {
   </section>
 
   <div class="band band-alt">
-    <h2>⚽ Sports Games <a class="more" href={u('2-player-games/')}>2 player games →</a></h2>
-    <GameGrid games={sports} />
+    <h2>👥 2 Player Games <a class="more" href={u('2-player-games/')}>all 2 player games →</a></h2>
+    <GameGrid games={twoPlayer} />
   </div>
+
+  <section class="shelf">
+    <h2>⚡ Quick Break Games <a class="more" href={u('classroom-games/')}>classroom games →</a></h2>
+    <p class="shelf-note">Short, fast-loading rounds you can jump into and finish during a five-minute break.</p>
+    <GameGrid games={breaks} />
+  </section>
 
   <h2>Why TabArcade?</h2>
   <div class="expandable">
     <div class="prose">
       <p>
-        School laptops and Chromebooks block almost every way of installing a game — but they cannot block
-        the web itself. Every game on TabArcade runs as a web page, so there is nothing to install and
-        nothing to update. Rounds are short by design: an endless-runner attempt, a drift run or a puzzle
+        Every game on TabArcade runs as a web page, so there is nothing to install, nothing to download,
+        and nothing to update. Rounds are short by design: an endless-runner attempt, a drift run or a puzzle
         fits a lunch break or the last minutes of a free period, and the fullscreen button on each game
         page gives you the whole screen when you want it. In a hurry? The
         <a href={u('all-games/')}>all games A–Z list</a> puts every title on one page.
