@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import GameGrid from '../components/GameGrid.astro';
 import { hubs } from '../data/hubs.mjs';
-import { shelves, allGames, gameUrl, u } from '../lib/games.mjs';
+import { shelves, allGames, gameUrl, u, MARQUEE_EXCLUDE } from '../lib/games.mjs';
 
 export function getStaticPaths() {
   return hubs.map((hub) => ({ params: { hub: hub.slug }, props: { hub } }));
@@ -23,7 +23,15 @@ const HUB_ICONS: Record<string, string> = {
 };
 
 const { hub } = Astro.props;
-const games = (shelves[hub.shelf] ? shelves[hub.shelf]() : allGames).slice(0, 48);
+let games = (shelves[hub.shelf] ? shelves[hub.shelf]() : allGames).slice(0, 48);
+// MARQUEE_EXCLUDE cannot be hero tile (slot 0) per A9
+if (games.length > 1 && MARQUEE_EXCLUDE.has(games[0].slug)) {
+  const safeIdx = games.findIndex((g) => !MARQUEE_EXCLUDE.has(g.slug));
+  if (safeIdx > 0) {
+    const [fav] = games.splice(safeIdx, 1);
+    games.unshift(fav);
+  }
+}
 
 const jsonLd = [
   {

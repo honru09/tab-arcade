@@ -4,6 +4,7 @@ import gmGames from '../data/games-gm.json';
 export { gdGames, gmGames };
 
 export const MONETIZED_SOURCES = new Set(['gamemonetize']);
+export const MARQUEE_EXCLUDE = new Set(['ligmar-online']);
 
 const normTitle = (s) => (s || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
 
@@ -108,7 +109,7 @@ const text = (g) => `${g.title} ${g.instructions} ${(g.tags || []).join(' ')}`;
  */
 function buildFeatured(games) {
   const gmSafe = games.filter(
-    (g) => MONETIZED_SOURCES.has(g.source) && !isHorror(g),
+    (g) => MONETIZED_SOURCES.has(g.source) && !isHorror(g) && !MARQUEE_EXCLUDE.has(g.slug),
   );
   const isLandscape = (g) => (g.width / g.height) >= 1.3;
 
@@ -166,6 +167,7 @@ function buildFeatured(games) {
 /** Named shelves used by the home page and the hub pages. */
 export const shelves = {
   featured: () => buildFeatured(allGames),
+  newGames: () => allGames.slice(-12),
   halloween: () => {
     const slugs = new Set([
       'scary-granny-horror-maze-escape',
@@ -198,7 +200,15 @@ export const shelves = {
         hasCat(g, ['Puzzle', 'Merge', 'Educational', 'Match-3', 'Cards', 'Mahjong & Connect', 'Boardgames', 'Quiz']) ||
         /2048|math|number|merge|count/i.test(g.title),
     ),
-  io: () => allGames.filter((g) => hasCat(g, ['.IO'])),
+  io: () => {
+    const list = allGames.filter((g) => hasCat(g, ['.IO']));
+    const firstSafe = list.findIndex((g) => !MARQUEE_EXCLUDE.has(g.slug));
+    if (firstSafe > 0) {
+      const [fav] = list.splice(firstSafe, 1);
+      list.unshift(fav);
+    }
+    return list;
+  },
   sports: () => allGames.filter((g) => hasCat(g, ['Sports', 'Football'])),
   puzzle: () => allGames.filter((g) => hasCat(g, ['Puzzle', 'Merge', 'Match-3'])),
   breaks: () =>

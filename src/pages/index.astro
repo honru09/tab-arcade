@@ -5,6 +5,7 @@ import { shelves, allGames, gameUrl, u, getGameOfTheDay } from '../lib/games.mjs
 
 const gotd = getGameOfTheDay();
 const featured = shelves.featured();
+const newGames = shelves.newGames();
 const driving = shelves.driving().slice(0, 10);
 const running = shelves.running().slice(0, 10);
 const math = shelves.math().slice(0, 10);
@@ -32,9 +33,6 @@ const jsonLd = {
     <h1>Free Browser Games — No Downloads, Just Play</h1>
   </div>
 
-  {/* Client-side Jump back in rail (spec §2.1) */}
-  <div id="jumpBackInRail"></div>
-
   {/* Featured shelf with restyled Game of the Day hero (spec §3.3) */}
   <section class="shelf" id="popular">
     <div class="gotd-shelf">
@@ -56,6 +54,15 @@ const jsonLd = {
     <h2>🔥 Popular Games</h2>
     <GameGrid games={featured} mosaic />
   </section>
+
+  {/* Real New games shelf (A7) */}
+  <section class="shelf" id="new">
+    <h2>✨ New games</h2>
+    <GameGrid games={newGames} badgeContext="new" />
+  </section>
+
+  {/* Client-side Jump back in rail (spec §2.1, relocated below popular per A2) */}
+  <div id="jumpBackInRail"></div>
 
   <div class="band band-alt">
     <h2>🏎️ Driving &amp; Drifting <a class="more" href={u('driving-games/')}>all driving games →</a></h2>
@@ -82,7 +89,7 @@ const jsonLd = {
     <GameGrid games={twoPlayer} />
   </div>
 
-  <section class="shelf" id="new-games">
+  <section class="shelf">
     <h2>⚡ Quick Break Games <a class="more" href={u('classroom-games/')}>classroom games →</a></h2>
     <GameGrid games={breaks} />
   </section>
