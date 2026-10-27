@@ -132,6 +132,20 @@ export const hubs = [
     ],
   },
   {
+    slug: 'halloween-games',
+    shelf: 'halloween',
+    h1: 'Halloween Games',
+    tagline: 'Ghosts, zombies and candy chaos — spooky-season picks that load in a tab.',
+    banner: 'bg-space',
+    metaTitle: 'Halloween Games — Free Spooky Browser Games, No Download | TabArcade',
+    metaDescription:
+      'Free Halloween browser games: haunted mazes, zombie sieges, ghost hunts and trick-or-treat chaos. No downloads, no sign-up — play on Chromebook, PC or phone.',
+    intro: [
+      `October is the one month when the spooky shelf gets to run the arcade. This page gathers TabArcade's Halloween lineup: haunted-house escapes, ghost hunts, zombie defenses, monster racers, and a trick-or-treat carnival for players who prefer their scares with candy. Some lean creepy, some lean silly — all of them load in a normal browser tab with nothing to download and no account to create.`,
+      `Start at the top if you want the full haunted-house treatment, or drop into the zombie and monster games for faster rounds between classes. Every title runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on each game page gives you the biggest play area your screen allows. Playing after dark is optional but encouraged. When the season ends, the running, driving, and puzzle shelves are waiting — the ghosts understand.`,
+    ],
+  },
+  {
     slug: 'best-unblocked-games',
     shelf: 'best',
     h1: 'Best Unblocked Games',

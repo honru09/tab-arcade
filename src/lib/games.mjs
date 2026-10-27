@@ -166,6 +166,26 @@ function buildFeatured(games) {
 /** Named shelves used by the home page and the hub pages. */
 export const shelves = {
   featured: () => buildFeatured(allGames),
+  halloween: () => {
+    const slugs = new Set([
+      'scary-granny-horror-maze-escape',
+      'trick-or-treat-candy-carnival',
+      'boo-chains',
+      'spooky-boxing',
+      'halloween-football-championship',
+      'zombie-barrage',
+      'shooter-soldiers-vs-zombies',
+      'wheelie-spooky',
+      'zombie-sprint',
+      'monsters-wheels-2',
+      'adopt-a-monster',
+      'grim-spell',
+      'deadfloor-factory',
+      'tower-truck-zombie-siege',
+      'ghost-hunt-spirit-scanner',
+    ]);
+    return allGames.filter((g) => slugs.has(g.slug));
+  },
   popular: () => [...allGames].slice(0, 36),
   driving: () => allGames.filter((g) => hasCat(g, ['Racing & Driving'])),
   running: () =>
