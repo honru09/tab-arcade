@@ -1,5 +1,7 @@
 ---
 import { u, allGames, gameUrl, scoreGame } from '../lib/games.mjs';
+import QuickRail from '../components/QuickRail.astro';
+import PokiSearch from '../components/PokiSearch.astro';
 
 interface Props {
   title: string;
@@ -258,7 +260,85 @@ const searchIndex = JSON.stringify(
         box-shadow: 0 6px 14px rgba(0, 0, 0, 0.45);
       }
       .ribbon.hot { background: linear-gradient(92deg, #ffd23e, #ff5da2); }
-      .ribbon.new { background: linear-gradient(92deg, #38e1ff, #4ade80); }
+      .ribbon.new { background: #ffffff; color: #17233f; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); }
+
+      /* V10 Hero tile (Hub #1 game) */
+      .tile.hero-tile {
+        grid-column: span 2;
+        grid-row: span 2;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .hero-shade {
+        position: absolute; inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(0, 0, 0, 0.78) 95%);
+        pointer-events: none;
+        z-index: 2;
+      }
+      .hero-info {
+        position: absolute;
+        left: 14px;
+        bottom: 14px;
+        right: 14px;
+        z-index: 3;
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 10px;
+        pointer-events: none;
+      }
+      .hero-title {
+        color: #ffffff;
+        font-family: var(--disp);
+        font-size: clamp(16px, 2.4vw, 22px);
+        font-weight: 900;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .hero-play-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: #ffffff;
+        color: #17233f;
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 800;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+        flex: 0 0 auto;
+        transition: transform 0.15s ease;
+      }
+      .hero-tile:hover .hero-play-chip {
+        transform: scale(1.06);
+      }
+
+      /* V10 Hub shelf H1 header */
+      .shelf-h1 {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: var(--disp);
+        font-size: clamp(22px, 3.2vw, 32px);
+        font-weight: 900;
+        margin: 8px 0 16px;
+      }
+      .shelf-h1 .shelf-icon {
+        font-size: 1.1em;
+      }
+      .hub-tagline {
+        font-size: 16px;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
       .chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 7px; }
       .chip {
         display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.02em;
@@ -310,8 +390,37 @@ const searchIndex = JSON.stringify(
       }
       .btn.ghost:hover { background: var(--panel3); }
 
-      /* ---------- static game of the day banner (spec §3.4) ---------- */
-      .gotd-shelf { margin-bottom: 18px; }
+      /* ---------- Poki-shape GOTD hero (spec §3.3) ---------- */
+      .gotd-shelf { margin-bottom: 22px; }
+      .gotd-hero {
+        position: relative;
+        display: block;
+        border-radius: var(--radius-tile);
+        overflow: hidden;
+        box-shadow: var(--shadow-tile);
+        aspect-ratio: 16 / 7;
+        max-height: 280px;
+        background: var(--panel2);
+        text-decoration: none;
+      }
+      @media (max-width: 600px) {
+        .gotd-hero { aspect-ratio: 16 / 9; max-height: none; }
+      }
+      .gotd-hero .hero-cover {
+        width: 100%; height: 100%; object-fit: cover; display: block;
+      }
+      .gotd-hero .hero-badge {
+        position: absolute; top: 12px; left: 12px; z-index: 4;
+        display: inline-flex; align-items: center; gap: 5px;
+        font-size: 11px; font-weight: 900; letter-spacing: 0.1em;
+        color: #22112e; background: var(--grad);
+        padding: 4px 11px; border-radius: 999px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+      .gotd-hero:hover {
+        text-decoration: none;
+      }
+
       .gotd-banner {
         background: var(--panel);
         border: 1px solid var(--line);
@@ -553,6 +662,28 @@ const searchIndex = JSON.stringify(
         background: var(--amber); display: inline-block;
       }
       .rail-items { display: flex; flex-direction: column; gap: 8px; }
+      .rail-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .rail-tile {
+        position: relative;
+        display: block;
+        aspect-ratio: 1;
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--panel2);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      .rail-tile:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      }
+      .rail-tile img {
+        width: 100%; height: 100%; object-fit: cover; display: block;
+      }
       .rail-card {
         display: flex; align-items: center; gap: 10px; padding: 6px 8px;
         border-radius: 10px; background: var(--panel2);
@@ -763,6 +894,8 @@ const searchIndex = JSON.stringify(
         <p>© {new Date().getFullYear()} TabArcade. Play nice — and put the tab away when the bell rings.</p>
       </div>
     </footer>
+    <QuickRail />
+    <PokiSearch />
     <script>
       (() => {
         /* Drawers + "read more" expandables */

@@ -4,9 +4,6 @@ import GameGrid from '../components/GameGrid.astro';
 import { shelves, allGames, gameUrl, u, getGameOfTheDay } from '../lib/games.mjs';
 
 const gotd = getGameOfTheDay();
-const dot = gotd.description.indexOf('. ');
-const gotdBlurb = (dot > 40 ? gotd.description.slice(0, dot + 1) : gotd.description.slice(0, 140)).slice(0, 150);
-
 const featured = shelves.featured();
 const driving = shelves.driving().slice(0, 10);
 const running = shelves.running().slice(0, 10);
@@ -43,28 +40,26 @@ const jsonLd = {
   {/* Client-side Jump back in rail (spec §2.1) */}
   <div id="jumpBackInRail"></div>
 
-  {/* Featured shelf with static Game of the Day pick (spec §3.4) */}
-  <section class="shelf">
+  {/* Featured shelf with restyled Game of the Day hero (spec §3.3) */}
+  <section class="shelf" id="popular">
     <div class="gotd-shelf">
-      <div class="gotd-banner">
-        <div class="gotd-badge">⭐ GAME OF THE DAY</div>
-        <div class="gotd-content">
-          <a href={gameUrl(gotd)} class="gotd-thumb-link" aria-label={`Play ${gotd.title}`}>
-            <img src={gotd.thumb} alt="" width="512" height="384" loading="eager" />
-          </a>
-          <div class="gotd-info">
-            <h3><a href={gameUrl(gotd)}>{gotd.title}</a></h3>
-            <p>{gotdBlurb}</p>
-            <div class="gotd-actions">
-              <a href={gameUrl(gotd)} class="btn">Play Now →</a>
-              <span class="chip">{gotd.categories[0]}</span>
-            </div>
-          </div>
+      <a href={gameUrl(gotd)} class="gotd-hero" aria-label={`Play ${gotd.title}`}>
+        <img src={gotd.thumb} alt="" width="1024" height="576" loading="eager" class="hero-cover" />
+        <span class="hero-shade" aria-hidden="true"></span>
+        <span class="hero-badge" aria-hidden="true">⭐ GAME OF THE DAY</span>
+        <div class="hero-info">
+          <div class="hero-title">{gotd.title}</div>
+          <span class="hero-play-chip" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+            Play
+          </span>
         </div>
-      </div>
+      </a>
     </div>
 
-    <h2>⭐ Featured Games</h2>
+    <h2>🔥 Popular Games</h2>
     <GameGrid games={featured} mosaic />
   </section>
 
@@ -93,14 +88,14 @@ const jsonLd = {
     <GameGrid games={twoPlayer} />
   </div>
 
-  <section class="shelf">
+  <section class="shelf" id="new-games">
     <h2>⚡ Quick Break Games <a class="more" href={u('classroom-games/')}>classroom games →</a></h2>
-    <p class="shelf-note">Short, fast-loading rounds you can jump into and finish during a five-minute break.</p>
     <GameGrid games={breaks} />
   </section>
 
-  <h2>Why TabArcade?</h2>
-  <div class="expandable">
+  {/* Why TabArcade prose relocated below all shelves per Section 6 */}
+  <div class="expandable" style="margin-top:36px">
+    <h2>Why TabArcade?</h2>
     <div class="prose">
       <p>
         Every game on TabArcade runs as a web page, so there is nothing to install, nothing to download,
@@ -141,7 +136,6 @@ const jsonLd = {
             ${list.slice(0, 8).map((item) => `
               <a class="tile" href="${esc(item.url)}" title="${esc(item.title)}" aria-label="Play ${esc(item.title)} online">
                 <img class="tile-img" src="${esc(item.thumb)}" alt="" loading="lazy" width="512" height="384" />
-                <span class="tile-cap">${esc(item.title)}</span>
               </a>
             `).join('')}
           </div>

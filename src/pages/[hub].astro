@@ -3,19 +3,26 @@ import Base from '../layouts/Base.astro';
 import GameGrid from '../components/GameGrid.astro';
 import { hubs } from '../data/hubs.mjs';
 import { shelves, allGames, gameUrl, u } from '../lib/games.mjs';
-import { accentFor, bannerUrl } from '../lib/art.mjs';
 
 export function getStaticPaths() {
   return hubs.map((hub) => ({ params: { hub: hub.slug }, props: { hub } }));
 }
 
+const HUB_ICONS: Record<string, string> = {
+  'unblocked-games-for-school': '🏫',
+  'math-games': '🧮',
+  'unblocked-games-for-chromebook': '💻',
+  'classroom-games': '🎒',
+  '2-player-games': '👥',
+  'io-games': '🌐',
+  'driving-games': '🏎️',
+  'running-games': '🏃',
+  'games-like-cool-math-games': '🧊',
+  'best-unblocked-games': '⭐',
+};
+
 const { hub } = Astro.props;
 const games = (shelves[hub.shelf] ? shelves[hub.shelf]() : allGames).slice(0, 48);
-const accent = accentFor(games[0]);
-const banner = bannerUrl(hub);
-const heroBg = banner
-  ? `background-image: linear-gradient(100deg, rgba(7,10,22,.95) 34%, rgba(7,10,22,.85) 68%, rgba(7,10,22,.68)), url(${banner});`
-  : '';
 
 const jsonLd = [
   {
@@ -43,26 +50,23 @@ const jsonLd = [
 ---
 
 <Base title={hub.metaTitle} description={hub.metaDescription} jsonLd={jsonLd}>
-  <div class:list={['hub-hero', { 'has-banner': !!banner }]} style={`--acc:${accent};${heroBg}`}>
-    <h1>{hub.h1}</h1>
-    <p class="tagline">{hub.tagline}</p>
-  </div>
+  {/* Above the grid: ONLY shelf-style H1 header per Section 6 */}
+  <h1 class="shelf-h1">
+    <span class="shelf-icon">{HUB_ICONS[hub.slug] || '🎮'}</span>
+    {hub.h1}
+  </h1>
 
-  {/* LP1 (Poki): sibling-category cards instead of a filter UI */}
+  {/* Grid opens with 2x2 hero tile for the #1 game per Deliverable 3 */}
+  <GameGrid games={games} hubHero={true} />
+
+  {/* LP1 (Poki): sibling-category cards relocated BELOW grid */}
   <nav class="sib-row" aria-label="More game categories">
     {hubs.filter((h) => h.slug !== hub.slug).map((h) => (
       <a class="sib-card" href={u(`${h.slug}/`)}>{h.h1}</a>
     ))}
   </nav>
 
-  {/* Client-side Jump back in rail (spec §2.1) */}
-  <div id="jumpBackInRail"></div>
-
-  <h2>Play Now — {games.length} Free Games</h2>
-  <GameGrid games={games} />
-
-  {/* LP1 (Poki): sibling-category cards + top-picks strip. Top picks are our
-      own revenue-first shelf order, labeled as such — no invented ratings. */}
+  {/* Top picks strip */}
   <section class="top-picks">
     <h2>Top picks in {hub.h1}</h2>
     <ol>
@@ -72,8 +76,10 @@ const jsonLd = [
     </ol>
   </section>
 
-  <div class="expandable" style="margin-top:30px">
+  {/* Tagline and intro copy relocated BELOW grid per Section 6 */}
+  <div class="expandable" style="margin-top:28px">
     <div class="prose">
+      <p class="hub-tagline"><strong>{hub.tagline}</strong></p>
       <p>{hub.intro[0]}</p>
       <div class="exp-rest">
         <div class="exp-clip">
@@ -88,6 +94,9 @@ const jsonLd = [
     </div>
     <button class="exp-btn" type="button" aria-expanded="false" data-more="Read more ▾" data-less="Show less ▴">Read more ▾</button>
   </div>
+
+  {/* Client-side Jump back in rail (spec §2.1) */}
+  <div id="jumpBackInRail"></div>
 
   <script>
     (() => {
@@ -107,7 +116,6 @@ const jsonLd = [
             ${list.slice(0, 8).map((item) => `
               <a class="tile" href="${esc(item.url)}" title="${esc(item.title)}" aria-label="Play ${esc(item.title)} online">
                 <img class="tile-img" src="${esc(item.thumb)}" alt="" loading="lazy" width="512" height="384" />
-                <span class="tile-cap">${esc(item.title)}</span>
               </a>
             `).join('')}
           </div>
