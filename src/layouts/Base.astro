@@ -49,8 +49,7 @@ const searchIndex = JSON.stringify(
     <link rel="icon" href={u('icon-512.png')} type="image/png" sizes="512x512" />
     <link rel="apple-touch-icon" href={u('apple-touch-icon.png')} />
     {/* Every page renders feed thumbnails from these two CDNs */}
-    <link rel="preconnect" href="https://img.gamedistribution.com" />
-    <link rel="preconnect" href="https://img.gamemonetize.com" />
+        <link rel="preconnect" href="https://img.gamemonetize.com" />
     {/* Per-game embed origin preconnect (spec §2.3) */}
     {embedOrigin && <link rel="preconnect" href={embedOrigin} />}
     {embedOrigin && <link rel="dns-prefetch" href={embedOrigin} />}

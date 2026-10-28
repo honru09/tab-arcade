@@ -159,4 +159,19 @@ export const hubs = [
       `What makes a game "best" here is practical, not mysterious. It has to load fast in a plain browser tab, teach itself in under a minute, survive on Chromebook hardware, and still be interesting on the tenth play. Every title is free with no downloads and no sign-ups, and each game page carries a description, the controls, and a short FAQ so you know what you are starting before you press play. New to the site? Begin at the top of the list. Returning? The category shelves in the menu organize the full catalog when you are ready to dig deeper than the hits.`,
     ],
   },
+  {
+    slug: 'winter-games',
+    shelf: 'winter',
+    h1: 'Winter Games',
+    tagline: 'Snow runs, downhill sleds and icy drifts — the winter shelf is open in any browser tab.',
+    banner: 'bg-snow',
+    icon: '❄️',
+    metaTitle: 'Winter Games Unblocked — Free Snow & Sledding Games | TabArcade',
+    metaDescription:
+      'Free winter and snow browser games: downhill sledding, snow plow challenges, snowball races and icy runs that work on Chromebooks. No downloads, no sign-up.',
+    intro: [
+      `Winter games capture the best kind of cold: downhill speed, sliding turns, and the quiet rush of carving fresh tracks across a snowy slope. Whether you are dodging pine trees on a wooden sled, plowing frozen streets after a blizzard, or rolling a runaway snowball into an unstoppable boulder, the rules are simple and the restarts are instant. There is no snow gear to unpack and no cold toes to worry about — just grab the arrow keys and see how far down the mountain you can go before a tree branch says otherwise.`,
+      `This shelf gathers TabArcade\'s winter and snow games in one place, built to run smoothly in an ordinary browser tab on Chromebooks, home laptops, and phones. None of them ask for a download, an install, or an account, so you can jump in for a fast run during a study break or settle in for a longer session. When a run goes wrong, the restart button is right there. The fullscreen button on each game page hides the browser frame so you can focus on the slope ahead. Bundle up, take the first drop, and see if your downhill line can top the scoreboard.`,
+    ],
+  },
 ];

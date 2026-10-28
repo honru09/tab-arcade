@@ -170,6 +170,7 @@ export const shelves = {
   newGames: () => allGames.slice(-12),
   halloween: () => {
     const slugs = new Set([
+      'monsters-wheels-2',
       'scary-granny-horror-maze-escape',
       'trick-or-treat-candy-carnival',
       'boo-chains',
@@ -177,14 +178,22 @@ export const shelves = {
       'halloween-football-championship',
       'zombie-barrage',
       'shooter-soldiers-vs-zombies',
-      'wheelie-spooky',
-      'zombie-sprint',
-      'monsters-wheels-2',
-      'adopt-a-monster',
-      'grim-spell',
-      'deadfloor-factory',
-      'tower-truck-zombie-siege',
-      'ghost-hunt-spirit-scanner',
+      'roadster-dash-halloween-night',
+      'spooky-racing',
+      'moto-extreme-halloween-land',
+      'kick-the-zombie-ragdoll-sandbox',
+      'halloween-tile-tumble',
+    ]);
+    return allGames.filter((g) => slugs.has(g.slug));
+  },
+  winter: () => {
+    const slugs = new Set([
+      'snow-rider-neo',
+      'snow-rush-3d',
+      'snow-plow-inc',
+      'snow-ball-race',
+      'winter-cold-wind',
+      'arctic-truck-driver',
     ]);
     return allGames.filter((g) => slugs.has(g.slug));
   },
