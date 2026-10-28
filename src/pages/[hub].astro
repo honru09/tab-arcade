@@ -76,6 +76,16 @@ const jsonLd = [
     ))}
   </nav>
 
+  <section class="top-picks">
+    <h2>Top picks in {hub.h1}</h2>
+    <ol>
+      {games.slice(0, 5).map((g) => (
+        <li><a href={gameUrl(g)}>{g.title}</a></li>
+      ))}
+    </ol>
+    <p>First five games on this shelf, in shelf order.</p>
+  </section>
+
   {/* Tagline and intro copy relocated BELOW grid per Section 6 */}
   <div class="expandable" style="margin-top:28px">
     <div class="prose">

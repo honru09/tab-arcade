@@ -16,7 +16,7 @@ export const hubs = [
       'Free browser games that load in a normal tab with no downloads or sign-ups. Racing, running, puzzle and .io games that work on school Chromebooks.',
     intro: [
       `This is the shelf we built TabArcade around: free games that open in an ordinary browser tab and start in seconds. There is nothing to download, nothing to install, and no account to create — which is exactly what you need on a school Chromebook during lunch, a free period, or the last ten minutes of a study hall. Every game here streams straight from the page, so a borrowed or school-issued laptop is all it takes.`,
-      `Inside you will find the genres students actually ask for: endless runners and drifting games for quick rounds, puzzle and math games that stretch a little longer, sports titles, and multiplayer .io games when friends want in on the same match. If you are not sure where to start, begin with the featured picks at the top — they are the games our visitors finish and come back to most. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
+      `Inside you will find the genres students actually ask for: endless runners and drifting games for quick rounds, puzzle and math games that stretch a little longer, sports titles, and multiplayer .io games when friends want in on the same match. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
     ],
   },
   {
@@ -155,7 +155,7 @@ export const hubs = [
     metaDescription:
       'Our hand-picked best unblocked browser games: runners, drifters, puzzles and .io titles that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — the games our visitors start, finish, and return to — spanning the genres that define school-break gaming: endless runners, drift racers, math and logic puzzles, sports duels, and multiplayer .io arenas. If a game stops earning its spot, it comes off the page.`,
+      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: endless runners, drift racers, math and logic puzzles, sports duels, and multiplayer .io arenas. If a game stops earning its spot, it comes off the page.`,
       `What makes a game "best" here is practical, not mysterious. It has to load fast in a plain browser tab, teach itself in under a minute, survive on Chromebook hardware, and still be interesting on the tenth play. Every title is free with no downloads and no sign-ups, and each game page carries a description, the controls, and a short FAQ so you know what you are starting before you press play. New to the site? Begin at the top of the list. Returning? The category shelves in the menu organize the full catalog when you are ready to dig deeper than the hits.`,
     ],
   },

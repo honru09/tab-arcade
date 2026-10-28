@@ -6,6 +6,7 @@ import { shelves, allGames, gameUrl, u, getGameOfTheDay, buildHomeShelves } from
 const gotd = getGameOfTheDay();
 const rawHomeShelves = [
   { name: 'featured', pool: shelves.featured(), max: 16 },
+  { name: 'halloween', pool: shelves.halloween(), max: 10 },
   { name: 'new', pool: shelves.newGames(), max: 12 },
   { name: 'driving', pool: shelves.driving(), max: 10 },
   { name: 'running', pool: shelves.running(), max: 10 },
@@ -17,6 +18,7 @@ const rawHomeShelves = [
 const dedupedShelves = buildHomeShelves(rawHomeShelves);
 const shelfMap = new Map(dedupedShelves.map((s) => [s.name, s.games]));
 const featured = shelfMap.get('featured') || [];
+const halloween = shelfMap.get('halloween') || [];
 const newGames = shelfMap.get('new') || [];
 const driving = shelfMap.get('driving') || [];
 const running = shelfMap.get('running') || [];
@@ -67,10 +69,15 @@ const jsonLd = {
     <GameGrid games={featured} mosaic />
   </section>
 
-  {/* Real New games shelf (A7) */}
+  <section class="shelf">
+    <h2>🎃 Halloween Games <a class="more" href={u('halloween-games/')}>all halloween games →</a></h2>
+    <GameGrid games={halloween} />
+  </section>
+
+  {/* Shelf remainder / more from the shelf */}
   <section class="shelf" id="new">
-    <h2>✨ New games</h2>
-    <GameGrid games={newGames} badgeContext="new" />
+    <h2>🎮 More from the shelf</h2>
+    <GameGrid games={newGames} />
   </section>
 
   {/* Client-side Jump back in rail (spec §2.1, relocated below popular per A2) */}
@@ -135,6 +142,16 @@ const jsonLd = {
     </div>
     <button class="exp-btn" type="button" aria-expanded="false" data-more="Read more ▾" data-less="Show less ▴">Read more ▾</button>
   </div>
+
+  <section class="top-picks">
+    <h2>Top picks on TabArcade</h2>
+    <ol>
+      {featured.slice(0, 10).map((g) => (
+        <li><a href={gameUrl(g)}>{g.title}</a></li>
+      ))}
+    </ol>
+    <p>Every title below opens in a browser tab on Chromebooks, laptops and phones — no download, no sign-up.</p>
+  </section>
 
   <script>
     (() => {
