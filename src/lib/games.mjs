@@ -311,18 +311,23 @@ export function getGameOfTheDay() {
   return pool[day % pool.length] || allGames[0];
 }
 
-/** Related games: revenue-first within relevance (spec §2.4, §3.2) */
+/** Related games: (1) same primary category, (2) shared tags count, (3) revenue-first score (spec C7) */
 export function relatedGames(game, n = 6) {
+  const primaryCat = (game.categories && game.categories[0]) || '';
+  const gameTags = game.tags || [];
   const scored = allGames
     .filter((g) => g.slug !== game.slug)
-    .map((g) => ({
-      g,
-      relevance:
-        (g.categories || []).filter((c) => (game.categories || []).includes(c)).length * 2 +
-        (g.tags || []).filter((t) => (game.tags || []).includes(t)).length,
-      revenue: scoreGame(g),
-    }))
-    .sort((a, b) => (b.relevance - a.relevance) || (b.revenue - a.revenue));
+    .map((g) => {
+      const sameCat = (g.categories && g.categories[0] === primaryCat) ? 1 : 0;
+      const sharedTags = (g.tags || []).filter((t) => gameTags.includes(t)).length;
+      const score = scoreGame(g);
+      return { g, sameCat, sharedTags, score };
+    })
+    .sort((a, b) => {
+      if (b.sameCat !== a.sameCat) return b.sameCat - a.sameCat;
+      if (b.sharedTags !== a.sharedTags) return b.sharedTags - a.sharedTags;
+      return b.score - a.score;
+    });
   return scored.slice(0, n).map((s) => s.g);
 }
 
@@ -333,18 +338,12 @@ export function gameFaqs(game) {
       a: `Yes. ${game.title} is completely free to play on TabArcade. There are no downloads, no installs and no sign-up — the game loads in your browser and you can start playing right away.`,
     },
     {
-      q: `Is ${game.title} unblocked at school?`,
-      a: `${game.title} runs in a normal browser tab with nothing to install, so it works anywhere you can open TabArcade — including school Chromebooks on most networks.`,
+      q: `Do I need to download or sign up?`,
+      a: `No. ${game.title} runs entirely in your browser with no downloads, no installs, and no registration required. Just open the page and click Play.`,
     },
     {
-      q: `Can I play ${game.title} on a Chromebook?`,
-      a: `Yes. ${game.title} runs in a regular browser tab, so it works on school and home Chromebooks as well as Windows, Mac and Linux computers. Just open the page and press play — nothing needs to be installed.`,
-    },
-    {
-      q: `Does ${game.title} work on phones and tablets?`,
-      a: game.mobile
-        ? `Yes. ${game.title} supports touch controls, so it works on phones and tablets as well as computers. For the biggest screen, use the fullscreen button above the game.`
-        : `${game.title} plays in any modern mobile browser, but it is best enjoyed with a keyboard and a larger screen, for example on a Chromebook or laptop. Use the fullscreen button above the game for more room.`,
+      q: `Does ${game.title} work on a school Chromebook?`,
+      a: `Yes. ${game.title} runs in a regular browser tab, so it works smoothly on school and home Chromebooks as well as Windows, Mac, and mobile devices. Just open the page and start playing.`,
     },
   ];
 }

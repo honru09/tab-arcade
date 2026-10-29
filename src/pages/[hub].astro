@@ -59,7 +59,7 @@ const jsonLd = [
 ];
 ---
 
-<Base title={hub.metaTitle} description={hub.metaDescription} jsonLd={jsonLd}>
+<Base title={hub.metaTitle} description={hub.metaDescription} jsonLd={jsonLd} theme={hub.theme}>
   {/* Above the grid: ONLY shelf-style H1 header per Section 6 */}
   <h1 class="shelf-h1">
     <span class="shelf-icon">{HUB_ICONS[hub.slug] || '🎮'}</span>
@@ -68,7 +68,7 @@ const jsonLd = [
   </h1>
 
   {/* Grid opens with 2x2 hero tile for the #1 game per Deliverable 3 */}
-  <GameGrid games={games} hubHero={true} />
+  <GameGrid games={games} hubHero={true} heroRibbon={hub.theme === 'halloween' ? '🎃 Halloween event' : null} />
 
   {/* LP1 (Poki): sibling-category cards relocated BELOW grid */}
   <nav class="sib-row" aria-label="More game categories">
@@ -123,11 +123,11 @@ const jsonLd = [
         const shelf = document.createElement('section');
         shelf.className = `shelf jump-back-in-shelf${isSparse ? ' is-sparse' : ''}`;
         shelf.innerHTML = `
-          <h2>🕒 Jump Back In</h2>
+          <h2>🕒 Jump back in</h2>
           <div class="tiles rail${isSparse ? ' is-sparse' : ''}">
             ${list.slice(0, 8).map((item) => `
               <a class="tile" href="${esc(item.url)}" title="${esc(item.title)}" aria-label="Play ${esc(item.title)} online">
-                <img class="tile-img" src="${esc(item.thumb)}" alt="" loading="lazy" width="512" height="384" />
+                <img class="tile-img" src="${esc(item.thumb)}" alt="" loading="lazy" width="512" height="384" onload="this.classList.add('is-loaded')" />
               </a>
             `).join('')}
           </div>

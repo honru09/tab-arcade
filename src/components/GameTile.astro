@@ -1,6 +1,6 @@
 ---
 import { gameUrl } from '../lib/games.mjs';
-const { game, big = false, hero = false, eager = false, badge = true, badgeContext = null } = Astro.props;
+const { game, big = false, hero = false, eager = false, badge = true, badgeContext = null, heroRibbon = null } = Astro.props;
 
 /* Badges: existing NEW ribbon ONLY on tiles inside this New shelf (pass badge context), nowhere else.
    Keep HOT for featured games. */
@@ -24,10 +24,16 @@ const ribbon = badgeContext === 'new' ? 'new' : (badge && game.featured ? 'hot' 
     loading={eager ? 'eager' : 'lazy'}
     width="512"
     height="384"
+    onload="this.classList.add('is-loaded')"
   />
   {
     hero ? (
       <>
+        {heroRibbon && (
+          <span class="ribbon halloween" aria-hidden="true">
+            {heroRibbon}
+          </span>
+        )}
         <span class="hero-shade" aria-hidden="true" />
         <div class="hero-info">
           <div class="hero-title">{game.title}</div>

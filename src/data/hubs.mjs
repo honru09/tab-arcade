@@ -134,6 +134,7 @@ export const hubs = [
   {
     slug: 'halloween-games',
     shelf: 'halloween',
+    theme: 'halloween',
     h1: 'Halloween Games',
     tagline: 'Ghosts, zombies and candy chaos — spooky-season picks that load in a tab.',
     banner: 'bg-space',
