@@ -6,6 +6,7 @@ import { shelves, allGames, gameUrl, u, getGameOfTheDay, buildHomeShelves } from
 const gotd = getGameOfTheDay();
 const rawHomeShelves = [
   { name: 'featured', pool: shelves.featured(), max: 16 },
+  { name: 'schoolMix', pool: shelves.schoolMix(), max: 10 },
   { name: 'halloween', pool: shelves.halloween(), max: 10 },
   { name: 'new', pool: shelves.newGames(), max: 12 },
   { name: 'driving', pool: shelves.driving(), max: 10 },
@@ -13,11 +14,12 @@ const rawHomeShelves = [
   { name: 'math', pool: shelves.math(), max: 10 },
   { name: 'io', pool: shelves.io(), max: 10 },
   { name: 'twoPlayer', pool: shelves.twoPlayer(), max: 10 },
-  { name: 'breaks', pool: shelves.breaks(), max: 10 },
+  { name: 'breaks', pool: shelves.classroom(), max: 10 },
 ];
 const dedupedShelves = buildHomeShelves(rawHomeShelves);
 const shelfMap = new Map(dedupedShelves.map((s) => [s.name, s.games]));
 const featured = shelfMap.get('featured') || [];
+const schoolMix = shelfMap.get('schoolMix') || [];
 const halloween = shelfMap.get('halloween') || [];
 const newGames = shelfMap.get('new') || [];
 const driving = shelfMap.get('driving') || [];
@@ -45,6 +47,7 @@ const jsonLd = {
 >
   <div class="title-strip">
     <h1>Free Browser Games — No Downloads, Just Play</h1>
+    <p class="lede">Racing, running, puzzle, math and .io games that open in a browser tab on Chromebooks, laptops and phones — no downloads, no sign-ups.</p>
   </div>
 
   {/* Featured shelf with restyled Game of the Day hero (spec §3.3) */}
@@ -67,6 +70,11 @@ const jsonLd = {
 
     <h2>🔥 Popular Games</h2>
     <GameGrid games={featured} mosaic />
+  </section>
+
+  <section class="shelf">
+    <h2>🎓 Unblocked Games for School <a class="more" href={u('unblocked-games-for-school/')}>all unblocked games →</a></h2>
+    <GameGrid games={schoolMix} />
   </section>
 
   <section class="shelf">
