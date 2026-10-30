@@ -27,6 +27,7 @@ const nav = [
   ['IO Games', u('io-games/')],
   ['2 Player', u('2-player-games/')],
   ['Best Games', u('best-unblocked-games/')],
+  ['Halloween', u('halloween-games/')],
   ['Winter', u('winter-games/')],
 ];
 
@@ -1013,8 +1014,15 @@ const searchIndex = JSON.stringify(
         color: var(--muted); font-size: 13px; padding: 26px 0 34px; margin-top: 26px;
       }
       footer.site .links { display: flex; gap: 6px 16px; flex-wrap: wrap; margin-bottom: 12px; }
-      footer.site .links a { color: var(--muted); font-weight: 600; }
-      footer.site .links a:hover { color: var(--text); }
+      footer.site .links a, footer.site .links button { color: var(--muted); font-weight: 600; }
+      footer.site .links button {
+        background: none;
+        border: 0;
+        padding: 0;
+        font: inherit;
+        cursor: pointer;
+      }
+      footer.site .links a:hover, footer.site .links button:hover { color: var(--text); }
       footer.site .trust-links { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 8px 0 14px; font-size: 13px; }
       footer.site .trust-links a { color: var(--muted); font-weight: 600; }
       footer.site .trust-links a:hover { color: var(--text); }
@@ -1080,7 +1088,7 @@ const searchIndex = JSON.stringify(
           Tab<span>Arcade</span>
         </a>
         <div class="search" role="search">
-          <input id="siteSearch" type="search" placeholder="Search games…" aria-label="Search games" autocomplete="off" />
+          <input id="siteSearch" type="search" placeholder="Search games and categories…" aria-label="Search games and categories" autocomplete="off" />
           <div class="search-results" id="searchResults" hidden></div>
         </div>
         <script type="application/json" id="gameIndex" set:html={searchIndex} />
@@ -1099,6 +1107,7 @@ const searchIndex = JSON.stringify(
           <a href={u('all-games/')}>All Games A–Z</a>
           <a href={u('unblocked-games-for-chromebook/')}>Chromebook Games</a>
           <a href={u('games-like-cool-math-games/')}>Games Like Cool Math Games</a>
+          <button type="button" id="randomGameBtn">🎲 Random game</button>
         </div>
         <div class="trust-links">
           <a href={u('about/')}>About</a>
@@ -1214,6 +1223,24 @@ const searchIndex = JSON.stringify(
           if ((img as HTMLImageElement).complete) img.classList.add('is-loaded');
           else img.addEventListener('load', () => img.classList.add('is-loaded'), { once: true });
         });
+
+        /* Footer: Random game button */
+        const randomBtn = document.getElementById('randomGameBtn');
+        if (randomBtn) {
+          randomBtn.addEventListener('click', () => {
+            const idx = document.getElementById('gameIndex');
+            if (!idx) return;
+            try {
+              const list = JSON.parse(idx.textContent || '[]');
+              if (Array.isArray(list) && list.length > 0) {
+                const choice = list[Math.floor(Math.random() * list.length)];
+                if (choice && choice.u) {
+                  window.location.href = choice.u;
+                }
+              }
+            } catch (e) {}
+          });
+        }
       })();
     </script>
   </body>

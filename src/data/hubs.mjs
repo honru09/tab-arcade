@@ -43,7 +43,7 @@ export const hubs = [
     metaDescription:
       'Free browser games that work on school Chromebooks — no installs, no extensions, no downloads, no sign-up. Every game runs right in Chrome.',
     intro: [
-      `Chromebooks are wonderful school machines and frustrating game machines — no app store freedom, no installs, and storage that fills up if you look at it wrong. The way around all of that is simple: play games that never needed installing in the first place. Every title on TabArcade runs as a web page inside Chrome, using the same tab you would use for a document or a classroom site.`,
+      `Chromebooks are wonderful school machines and frustrating game machines — no app store freedom, no installs, and storage that fills up if you look at it wrong. The simple answer: play games that never needed installing in the first place. Every title on TabArcade runs as a web page inside Chrome, using the same tab you would use for a document or a classroom site.`,
       `This hub gathers our most Chromebook-friendly picks: games with simple keyboard or mouse controls, fast loading, and rounds that fit a break between classes. Endless runners, drift racers, puzzle games and .io titles all behave well on modest hardware, because the heavy lifting happens in the browser. A trackpad is enough for most of them, and the fullscreen button on each game page hides the browser chrome for a bigger view. If your school laptop is the only computer you have got, this page is your arcade — bookmark it and the whole collection is one click away whenever you have a free moment.`,
     ],
   },
