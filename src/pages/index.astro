@@ -92,7 +92,7 @@ const jsonLd = {
   <div id="jumpBackInRail"></div>
 
   <div class="band band-alt">
-    <h2>🏎️ Driving &amp; Drifting <a class="more" href={u('driving-games/')}>all driving games →</a></h2>
+    <h2>🏎️ Driving Games <a class="more" href={u('driving-games/')}>all driving games →</a></h2>
     <GameGrid games={driving} />
   </div>
 
@@ -102,7 +102,7 @@ const jsonLd = {
   </section>
 
   <div class="band band-alt">
-    <h2>🧮 Math &amp; Puzzle Games <a class="more" href={u('math-games/')}>all math games →</a></h2>
+    <h2>🧮 Math Games <a class="more" href={u('math-games/')}>all math games →</a></h2>
     <GameGrid games={math} />
   </div>
 
@@ -159,6 +159,24 @@ const jsonLd = {
       ))}
     </ol>
     <p>Every title below opens in a browser tab on Chromebooks, laptops and phones — no download, no sign-up.</p>
+  </section>
+
+  <section class="top-picks">
+    <h2>Browse by mood</h2>
+    <div class="prose">
+      <p>
+        <strong>Play with friends</strong> — Share a keyboard or join a live multiplayer match:{' '}
+        <a href={u('2-player-games/')}>2 Player Games</a>, <a href={u('io-games/')}>.io Games</a>.
+      </p>
+      <p>
+        <strong>Chase a challenge</strong> — Fast-paced racing and reflex runners for quick rounds:{' '}
+        <a href={u('driving-games/')}>Driving Games</a>, <a href={u('running-games/')}>Running Games</a>.
+      </p>
+      <p>
+        <strong>Slow down and think</strong> — Calm number puzzles and quiet classroom games:{' '}
+        <a href={u('math-games/')}>Math Games</a>, <a href={u('classroom-games/')}>Classroom Games</a>.
+      </p>
+    </div>
   </section>
 
   <script>

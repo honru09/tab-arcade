@@ -29,6 +29,8 @@ const nav = [
   ['Best Games', u('best-unblocked-games/')],
   ['Halloween', u('halloween-games/')],
   ['Winter', u('winter-games/')],
+  ['Chromebook', u('unblocked-games-for-chromebook/')],
+  ['Cool Math', u('games-like-cool-math-games/')],
 ];
 
 /* Header search index: ranked revenue-first */
@@ -1105,8 +1107,6 @@ const searchIndex = JSON.stringify(
         <div class="links">
           {nav.map(([label, href]) => <a href={href}>{label}</a>)}
           <a href={u('all-games/')}>All Games A–Z</a>
-          <a href={u('unblocked-games-for-chromebook/')}>Chromebook Games</a>
-          <a href={u('games-like-cool-math-games/')}>Games Like Cool Math Games</a>
           <button type="button" id="randomGameBtn">🎲 Random game</button>
         </div>
         <div class="trust-links">
