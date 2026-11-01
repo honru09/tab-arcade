@@ -425,3 +425,20 @@ export function buildHomeShelves(shelfSpecs) {
 
   return completed;
 }
+
+/** Decode feed entity names (F4) */
+export function decodeEntities(text) {
+  if (!text) return '';
+  return text
+    .replace(/(?:&(?:rarr|larr|uarr|darr|mdash|ndash|hellip);?|\b(?:rarr|larr|uarr|darr|mdash|ndash|hellip)\b)/g, (m) => {
+      if (m.includes('rarr')) return '→';
+      if (m.includes('larr')) return '←';
+      if (m.includes('uarr')) return '↑';
+      if (m.includes('darr')) return '↓';
+      if (m.includes('mdash')) return '—';
+      if (m.includes('ndash')) return '–';
+      if (m.includes('hellip')) return '…';
+      return m;
+    })
+    .replace(/(?<!&)\bamp\b(?!;)/g, '&');
+}
