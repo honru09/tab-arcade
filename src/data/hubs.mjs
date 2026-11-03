@@ -150,7 +150,7 @@ export const hubs = [
     slug: 'best-unblocked-games',
     shelf: 'best',
     h1: 'Best Unblocked Games',
-    tagline: 'Our hall of fame — the games players finish, replay and argue about.',
+    tagline: 'Our hall of fame — the shortlist, in shelf order.',
     banner: 'bg-snow',
     metaTitle: 'Best Unblocked Games — Top Free Browser Games to Play Now | TabArcade',
     metaDescription:
