@@ -69,10 +69,10 @@ export const hubs = [
     banner: 'bg-stadium',
     metaTitle: '2 Player Games Unblocked — Play Side by Side in Your Browser | TabArcade',
     metaDescription:
-      'Free 2 player browser games for Chromebooks: share a keyboard or play online — tennis, battles, sports and multiplayer .io games. No downloads, no sign-up.',
+      'Free 2 player browser games for Chromebooks: shared-keyboard duels, sports, and multiplayer .io matches. No downloads, no sign-up.',
     intro: [
-      `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook and one keyboard into a whole tournament: one player on the WASD keys, the other on the arrows, winner stays on. This shelf collects the TabArcade games that support head-to-head play, shared-keyboard matches, or online multiplayer against friends and strangers alike.`,
-      `Start with the sports and battle titles if you want instant bragging rights — tennis, arena fights, and quick duel games explain themselves in seconds and finish in minutes, which makes them perfect for lunch-table championships. The multiplayer .io games on this page scale the same idea up to whole lobbies when your opponent is in a different room. Every game runs in the browser with no downloads or accounts, and each game page spells out the controls for both players before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
+      `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook and one keyboard into a whole tournament: one player on the WASD keys, the other on the arrows, winner stays on. This shelf collects the TabArcade games that support head-to-head duels, shared-keyboard matches, .io rounds, and multiplayer matchmaking.`,
+      `Start with the sports and battle titles if you want instant bragging rights — arena fights and quick duel games explain themselves in seconds and finish in minutes, which makes them perfect for lunch-table championships. The multiplayer .io rounds on this page deliver quick competitive matchmaking when your opponent is on a separate screen. Every game runs in the browser with no downloads or accounts, and each game page outlines the controls and instructions before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
     ],
   },
   {
