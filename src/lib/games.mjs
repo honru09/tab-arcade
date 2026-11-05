@@ -332,7 +332,14 @@ export function relatedGames(game, n = 6) {
 }
 
 export function gameFaqs(game) {
+  const cleanDesc = decodeEntities(game.description);
+  const dot = cleanDesc.indexOf('. ');
+  const teaser = dot > 40 ? cleanDesc.slice(0, dot + 1) : cleanDesc.slice(0, 150);
   return [
+    {
+      q: `What is the goal in ${game.title}?`,
+      a: teaser,
+    },
     {
       q: `Is ${game.title} free to play?`,
       a: `Yes. ${game.title} is completely free to play on TabArcade. There are no downloads, no installs and no sign-up — the game loads in your browser and you can start playing right away.`,
