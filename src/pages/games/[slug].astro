@@ -43,6 +43,8 @@ const parentHub = hubs.find((h) => {
   const shelfFn = shelves[h.shelf];
   return shelfFn ? shelfFn().some((g) => g.slug === game.slug) : false;
 });
+const inHalloween = shelves.halloween().some((g) => g.slug === game.slug);
+const inWinter = shelves.winter().some((g) => g.slug === game.slug);
 const backLinkText = parentHub ? `← ${parentHub.h1}` : '← All games';
 const backLinkHref = parentHub ? u(`${parentHub.slug}/`) : u('all-games/');
 const breadcrumbHubName = parentHub ? parentHub.h1 : 'All Games';
@@ -215,6 +217,16 @@ const jsonLd = [
       </p>
 
       <p class="teaser"><b>{game.title}</b> — {teaser}</p>
+      {inHalloween && (
+        <p class="teaser" style="margin-top:6px;">
+          More Halloween games in our <a href={u('halloween-games/')}>Halloween Games</a> collection →
+        </p>
+      )}
+      {inWinter && (
+        <p class="teaser" style="margin-top:6px;">
+          More Winter games in our <a href={u('winter-games/')}>Winter Games</a> collection →
+        </p>
+      )}
 
       <div class="drawers two" style={`--acc:${accent}`}>
         <div class="drawer">

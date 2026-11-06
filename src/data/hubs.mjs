@@ -27,10 +27,10 @@ export const hubs = [
     banner: 'bg-grid',
     metaTitle: 'Math Games Unblocked — Free Number, Logic & Puzzle Games | TabArcade',
     metaDescription:
-      'Free math and logic browser games: 2048 merges, number puzzles, strategy and brain training that work on school Chromebooks. No downloads, no sign-up.',
+      'Free math browser games: 2048 and merge number puzzles that work on school Chromebooks. No downloads, no sign-up.',
     intro: [
-      `Math games earn their place in the classroom because they are genuinely good games that happen to run on numbers. The merge-and-plan thinking in 2048, the pattern spotting in match-3 puzzles, and the quiet strategy of a good board or card game all reward the same skills a math class tries to teach — estimation, sequencing, and thinking two moves ahead. Teachers know it, which is why shelves like this one are a fixture on school laptops.`,
-      `Our math shelf collects number puzzles, merge games, logic challenges, quizzes, and light strategy titles from the TabArcade catalog. None of them need a download or an account, and all of them run in a browser tab on a Chromebook. Short on time? The merge and puzzle games are built for five-minute rounds between classes. Want something deeper? The strategy and board games will hold a whole free period. Every title is free, and the How to Play section on each game page explains the goal and controls before you start.`,
+      `Math games earn their place in the classroom because they are genuinely good games that happen to run on numbers. The merge-and-plan thinking in 2048 rewards the core skills a math class tries to teach — estimation, sequencing, and thinking two moves ahead. Teachers know it, which is why number-focused games are a fixture on school laptops.`,
+      `Our math shelf is small and focused: two number games — a fast-paced 2048 runner and a merge puzzle. Both run entirely in a regular browser tab on a Chromebook, with no downloads, no installs, and no accounts required. Each game is built for quick five-minute rounds between classes. Every title is free, and the How to Play section on each game page explains the goal and controls before you start.`,
     ],
   },
   {
@@ -83,10 +83,10 @@ export const hubs = [
     banner: 'bg-space',
     metaTitle: 'IO Games Unblocked — Free Multiplayer Browser Games | TabArcade',
     metaDescription:
-      'Free .io browser games: grow, battle and outlast real players in quick multiplayer matches that work on Chromebooks. No downloads, no sign-up.',
+      'Free .io browser games: arena battles, building clickers, obby escapes and shooting rounds that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `.io games are the purest form of browser multiplayer: click a link, type a nickname, and you are in a live arena with real players from all over the world — no lobby codes, no downloads, no waiting for updates. The formula that made the genre famous still works: start small, eat, grow, and try not to get eaten. Every round is a fresh story of near-misses and revenge.`,
-      `Our .io shelf rounds up the strongest titles in the TabArcade catalog, from snake-style growers and arena battlers to quirky newcomers with vacuums, cubes, and keyboards. Sessions are short by design, so a single match fits a class break, but the one-more-round pull is very real. Because matches are live, a decent connection matters more than a powerful computer — these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a name and jump in.`,
+      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across merge puzzles, building and idle clickers, arena shooters, and obstacle obby escapes. Every round is self-contained and loads in seconds right inside your browser tab.`,
+      `Our .io shelf rounds up the varied titles in the TabArcade catalog, from arena battlers and FPS duels to building clickers, keycap pyramids, and speed keyboard escapes. Sessions are short by design, so a single match fits a class break, but the one-more-round pull is very real. Because everything runs directly in the browser, these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a game and jump in.`,
     ],
   },
   {
@@ -109,12 +109,12 @@ export const hubs = [
     h1: 'Running Games',
     tagline: 'Endless runners and sprint games. One more try is never just one.',
     banner: 'bg-track',
-    metaTitle: 'Running Games Unblocked — Endless Runners & Parkour Games | TabArcade',
+    metaTitle: 'Running Games Unblocked — Endless Runners & Dash Games | TabArcade',
     metaDescription:
-      'Free endless runner games in your browser: slope-style runs, tunnels and parkour courses that work on Chromebooks. No download, no sign-up.',
+      'Free endless runner games in your browser: slope-style runs and endless dash games that work on Chromebooks. No download, no sign-up.',
     intro: [
       `Running games distill gaming to its purest reflex test: the ground moves, the obstacles come, and you either react in time or you start again. It is the genre behind some of the most-played browser games in schools, because a run takes under a minute, failure is instant and funny, and the next attempt is always one click away. This shelf is TabArcade's home for the genre.`,
-      `You will find downhill speed-runners, tunnel dodgers, parkour and obstacle-course games, and side-scrolling sprinters, all playable in a browser tab with no downloads. Most use just the arrow keys or a tap, so they are ideal Chromebook games — low hardware demands, high tension. The skill ceiling is what keeps people hooked: clean lines through a tunnel at full speed feel exactly as good on attempt fifty as on attempt one. Each game page explains the controls and the goal, and lists similar runners at the bottom if you clear one and want a sterner test. On your marks.`,
+      `You will find downhill speed-runners, endless dash and rush games, jumping and obstacle-course games, and platform runners, all playable in a browser tab with no downloads. Most use just the arrow keys or a tap, so they are ideal Chromebook games — low hardware demands, high tension. The skill ceiling is what keeps people hooked: clean lines through an obstacle course at full speed feel exactly as good on attempt fifty as on attempt one. Each game page explains the controls and the goal, and lists similar runners at the bottom if you clear one and want a sterner test. On your marks.`,
     ],
   },
   {
