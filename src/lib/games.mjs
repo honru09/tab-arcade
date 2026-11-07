@@ -353,6 +353,10 @@ export function gameFaqs(game) {
       a: `Yes. ${game.title} runs in a regular browser tab, so it works smoothly on school and home Chromebooks as well as Windows, Mac, and mobile devices. Just open the page and start playing.`,
     },
     {
+      q: `Can I play ${game.title} on my phone or tablet?`,
+      a: `Yes — ${game.title} opens in a browser tab on phones and tablets too, just like on a Chromebook. No app to install, no sign-up.`,
+    },
+    {
       q: `Can I play ${game.title} in fullscreen?`,
       a: `Yes — use the Fullscreen button in the player toolbar above the game. It fills your whole screen; press Esc or the button again to leave fullscreen.`,
     },

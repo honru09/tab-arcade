@@ -44,7 +44,7 @@ export const hubs = [
       'Free browser games that work on school Chromebooks — no installs, no extensions, no downloads, no sign-up. Every game runs right in Chrome.',
     intro: [
       `Chromebooks are wonderful school machines and frustrating game machines — no app store freedom, no installs, and storage that fills up if you look at it wrong. The simple answer: play games that never needed installing in the first place. Every title on TabArcade runs as a web page inside Chrome, using the same tab you would use for a document or a classroom site.`,
-      `This hub gathers our most Chromebook-friendly picks: games with simple keyboard or mouse controls, fast loading, and rounds that fit a break between classes. Endless runners, drift racers, puzzle games and .io titles all behave well on modest hardware, because the heavy lifting happens in the browser. A trackpad is enough for most of them, and the fullscreen button on each game page hides the browser chrome for a bigger view. If your school laptop is the only computer you have got, this page is your arcade — bookmark it and the whole collection is one click away whenever you have a free moment.`,
+      `This hub gathers our most Chromebook-friendly picks: games with simple keyboard or mouse controls, fast loading, and rounds that fit a break between classes. Endless runners, puzzle games and .io titles all behave well on modest hardware, because the heavy lifting happens in the browser. A trackpad is enough for most of them, and the fullscreen button on each game page hides the browser chrome for a bigger view. If your school laptop is the only computer you have got, this page is your arcade — bookmark it and the whole collection is one click away whenever you have a free moment.`,
     ],
   },
   {
@@ -121,14 +121,14 @@ export const hubs = [
     slug: 'games-like-cool-math-games',
     shelf: 'logic',
     h1: 'Games Like Cool Math Games',
-    tagline: 'The clever stuff: logic, strategy and puzzles with real brain burn.',
+    tagline: 'The clever stuff: logic, escape and puzzle games with real brain burn.',
     banner: 'bg-dojo',
-    metaTitle: 'Games Like Cool Math Games — Free Logic, Puzzle & Strategy Games | TabArcade',
+    metaTitle: 'Games Like Cool Math Games — Free Logic & Puzzle Games | TabArcade',
     metaDescription:
-      'Free logic, puzzle and strategy games like Cool Math Games, playable in your browser on Chromebooks and PC. No downloads, no sign-up — just thinking games.',
+      'Free logic and puzzle games like Cool Math Games, playable in your browser on Chromebooks and PC. No downloads, no sign-up — just thinking games.',
     intro: [
       `Cool Math Games taught a whole generation that "educational" and "fun" are not opposites — its mix of logic puzzles, strategy games, and number challenges became the default break-time site in thousands of schools. If you have finished its catalog, or your school laptop routine just needs fresh material, this shelf is the natural next stop: the same thinking-first genres, gathered from the TabArcade collection.`,
-      `Expect merge puzzles that reward planning, chess-like strategy games, card and board classics, quizzes, and slow-burn logic challenges rather than twitch reflexes. These are games you can pause mid-thought when the teacher walks past, and pick up again without losing the thread — a genuinely useful property in a classroom. Everything here is free, runs in a normal browser tab on Chromebooks and home computers, and needs no account or download. Each game page explains the rules and controls up front, and the math shelf nearby is worth a look if the number games are your favorite flavor of thinking.`,
+      `Expect escape-room puzzles, sorting and matching challenges, physics puzzlers and slow-burn logic challenges rather than twitch reflexes. These are games you can pause mid-thought when the teacher walks past, and pick up again without losing the thread — a genuinely useful property in a classroom. Everything here is free, runs in a normal browser tab on Chromebooks and home computers, and needs no account or download. Each game page explains the rules and controls up front, and the math shelf nearby is worth a look if the number games are your favorite flavor of thinking.`,
     ],
   },
   {
@@ -156,7 +156,7 @@ export const hubs = [
     metaDescription:
       'Our hand-picked best unblocked browser games: runners, drifters, puzzles and .io titles that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: endless runners, drift racers, math and logic puzzles, sports duels, and multiplayer .io arenas. If a game stops earning its spot, it comes off the page.`,
+      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: endless runners, drift racers, math and logic puzzles, and multiplayer .io arenas. If a game stops earning its spot, it comes off the page.`,
       `What makes a game "best" here is practical, not mysterious. It has to load fast in a plain browser tab, teach itself in under a minute, survive on Chromebook hardware, and still be interesting on the tenth play. Every title is free with no downloads and no sign-ups, and each game page carries a description, the controls, and a short FAQ so you know what you are starting before you press play. New to the site? Begin at the top of the list. Returning? The category shelves in the menu organize the full catalog when you are ready to dig deeper than the hits.`,
     ],
   },
