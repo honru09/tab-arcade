@@ -278,7 +278,10 @@ export const shelves = {
       ...shelves.io().slice(0, 6),
       ...shelves.sports().slice(0, 4),
     ];
-    return [...new Map(picks.map((g) => [g.slug, g])).values()];
+    const excluded = new Set(['gorilgo-fps-online-shooter', 'online-kitpvp-50vs50']);
+    return [...new Map(picks.map((g) => [g.slug, g])).values()].filter(
+      (g) => !excluded.has(g.slug),
+    );
   },
   schoolMix: () => {
     const picks = [
@@ -445,7 +448,7 @@ export function buildHomeShelves(shelfSpecs) {
 export function decodeEntities(text) {
   if (!text) return '';
   return text
-    .replace(/(?:&(?:rarr|larr|uarr|darr|mdash|ndash|hellip);?|\b(?:rarr|larr|uarr|darr|mdash|ndash|hellip)\b)/g, (m) => {
+    .replace(/(?:&(?:rarr|larr|uarr|darr|mdash|ndash|hellip|rsquo|lsquo|ldquo|rdquo|quot|apos);?|\b(?:rarr|larr|uarr|darr|mdash|ndash|hellip|rsquo|lsquo|ldquo|rdquo|quot|apos)\b)/g, (m) => {
       if (m.includes('rarr')) return '→';
       if (m.includes('larr')) return '←';
       if (m.includes('uarr')) return '↑';
@@ -453,6 +456,12 @@ export function decodeEntities(text) {
       if (m.includes('mdash')) return '—';
       if (m.includes('ndash')) return '–';
       if (m.includes('hellip')) return '…';
+      if (m.includes('rsquo')) return '’';
+      if (m.includes('lsquo')) return '‘';
+      if (m.includes('ldquo')) return '“';
+      if (m.includes('rdquo')) return '”';
+      if (m.includes('quot')) return '"';
+      if (m.includes('apos')) return "'";
       return m;
     })
     .replace(/(?<!&)\bamp\b(?!;)/g, '&');

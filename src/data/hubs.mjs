@@ -111,10 +111,10 @@ export const hubs = [
     banner: 'bg-track',
     metaTitle: 'Running Games Unblocked — Endless Runners & Dash Games | TabArcade',
     metaDescription:
-      'Free endless runner games in your browser: slope-style runs and endless dash games that work on Chromebooks. No download, no sign-up.',
+      'Free endless runner games in your browser: speed runs and endless dash games that work on Chromebooks. No download, no sign-up.',
     intro: [
       `Running games distill gaming to its purest reflex test: the ground moves, the obstacles come, and you either react in time or you start again. It is the genre behind some of the most-played browser games in schools, because a run takes under a minute, failure is instant and funny, and the next attempt is always one click away. This shelf is TabArcade's home for the genre.`,
-      `You will find downhill speed-runners, endless dash and rush games, jumping and obstacle-course games, and platform runners, all playable in a browser tab with no downloads. Most use just the arrow keys or a tap, so they are ideal Chromebook games — low hardware demands, high tension. The skill ceiling is what keeps people hooked: clean lines through an obstacle course at full speed feel exactly as good on attempt fifty as on attempt one. Each game page explains the controls and the goal, and lists similar runners at the bottom if you clear one and want a sterner test. On your marks.`,
+      `You will find speed-runners, endless dash and rush games, jumping and obstacle-course games, and platform runners, all playable in a browser tab with no downloads. Most use just the arrow keys or a tap, so they are ideal Chromebook games — low hardware demands, high tension. The skill ceiling is what keeps people hooked: clean lines through an obstacle course at full speed feel exactly as good on attempt fifty as on attempt one. Each game page explains the controls and the goal, and lists similar runners at the bottom if you clear one and want a sterner test. On your marks.`,
     ],
   },
   {
@@ -154,9 +154,9 @@ export const hubs = [
     banner: 'bg-snow',
     metaTitle: 'Best Unblocked Games — Top Free Browser Games to Play Now | TabArcade',
     metaDescription:
-      'Our hand-picked best unblocked browser games: runners, drifters, puzzles and .io titles that work on Chromebooks. No downloads, no sign-up.',
+      'Our hand-picked best unblocked browser games: runners, racers, puzzles and .io titles that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: endless runners, drift racers, math and logic puzzles, and multiplayer .io arenas. If a game stops earning its spot, it comes off the page.`,
+      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: quick runners and racers, merge and puzzle games, and multiplayer .io arenas. If a game stops earning its spot, it comes off the page.`,
       `What makes a game "best" here is practical, not mysterious. It has to load fast in a plain browser tab, teach itself in under a minute, survive on Chromebook hardware, and still be interesting on the tenth play. Every title is free with no downloads and no sign-ups, and each game page carries a description, the controls, and a short FAQ so you know what you are starting before you press play. New to the site? Begin at the top of the list. Returning? The category shelves in the menu organize the full catalog when you are ready to dig deeper than the hits.`,
     ],
   },
