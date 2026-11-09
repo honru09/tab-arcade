@@ -51,14 +51,14 @@ export const hubs = [
     slug: 'classroom-games',
     shelf: 'classroom',
     h1: 'Classroom Games',
-    tagline: 'Quick, quiet rounds of math, logic and puzzles — free periods were made for this.',
+    tagline: 'Quick break rounds of racing, puzzles, platformers and .io games — free periods were made for this.',
     banner: 'bg-party',
     metaTitle: 'Classroom Games — Free Browser Games for School Breaks | TabArcade',
     metaDescription:
-      'Classroom-friendly free browser games for school breaks: puzzles, runners, driving and .io games that work on Chromebooks. No downloads, no sign-up.',
+      'Classroom-friendly free browser games for school breaks: racing, puzzles, .io rounds, sports and platformers on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `A good classroom game has a specific job: fill a break, a finished-assignment gap, or a rainy lunch period without creating a single problem for anyone. That means quick to load, easy to learn, quiet by default, and simple to close the moment the lesson starts again. The games on this shelf were chosen with exactly that job in mind, from the thousands of browser titles we could have picked.`,
-      `You will find calm puzzle and math games for solo play, gentle runners and driving games for a quick challenge, and a few .io games for friendly competition when the whole table wants in. Everything plays directly in the browser — no downloads, no accounts, no setup — and works on the Chromebooks schools actually hand out. Teachers looking for a reward-time or brain-break option will find the math and logic section especially useful, and each game page includes a short description and controls summary so there are no surprises. Pick a game, press play, and put it away when the bell rings.`,
+      `A good classroom game has a specific job: fill a break, a finished-assignment gap, or a free period without any hassle. That means quick to load, easy to learn, and simple to close the moment the bell rings. This shelf collects 21 browser games tuned for school breaks, running smoothly on Chromebooks, laptops and phones with zero downloads or accounts.`,
+      `Across the collection you will find fast racing and driving challenges, number and logic puzzles, obby platformers, quick sports rounds, and bite-sized .io sessions. Every title opens right in your browser tab, and each game page includes clear controls and goal summaries so you can jump straight into the action and wrap up when class resumes.`,
     ],
   },
   {

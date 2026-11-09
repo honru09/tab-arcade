@@ -32,6 +32,13 @@ const primaryCat = game.categories[0] || 'Browser';
 const accent = accentFor(game);
 const embedOrigin = new URL(game.embedUrl).origin;
 
+const TAG_BLOCKLIST = new Set([
+  'casino', 'girls', 'boys', 'gun', 'shooter', 'first person shooter',
+  'fps', 'shooting', 'kill', 'zombie', 'horror', 'battle',
+  '2026 games', 'best', 'best games', 'hot', 'cool', 'crazygamesunblocked',
+]);
+const visibleTags = (game.tags || []).filter((t: string) => !TAG_BLOCKLIST.has(t.toLowerCase()));
+
 const title = `Play ${game.title} Unblocked — Free Online, No Download | TabArcade`;
 const flatDesc = cleanDesc.replace(/\s+/g, ' ').trim();
 const mDot = flatDesc.indexOf('. ');
@@ -243,9 +250,9 @@ const jsonLd = [
                 </div>
                 <p>{cleanDesc}</p>
                 {
-                  game.tags.length > 0 && (
+                  visibleTags.length > 0 && (
                     <span class="chips">
-                      {game.tags.map((t) => (
+                      {visibleTags.map((t: string) => (
                         <span class="chip alt">{t}</span>
                       ))}
                     </span>

@@ -7,7 +7,7 @@ const gotd = getGameOfTheDay();
 const rawHomeShelves = [
   { name: 'featured', pool: shelves.featured(), max: 16 },
   { name: 'schoolMix', pool: shelves.schoolMix(), max: 10 },
-  { name: 'halloween', pool: shelves.halloween(), max: 10 },
+  { name: 'winter', pool: shelves.winter(), max: 10 },
   { name: 'new', pool: shelves.newGames(), max: 12 },
   { name: 'driving', pool: shelves.driving(), max: 10 },
   { name: 'running', pool: shelves.running(), max: 10 },
@@ -20,7 +20,7 @@ const dedupedShelves = buildHomeShelves(rawHomeShelves);
 const shelfMap = new Map(dedupedShelves.map((s) => [s.name, s.games]));
 const featured = shelfMap.get('featured') || [];
 const schoolMix = shelfMap.get('schoolMix') || [];
-const halloween = shelfMap.get('halloween') || [];
+const winter = shelfMap.get('winter') || [];
 const newGames = shelfMap.get('new') || [];
 const driving = shelfMap.get('driving') || [];
 const running = shelfMap.get('running') || [];
@@ -78,8 +78,8 @@ const jsonLd = {
   </section>
 
   <section class="shelf">
-    <h2>🎃 Halloween Games <a class="more" href={u('halloween-games/')}>all halloween games →</a></h2>
-    <GameGrid games={halloween} />
+    <h2>❄️ Winter Games <a class="more" href={u('winter-games/')}>all winter games →</a></h2>
+    <GameGrid games={winter} />
   </section>
 
   {/* Shelf remainder / more from the shelf */}

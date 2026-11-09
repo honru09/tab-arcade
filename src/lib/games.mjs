@@ -167,7 +167,14 @@ function buildFeatured(games) {
 /** Named shelves used by the home page and the hub pages. */
 export const shelves = {
   featured: () => buildFeatured(allGames),
-  newGames: () => allGames.slice(-12),
+  newGames: () => {
+    const shooterTags = new Set(['shooter', 'first person shooter', 'fps', 'gun', 'shooting']);
+    const shooterRe = /shooter|fps|first.person|sniper|snipe|\bgun\b/i;
+    const isShooter = (g) =>
+      (g.tags || []).some((t) => shooterTags.has(t.toLowerCase())) ||
+      shooterRe.test(`${g.title || ''} ${(g.description || '')}`);
+    return allGames.filter((g) => !isHorror(g) && !isShooter(g)).slice(-12);
+  },
   halloween: () => {
     const slugs = new Set([
       'monsters-wheels-2',
@@ -278,7 +285,7 @@ export const shelves = {
       ...shelves.io().slice(0, 6),
       ...shelves.sports().slice(0, 4),
     ];
-    const excluded = new Set(['gorilgo-fps-online-shooter', 'online-kitpvp-50vs50']);
+    const excluded = new Set(['gorilgo-fps-online-shooter', 'online-kitpvp-50vs50', 'car-eats-car-3d']);
     return [...new Map(picks.map((g) => [g.slug, g])).values()].filter(
       (g) => !excluded.has(g.slug),
     );
