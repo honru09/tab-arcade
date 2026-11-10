@@ -201,6 +201,7 @@ export const shelves = {
       'snow-ball-race',
       'winter-cold-wind',
       'arctic-truck-driver',
+      'frosty-ball',
     ]);
     return allGames.filter((g) => slugs.has(g.slug));
   },
@@ -213,7 +214,9 @@ export const shelves = {
     ),
   running: () =>
     allGames.filter(
-      (g) => hasCat(g, ['Agility']) || /run|rush|dash|runner|endless|tunnel|slope/i.test(text(g)),
+      (g) =>
+        !hasCat(g, ['Shooter']) &&
+        (hasCat(g, ['Agility']) || /run|rush|dash|runner|endless|tunnel|slope/i.test(text(g))),
     ),
   math: () => {
     const mathCatEdu = ['Educational', 'Quiz'];
@@ -344,7 +347,14 @@ export function relatedGames(game, n = 6) {
 export function gameFaqs(game) {
   const cleanDesc = decodeEntities(game.description);
   const dot = cleanDesc.indexOf('. ');
-  const teaser = dot > 40 ? cleanDesc.slice(0, dot + 1) : cleanDesc.slice(0, 150);
+  let teaser;
+  if (dot > 40 && dot <= 150) {
+    teaser = cleanDesc.slice(0, dot + 1);
+  } else {
+    const cut = cleanDesc.slice(0, 150);
+    const lastSpace = cut.lastIndexOf(' ');
+    teaser = (lastSpace !== -1 ? cut.slice(0, lastSpace) : cut) + '…';
+  }
   return [
     {
       q: `What is the goal in ${game.title}?`,

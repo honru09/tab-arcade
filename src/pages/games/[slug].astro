@@ -20,7 +20,14 @@ const nextGame = gamesLike[0] || upNext[0];
 const faqs = gameFaqs(game);
 const controlSections = parseControls(cleanInstructions);
 const dot = cleanDesc.indexOf('. ');
-const teaser = dot > 40 ? cleanDesc.slice(0, dot + 1) : cleanDesc.slice(0, 150);
+let teaser;
+if (dot > 40 && dot <= 150) {
+  teaser = cleanDesc.slice(0, dot + 1);
+} else {
+  const cut = cleanDesc.slice(0, 150);
+  const lastSpace = cut.lastIndexOf(' ');
+  teaser = (lastSpace !== -1 ? cut.slice(0, lastSpace) : cut) + '…';
+}
 const ins = (cleanInstructions || '').toLowerCase();
 const ctrl = [];
 if (/arrow|wasd|keyboard/.test(ins)) ctrl.push('Keyboard');
@@ -317,7 +324,12 @@ const jsonLd = [
         {gamesLike.slice(0, 3).map((g) => {
           const desc = decodeEntities(g.description || '');
           const dot = desc.indexOf('. ');
-          const hook = dot > 40 ? desc.slice(0, dot + 1) : desc.slice(0, 150);
+          const cut = desc.slice(0, 150);
+          const lastSpace = cut.lastIndexOf(' ');
+          const hook =
+            dot > 40 && dot <= 150
+              ? desc.slice(0, dot + 1)
+              : (lastSpace !== -1 ? cut.slice(0, lastSpace) : cut) + '…';
           return (
             <li>
               <a href={gameUrl(g)}>{g.title}</a>
