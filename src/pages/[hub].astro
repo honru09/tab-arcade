@@ -50,13 +50,13 @@ const STOPLIST = new Set([
 ]);
 
 const TYPE_BLURBS: Record<string, string> = {
-  '.io': 'Live multiplayer arenas that load in a tab — join a match in seconds, no lobby codes.',
+  '.io': 'Browser .io games — arenas, builders and quick rounds that load in a tab, no lobby codes.',
   'racing': 'Race against the clock or the pack — clean lines and sharp corners win.',
   'platform': 'Jump, climb and dodge through obstacle courses — timing beats speed.',
   'jumping': 'Jumping games built on timing — clear each gap or start the level again.',
   'adventure': 'Explore, collect and push forward through themed worlds and quests.',
   'multiplayer': 'Play against or alongside other players, on one keyboard or online.',
-  'car': 'Car games — driving, parking and stunt challenges behind the wheel.',
+  'car': 'Car games — driving and parking challenges behind the wheel.',
   'driving': 'Driving games — steer, drift and park your way through traffic and tracks.',
   'simulation': 'Simulation games — run the job, from driving a truck to tending a farm.',
   'brain': 'Brain games — logic and memory challenges that reward thinking ahead.',
@@ -171,6 +171,18 @@ const jsonLd = [
           text: 'No downloads and no sign-ups — play directly in a browser tab.',
         },
       },
+      ...(hub.slug === 'io-games'
+        ? [
+            {
+              '@type': 'Question',
+              name: 'How do .io games work in multiplayer matches?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, obby escapes and a keyboard speed-run you play at your own pace.',
+              },
+            },
+          ]
+        : []),
     ],
   },
   {
@@ -288,6 +300,14 @@ const jsonLd = [
         No downloads and no sign-ups — play directly in a browser tab.
       </p>
     </details>
+    {hub.slug === 'io-games' && (
+      <details>
+        <summary>How do .io games work in multiplayer matches?</summary>
+        <p>
+          Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, obby escapes and a keyboard speed-run you play at your own pace.
+        </p>
+      </details>
+    )}
   </div>
 
   <nav class="explore-row" aria-label="Keep exploring" style="margin-top:24px;font-size:14px;line-height:1.6;">

@@ -216,6 +216,7 @@ export const shelves = {
     allGames.filter(
       (g) =>
         !hasCat(g, ['Shooter']) &&
+        g.slug !== '1-speed-keyboard-lucky-escape' &&
         (hasCat(g, ['Agility']) || /run|rush|dash|runner|endless|tunnel|slope/i.test(text(g))),
     ),
   math: () => {
@@ -264,7 +265,10 @@ export const shelves = {
     return list;
   },
   sports: () => allGames.filter((g) => hasCat(g, ['Sports', 'Football'])),
-  puzzle: () => allGames.filter((g) => hasCat(g, ['Puzzle', 'Merge', 'Match-3'])),
+  puzzle: () => {
+    const slugs = new Set(['boombitz-bomb-chips']);
+    return allGames.filter((g) => hasCat(g, ['Puzzle', 'Merge', 'Match-3']) || slugs.has(g.slug));
+  },
   breaks: () =>
     allGames.filter(
       (g) =>
@@ -278,8 +282,12 @@ export const shelves = {
     );
     return [...direct, ...extra].slice(0, 24);
   },
-  logic: () =>
-    allGames.filter((g) => hasCat(g, ['Puzzle', 'Strategy', 'Educational', 'Cards', 'Boardgames', 'Quiz', 'Merge'])),
+  logic: () => {
+    const slugs = new Set(['boombitz-bomb-chips']);
+    return allGames.filter(
+      (g) => hasCat(g, ['Puzzle', 'Strategy', 'Educational', 'Cards', 'Boardgames', 'Quiz', 'Merge']) || slugs.has(g.slug),
+    );
+  },
   classroom: () => {
     const picks = [
       ...shelves.math().slice(0, 8),
