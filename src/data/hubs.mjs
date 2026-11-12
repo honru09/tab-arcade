@@ -16,7 +16,7 @@ export const hubs = [
       'Free browser games that load in a normal tab with no downloads or sign-ups. Racing, running, puzzle and .io games that work on school Chromebooks.',
     intro: [
       `This is the shelf we built TabArcade around: free games that open in an ordinary browser tab and start in seconds. There is nothing to download, nothing to install, and no account to create — which is exactly what you need on a school Chromebook during lunch, a free period, or the last ten minutes of a study hall. Every game here streams straight from the page, so a borrowed or school-issued laptop is all it takes.`,
-      `Inside you will find the genres students actually ask for: endless runners and drifting games for quick rounds, puzzle and math games that stretch a little longer, sports titles, and multiplayer .io games when friends want in on the same match. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
+      `Inside you will find the genres students actually ask for: endless runners and a drifting game for quick rounds, puzzle and math games that stretch a little longer, sports titles, and multiplayer .io games when friends want in on the same match. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
     ],
   },
   {
@@ -83,10 +83,10 @@ export const hubs = [
     banner: 'bg-space',
     metaTitle: 'IO Games Unblocked — Free Multiplayer Browser Games | TabArcade',
     metaDescription:
-      'Free .io browser games: arena battles, building clickers, obby escapes and shooting rounds that work on Chromebooks. No downloads, no sign-up.',
+      'Free .io browser games: arena battles, building clickers, obby escapes and a shooting round that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across merge puzzles, building and idle clickers, arena shooters, and obstacle obby escapes. Every round is self-contained and loads in seconds right inside your browser tab.`,
-      `Our .io shelf rounds up the varied titles in the TabArcade catalog, from arena battlers and FPS duels to building clickers, keycap pyramids, and speed keyboard escapes. Most sessions are quick to start — a single round fits a class break — while the merge and building titles run longer at your own pace. Because everything runs directly in the browser, these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a game and jump in.`,
+      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across merge puzzles, building and idle clickers, an arena shooter, and obstacle obby escapes. Every round is self-contained and loads in seconds right inside your browser tab.`,
+      `Our .io shelf rounds up the varied titles in the TabArcade catalog, from arena battlers and an FPS shooter to building clickers, keycap pyramids, and speed keyboard escapes. Most sessions are quick to start — a single round fits a class break — while the merge and building titles run longer at your own pace. Because everything runs directly in the browser, these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a game and jump in.`,
     ],
   },
   {
@@ -100,7 +100,7 @@ export const hubs = [
       'Free driving games in your browser: drifting, racing, parking and endless car games. No downloads or sign-ups — play on Chromebook, PC or phone.',
     intro: [
       `Driving games are the backbone of browser gaming for a reason: one key to steer, a road that never ends, and a score that is always one run away from being beaten. This shelf is where TabArcade keeps its wheels — drift games that reward smooth slides, racers that want clean lines, endless drivers built for five-minute sessions, and slower parking challenges for when you feel like showing off precision instead of speed.`,
-      `Most of the games here are keyboard-friendly, which makes them a natural fit for Chromebooks: arrows or WASD, a handbrake if you are lucky, and instant restarts when a corner goes wrong. The 3D titles hold up surprisingly well in a browser tab, and the fullscreen button on each game page turns a school laptop into a passable cockpit. Every game is free and loads from the page with no downloads or accounts. If you are new, start with an endless drifter and learn to hold a slide; if you are not new, you already know the lap time you are here to beat.`,
+      `Most of the games here are keyboard-friendly, which makes them a natural fit for Chromebooks: arrows or WASD, a handbrake if you are lucky, and instant restarts when a corner goes wrong. The 3D titles hold up surprisingly well in a browser tab, and the fullscreen button on each game page turns a school laptop into a passable cockpit. Every game is free and loads from the page with no downloads or accounts. If you are new, start with a drifter and learn to hold a slide; if you are not new, you already know the lap time you are here to beat.`,
     ],
   },
   {

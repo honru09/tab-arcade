@@ -183,6 +183,18 @@ const jsonLd = [
             },
           ]
         : []),
+      ...(hub.slug === 'driving-games'
+        ? [
+            {
+              '@type': 'Question',
+              name: 'How do I get better at driving games?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Practice one skill at a time: hold a slide in a drifter, then learn when to brake for a corner, then chase your best time. Every game page lists its controls before you press play, so you are never guessing which key does what.',
+              },
+            },
+          ]
+        : []),
     ],
   },
   {
@@ -240,6 +252,46 @@ const jsonLd = [
     </ol>
     <p>First {Math.min(5, games.length)} games on this shelf, in shelf order.</p>
   </section>
+
+  {hub.slug === 'driving-games' && (
+    <section class="top-picks">
+      <h3>Truck games</h3>
+      <ol>
+        <li>
+          <a href={u('games/mud-truck-simulator-game/')}>Mud Truck Simulator Game</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Get ready for an exciting offroad driving adventure with Mud Truck Simulator Game! Take control of powerful trucks, drive through muddy roads,…</span>
+        </li>
+        <li>
+          <a href={u('games/arctic-truck-driver/')}>Arctic Truck Driver</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Arctic Truck Driver is a realistic 3D ice road trucking game.</span>
+        </li>
+        <li>
+          <a href={u('games/euro-truck-parking/')}>Euro Truck Parking</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Euro Truck Parking is an exciting truck-driving and parking simulation game where players take control of powerful heavy-duty trucks and put their…</span>
+        </li>
+        <li>
+          <a href={u('games/monsters-wheels-2/')}>Monsters Wheels 2</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Monsters Wheels 2 is a monster truck game where every event asks something different.</span>
+        </li>
+      </ol>
+    </section>
+  )}
+
+  {hub.slug === 'driving-games' && (
+    <section class="top-picks">
+      <h3>Parking games</h3>
+      <ol>
+        <li>
+          <a href={u('games/midnight-valet/')}>Midnight Valet</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Midnight Valet is a 3D valet parking simulator.</span>
+        </li>
+        <li>
+          <a href={u('games/euro-truck-parking/')}>Euro Truck Parking</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Euro Truck Parking is an exciting truck-driving and parking simulation game where players take control of powerful heavy-duty trucks and put their…</span>
+        </li>
+      </ol>
+    </section>
+  )}
 
   {typesGroups.length >= 2 && (
     <section class="top-picks">
@@ -305,6 +357,14 @@ const jsonLd = [
         <summary>How do .io games work in multiplayer matches?</summary>
         <p>
           Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, obby escapes and a keyboard speed-run you play at your own pace.
+        </p>
+      </details>
+    )}
+    {hub.slug === 'driving-games' && (
+      <details>
+        <summary>How do I get better at driving games?</summary>
+        <p>
+          Practice one skill at a time: hold a slide in a drifter, then learn when to brake for a corner, then chase your best time. Every game page lists its controls before you press play, so you are never guessing which key does what.
         </p>
       </details>
     )}
