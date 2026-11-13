@@ -69,10 +69,10 @@ export const hubs = [
     banner: 'bg-stadium',
     metaTitle: '2 Player Games Unblocked — Play Side by Side in Your Browser | TabArcade',
     metaDescription:
-      'Free 2 player browser games for Chromebooks: head-to-head duels and multiplayer .io matches. No downloads, no sign-up.',
+      'Free 2 player browser games for Chromebooks: head-to-head duels and shared-keyboard matches. No downloads, no sign-up.',
     intro: [
-      `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook into a tournament: head-to-head duels and shared-keyboard matches where a game supports them, plus .io rounds online — winner stays on. This shelf collects the TabArcade games that support head-to-head duels, shared-keyboard matches, .io rounds, and multiplayer rounds.`,
-      `Start with the battle and duel titles if you want instant bragging rights — arena fights and quick duel games explain themselves in seconds and finish in minutes, which makes them perfect for lunch-table championships. The multiplayer .io rounds on this page are quick competitive rounds when your opponent is on a separate screen. Every game runs in the browser with no downloads or accounts, and each game page outlines the controls and instructions before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
+      `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook into a tournament: head-to-head duels and shared-keyboard matches where a game supports them, plus .io rounds — winner stays on. This shelf collects the TabArcade games that support head-to-head duels, shared-keyboard matches, .io rounds, and multiplayer rounds.`,
+      `Start with the battle and duel titles if you want instant bragging rights — arena fights and quick duel games explain themselves in seconds and finish in minutes, which makes them perfect for lunch-table championships. Every game runs in the browser with no downloads or accounts, and each game page outlines the controls and instructions before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
     ],
   },
   {
@@ -156,7 +156,7 @@ export const hubs = [
     metaDescription:
       'Our hand-picked best unblocked browser games: runners, racers, puzzles and .io titles that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: quick runners and racers, merge and puzzle games, and multiplayer .io arenas. If a game stops earning its spot, it comes off the page.`,
+      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: quick runners and racers, a merge game and puzzle games, and .io rounds. If a game stops earning its spot, it comes off the page.`,
       `What makes a game "best" here is practical, not mysterious. It has to load fast in a plain browser tab, teach itself in under a minute, survive on Chromebook hardware, and still be interesting on the tenth play. Every title is free with no downloads and no sign-ups, and each game page carries a description, the controls, and a short FAQ so you know what you are starting before you press play. New to the site? Begin at the top of the list. Returning? The category shelves in the menu organize the full catalog when you are ready to dig deeper than the hits.`,
     ],
   },
@@ -164,12 +164,12 @@ export const hubs = [
     slug: 'winter-games',
     shelf: 'winter',
     h1: 'Winter Games',
-    tagline: 'Snow runs, downhill sleds and icy drifts — the winter shelf is open in any browser tab.',
+    tagline: 'Snow runs, downhill sleds and snowball races — the winter shelf is open in any browser tab.',
     banner: 'bg-snow',
     icon: '❄️',
     metaTitle: 'Winter Games Unblocked — Free Snow & Sledding Games | TabArcade',
     metaDescription:
-      'Free winter and snow browser games: downhill sledding, snow plow challenges, snowball races and icy runs that work on Chromebooks. No downloads, no sign-up.',
+      'Free winter and snow browser games: downhill sledding, snowball races and icy runs that work on Chromebooks. No downloads, no sign-up.',
     intro: [
       `Winter games capture the best kind of cold: downhill speed, sliding turns, and the quiet rush of carving fresh tracks across a snowy slope. Whether you are dodging pine trees on a wooden sled, plowing frozen streets after a blizzard, or rolling a runaway snowball into an unstoppable boulder, the rules are simple and the restarts are instant. There is no snow gear to unpack and no cold toes to worry about — just grab the arrow keys and see how far down the mountain you can go before a tree branch says otherwise.`,
       `This shelf gathers TabArcade\'s winter and snow games in one place, built to run smoothly in an ordinary browser tab on Chromebooks, home laptops, and phones. None of them ask for a download, an install, or an account, so you can jump in for a fast run during a study break or settle in for a longer session. When a run goes wrong, the restart button is right there. The fullscreen button on each game page hides the browser frame so you can focus on the slope ahead. Bundle up, take the first drop, and see if your downhill line can beat your own best run.`,
