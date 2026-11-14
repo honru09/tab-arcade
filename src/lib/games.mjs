@@ -216,7 +216,7 @@ export const shelves = {
     allGames.filter(
       (g) =>
         !hasCat(g, ['Shooter']) &&
-        g.slug !== '1-speed-keyboard-lucky-escape' &&
+        !['1-speed-keyboard-lucky-escape', 'warehouse-tetris-3d', 'stunt-witch-3'].includes(g.slug) &&
         (hasCat(g, ['Agility']) || /run|rush|dash|runner|endless|tunnel|slope/i.test(text(g))),
     ),
   math: () => {

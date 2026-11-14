@@ -313,6 +313,56 @@ const jsonLd = [
     </section>
   )}
 
+  {hub.slug === 'games-like-cool-math-games' && (
+    <section class="top-picks">
+      <h3>Find your kind of logic game</h3>
+      <p>Choose a game based on how you want to play — every row names a game on this shelf and what you actually do in it.</p>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>What you're looking for</th>
+              <th>Game</th>
+              <th>What you do</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sort colors into the right tubes</td>
+              <td><a href={u('games/color-sort-party/')}>Color Sort Party</a></td>
+              <td>Pour liquids between tubes, sort the colors, and beat the levels.</td>
+            </tr>
+            <tr>
+              <td>Match three identical tiles</td>
+              <td><a href={u('games/animals-brick/')}>Animals Brick</a></td>
+              <td>Match three identical animal tiles to clear the board.</td>
+            </tr>
+            <tr>
+              <td>Find hidden objects and escape</td>
+              <td><a href={u('games/100-doors-mystery-room-escape/')}>100 Doors Mystery Room Escape</a></td>
+              <td>Crack secret codes, solve logic puzzles and find hidden objects to escape each room.</td>
+            </tr>
+            <tr>
+              <td>Match chips and clear the board</td>
+              <td><a href={u('games/boombitz-bomb-chips/')}>BoomBitz: Bomb Chips</a></td>
+              <td>Match colorful chips, trigger bomb blasts, and clear the board.</td>
+            </tr>
+            <tr>
+              <td>Sort pals between planets</td>
+              <td><a href={u('games/orbit-pals/')}>Orbit Pals</a></td>
+              <td>Tap a planet to lift the pals, then tap another planet to make them hop over.</td>
+            </tr>
+            <tr>
+              <td>Slide a rover through 48 rooms</td>
+              <td><a href={u('games/core-rush/')}>CORE RUSH</a></td>
+              <td>Launch your rover through 48 rooms, collect every core and reach the exit.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
   {typesGroups.length >= 2 && (
     <section class="top-picks">
       <h2>Types of {hub.h1}</h2>

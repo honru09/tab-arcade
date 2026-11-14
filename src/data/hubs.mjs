@@ -16,7 +16,7 @@ export const hubs = [
       'Free browser games that load in a normal tab with no downloads or sign-ups. Racing, running, puzzle and .io games that work on school Chromebooks.',
     intro: [
       `This is the shelf we built TabArcade around: free games that open in an ordinary browser tab and start in seconds. There is nothing to download, nothing to install, and no account to create — which is exactly what you need on a school Chromebook during lunch, a free period, or the last ten minutes of a study hall. Every game here streams straight from the page, so a borrowed or school-issued laptop is all it takes.`,
-      `Inside you will find the genres students actually ask for: endless runners and a drifting game for quick rounds, puzzle and math games that stretch a little longer, sports titles, and multiplayer .io games when friends want in on the same match. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
+      `Inside you will find the genres students actually ask for: an endless sledding run and a drifting game for quick rounds, puzzle and math games that stretch a little longer, sports titles, and multiplayer .io games when friends want in on the same match. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
     ],
   },
   {
@@ -44,7 +44,7 @@ export const hubs = [
       'Free browser games that work on school Chromebooks — no installs, no extensions, no downloads, no sign-up. Every game runs right in Chrome.',
     intro: [
       `Chromebooks are wonderful school machines and frustrating game machines — no app store freedom, no installs, and storage that fills up if you look at it wrong. The simple answer: play games that never needed installing in the first place. Every title on TabArcade runs as a web page inside Chrome, using the same tab you would use for a document or a classroom site.`,
-      `This hub gathers our most Chromebook-friendly picks: games with simple keyboard or mouse controls, fast loading, and rounds that fit a break between classes. Endless runners, puzzle games and .io titles all behave well on modest hardware, because the heavy lifting happens in the browser. A trackpad is enough for most of them, and the fullscreen button on each game page hides the browser chrome for a bigger view. If your school laptop is the only computer you have got, this page is your arcade — bookmark it and the whole collection is one click away whenever you have a free moment.`,
+      `This hub gathers our most Chromebook-friendly picks: games with simple keyboard or mouse controls, fast loading, and rounds that fit a break between classes. Endless sledding, quick runners, puzzle games and .io titles all behave well on modest hardware, because the heavy lifting happens in the browser. A trackpad is enough for most of them, and the fullscreen button on each game page hides the browser chrome for a bigger view. If your school laptop is the only computer you have got, this page is your arcade — bookmark it and the whole collection is one click away whenever you have a free moment.`,
     ],
   },
   {
@@ -107,14 +107,14 @@ export const hubs = [
     slug: 'running-games',
     shelf: 'running',
     h1: 'Running Games',
-    tagline: 'Endless runners and sprint games. One more try is never just one.',
+    tagline: 'Speed runs, dash games and jumping challenges. One more try is never just one.',
     banner: 'bg-track',
-    metaTitle: 'Running Games Unblocked — Endless Runners & Dash Games | TabArcade',
+    metaTitle: 'Running Games Unblocked — Speed Runs & Dash Games | TabArcade',
     metaDescription:
-      'Free endless runner games in your browser: speed runs and endless dash games that work on Chromebooks. No download, no sign-up.',
+      'Free running games in your browser: speed runs and dash games that work on Chromebooks. No download, no sign-up.',
     intro: [
       `Running games distill gaming to its purest reflex test: the ground moves, the obstacles come, and you either react in time or you start again. It is the genre behind some of the most-played browser games in schools, because a run takes under a minute, failure is instant and funny, and the next attempt is always one click away. This shelf is TabArcade's home for the genre.`,
-      `You will find speed-runners, endless dash and rush games, jumping and obstacle-course games, and platform runners, all playable in a browser tab with no downloads. Most use just the arrow keys or a tap, so they are ideal Chromebook games — low hardware demands, high tension. The skill ceiling is what keeps people hooked: clean lines through an obstacle course at full speed feel exactly as good on attempt fifty as on attempt one. Each game page explains the controls and the goal, and lists similar runners at the bottom if you clear one and want a sterner test. On your marks.`,
+      `You will find speed runs, dash and rush games, jumping and obstacle games, and platform games, all playable in a browser tab with no downloads. Most use just the arrow keys or a tap, so they are ideal Chromebook games — low hardware demands, high tension. The skill ceiling is what keeps people hooked: clean lines through an obstacle course at full speed feel exactly as good on attempt fifty as on attempt one. Each game page explains the controls and the goal, and lists similar runners at the bottom if you clear one and want a sterner test. On your marks.`,
     ],
   },
   {
@@ -156,7 +156,7 @@ export const hubs = [
     metaDescription:
       'Our hand-picked best unblocked browser games: runners, racers, puzzles and .io titles that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: quick runners and racers, a merge game and puzzle games, and .io rounds. If a game stops earning its spot, it comes off the page.`,
+      `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: racing games, a quick runner, a merge game and puzzle games, and .io rounds. If a game stops earning its spot, it comes off the page.`,
       `What makes a game "best" here is practical, not mysterious. It has to load fast in a plain browser tab, teach itself in under a minute, survive on Chromebook hardware, and still be interesting on the tenth play. Every title is free with no downloads and no sign-ups, and each game page carries a description, the controls, and a short FAQ so you know what you are starting before you press play. New to the site? Begin at the top of the list. Returning? The category shelves in the menu organize the full catalog when you are ready to dig deeper than the hits.`,
     ],
   },
