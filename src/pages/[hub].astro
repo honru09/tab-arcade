@@ -253,6 +253,22 @@ const jsonLd = [
     <p>First {Math.min(5, games.length)} games on this shelf, in shelf order.</p>
   </section>
 
+  {hub.slug === '2-player-games' && (
+    <section class="top-picks">
+      <h3>2-player action games</h3>
+      <ol>
+        <li>
+          <a href={u('games/obby-lucky-block-heist/')}>Obby: Lucky Block Heist</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Build the ultimate base in this action-packed 3D Obby! Collect rare Brainrot items to generate passive income and grow your empire.</span>
+        </li>
+        <li>
+          <a href={u('games/steal-car-duel/')}>Steal Car Duel</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Step into a high-energy world of engines, rivalry, and fast reflexes.</span>
+        </li>
+      </ol>
+    </section>
+  )}
+
   {hub.slug === 'driving-games' && (
     <section class="top-picks">
       <h3>Truck games</h3>
@@ -339,7 +355,7 @@ const jsonLd = [
             </tr>
             <tr>
               <td>Find hidden objects and escape</td>
-              <td><a href={u('games/100-doors-mystery-room-escape/')}>100 Doors Mystery Room Escape</a></td>
+              <td><a href={u('games/100-doors-mystery-room-escape/')}>100 Doors: Mystery Room Escape</a></td>
               <td>Crack secret codes, solve logic puzzles and find hidden objects to escape each room.</td>
             </tr>
             <tr>
@@ -360,6 +376,22 @@ const jsonLd = [
           </tbody>
         </table>
       </div>
+    </section>
+  )}
+
+  {hub.slug === 'games-like-cool-math-games' && (
+    <section class="top-picks">
+      <h3>Escape games</h3>
+      <ol>
+        <li>
+          <a href={u('games/block-drop-escape-puzzle/')}>Block Drop Escape Puzzle</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Block Drop Escape Puzzle is a colorful puzzle game about choosing the right blocks in the right order.</span>
+        </li>
+        <li>
+          <a href={u('games/100-doors-mystery-room-escape/')}>100 Doors: Mystery Room Escape</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Step into the world of mystery and test your brain in 100 Doors: Mystery Room Escape! Can you crack the secret codes, solve tricky logic puzzles,…</span>
+        </li>
+      </ol>
     </section>
   )}
 

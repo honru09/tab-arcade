@@ -23,7 +23,7 @@ export const hubs = [
     slug: 'math-games',
     shelf: 'math',
     h1: 'Math Games',
-    tagline: 'Numbers, logic and merge puzzles that sneak in a workout for your brain.',
+    tagline: 'Numbers, logic and a merge puzzle that sneak in a workout for your brain.',
     banner: 'bg-grid',
     metaTitle: 'Math Games Unblocked — Free Number, Logic & Puzzle Games | TabArcade',
     metaDescription:
@@ -71,7 +71,7 @@ export const hubs = [
     metaDescription:
       'Free 2 player browser games for Chromebooks: head-to-head duels and shared-keyboard matches. No downloads, no sign-up.',
     intro: [
-      `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook into a tournament: head-to-head duels and shared-keyboard matches where a game supports them, plus .io rounds — winner stays on. This shelf collects the TabArcade games that support head-to-head duels, shared-keyboard matches, .io rounds, and multiplayer rounds.`,
+      `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook into a tournament: head-to-head duels and shared-keyboard matches where a game supports them, plus .io rounds. This shelf collects the TabArcade games that support head-to-head duels, shared-keyboard matches, and .io rounds.`,
       `Start with the battle and duel titles if you want instant bragging rights — arena fights and quick duel games explain themselves in seconds and finish in minutes, which makes them perfect for lunch-table championships. Every game runs in the browser with no downloads or accounts, and each game page outlines the controls and instructions before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
     ],
   },
@@ -81,7 +81,7 @@ export const hubs = [
     h1: 'IO Games',
     tagline: 'Arenas, builders and quick rounds — .io games in your browser.',
     banner: 'bg-space',
-    metaTitle: 'IO Games Unblocked — Free Multiplayer Browser Games | TabArcade',
+    metaTitle: 'IO Games Unblocked — Arenas, Builders and Quick Rounds | TabArcade',
     metaDescription:
       'Free .io browser games: arena battles, building clickers, obby escapes and a shooting round that work on Chromebooks. No downloads, no sign-up.',
     intro: [
@@ -128,7 +128,7 @@ export const hubs = [
       'Free logic and puzzle games like Cool Math Games, playable in your browser on Chromebooks and PC. No downloads, no sign-up — just thinking games.',
     intro: [
       `Cool Math Games taught a whole generation that "educational" and "fun" are not opposites — its mix of logic puzzles, strategy games, and number challenges became the default break-time site in thousands of schools. If you have finished its catalog, or your school laptop routine just needs fresh material, this shelf is the natural next stop: the same thinking-first genres, gathered from the TabArcade collection.`,
-      `Expect escape-room puzzles, sorting and matching challenges, physics puzzlers and slow-burn logic challenges rather than twitch reflexes. These are games you can pause mid-thought when the teacher walks past, and pick up again without losing the thread — a genuinely useful property in a classroom. Everything here is free, runs in a normal browser tab on Chromebooks and home computers, and needs no account or download. Each game page explains the rules and controls up front, and the math shelf nearby is worth a look if the number games are your favorite flavor of thinking.`,
+      `Expect an escape-room puzzle, sorting and matching challenges, physics puzzlers and slow-burn logic challenges rather than twitch reflexes. These are games you can pause mid-thought when the teacher walks past, and pick up again without losing the thread — a genuinely useful property in a classroom. Everything here is free, runs in a normal browser tab on Chromebooks and home computers, and needs no account or download. Each game page explains the rules and controls up front, and the math shelf nearby is worth a look if the number games are your favorite flavor of thinking.`,
     ],
   },
   {
