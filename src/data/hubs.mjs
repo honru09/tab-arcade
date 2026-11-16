@@ -16,7 +16,7 @@ export const hubs = [
       'Free browser games that load in a normal tab with no downloads or sign-ups. Racing, running, puzzle and .io games that work on school Chromebooks.',
     intro: [
       `This is the shelf we built TabArcade around: free games that open in an ordinary browser tab and start in seconds. There is nothing to download, nothing to install, and no account to create — which is exactly what you need on a school Chromebook during lunch, a free period, or the last ten minutes of a study hall. Every game here streams straight from the page, so a borrowed or school-issued laptop is all it takes.`,
-      `Inside you will find the genres students actually ask for: an endless sledding run and a drifting game for quick rounds, puzzle and math games that stretch a little longer, sports titles, and multiplayer .io games when friends want in on the same match. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
+      `Inside you will find the genres students actually ask for: an endless sledding run and a drifting game for quick rounds, puzzle and math games that stretch a little longer, sports titles, and quick .io rounds — plus one arena battler against real players. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
     ],
   },
   {
@@ -27,7 +27,7 @@ export const hubs = [
     banner: 'bg-grid',
     metaTitle: 'Math Games Unblocked — Free Number, Logic & Puzzle Games | TabArcade',
     metaDescription:
-      'Free math browser games: 2048 and merge number puzzles that work on school Chromebooks. No downloads, no sign-up.',
+      'Free math browser games: a 2048 runner and a merge puzzle that work on school Chromebooks. No downloads, no sign-up.',
     intro: [
       `Math games earn their place in the classroom because they are genuinely good games that happen to run on numbers. The merge-and-plan thinking in 2048 rewards the core skills a math class tries to teach — estimation, sequencing, and thinking two moves ahead. Teachers know it, which is why number-focused games are a fixture on school laptops.`,
       `Our math shelf is small and focused: two number games — a fast-paced 2048 runner and a merge puzzle. Both run entirely in a regular browser tab on a Chromebook, with no downloads, no installs, and no accounts required. Each game is built for quick five-minute rounds between classes. Every title is free, and the How to Play section on each game page explains the goal and controls before you start.`,
@@ -83,10 +83,10 @@ export const hubs = [
     banner: 'bg-space',
     metaTitle: 'IO Games Unblocked — Arenas, Builders and Quick Rounds | TabArcade',
     metaDescription:
-      'Free .io browser games: arena battles, building clickers, obby escapes and a shooting round that work on Chromebooks. No downloads, no sign-up.',
+      'Free .io browser games: an arena battler, building games, an obby escape and a shooting round that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across merge puzzles, building and idle clickers, an arena shooter, and obstacle obby escapes. Every round is self-contained and loads in seconds right inside your browser tab.`,
-      `Our .io shelf rounds up the varied titles in the TabArcade catalog, from arena battlers and an FPS shooter to building clickers, keycap pyramids, and speed keyboard escapes. Most sessions are quick to start — a single round fits a class break — while the merge and building titles run longer at your own pace. Because everything runs directly in the browser, these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a game and jump in.`,
+      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across merge puzzles, building and idle clickers, an arena shooter, and an obstacle obby escape. Every round is self-contained and loads in seconds right inside your browser tab.`,
+      `Our .io shelf rounds up the varied titles in the TabArcade catalog, from an arena battler and an FPS shooter to building games, keycap pyramids, and speed keyboard escapes. Most sessions are quick to start — a single round fits a class break — while the merge and building titles run longer at your own pace. Because everything runs directly in the browser, these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a game and jump in.`,
     ],
   },
   {
@@ -140,7 +140,7 @@ export const hubs = [
     banner: 'bg-space',
     metaTitle: 'Halloween Games — Free Spooky Browser Games, No Download | TabArcade',
     metaDescription:
-      'Free Halloween browser games: haunted mazes, zombie sieges, ghost hunts and trick-or-treat chaos. No downloads, no sign-up — play on Chromebook, PC or phone.',
+      'Free Halloween browser games: a haunted maze, zombie defense, ghost hunts and trick-or-treat chaos. No downloads, no sign-up — play on Chromebook, PC or phone.',
     intro: [
       `October is the one month when the spooky shelf gets to run the arcade. This page gathers TabArcade's Halloween lineup: haunted-house escapes, ghost hunts, zombie defenses, monster racers, and a trick-or-treat carnival for players who prefer their scares with candy. Some lean creepy, some lean silly — all of them load in a normal browser tab with nothing to download and no account to create.`,
       `Start at the top if you want the full haunted-house treatment, or drop into the zombie and monster games for faster rounds between classes. Every title runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on each game page gives you the biggest play area your screen allows. Playing after dark is optional but encouraged. When the season ends, the running, driving, and puzzle shelves are waiting — the ghosts understand.`,
@@ -154,7 +154,7 @@ export const hubs = [
     banner: 'bg-snow',
     metaTitle: 'Best Unblocked Games — Top Free Browser Games to Play Now | TabArcade',
     metaDescription:
-      'Our hand-picked best unblocked browser games: runners, racers, puzzles and .io titles that work on Chromebooks. No downloads, no sign-up.',
+      'Our hand-picked best unblocked browser games: a quick runner, racing games, puzzles and .io titles that work on Chromebooks. No downloads, no sign-up.',
     intro: [
       `There are thousands of browser games and only a handful worth your limited break time, so we keep this page ruthless. The list below is the TabArcade shortlist — our shortlist, in shelf order — spanning the genres that define school-break gaming: racing games, a quick runner, a merge game and puzzle games, and .io rounds. If a game stops earning its spot, it comes off the page.`,
       `What makes a game "best" here is practical, not mysterious. It has to load fast in a plain browser tab, teach itself in under a minute, survive on Chromebook hardware, and still be interesting on the tenth play. Every title is free with no downloads and no sign-ups, and each game page carries a description, the controls, and a short FAQ so you know what you are starting before you press play. New to the site? Begin at the top of the list. Returning? The category shelves in the menu organize the full catalog when you are ready to dig deeper than the hits.`,

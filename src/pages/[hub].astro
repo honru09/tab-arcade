@@ -62,7 +62,7 @@ const TYPE_BLURBS: Record<string, string> = {
   'brain': 'Brain games — logic and memory challenges that reward thinking ahead.',
   'logic': 'Logic games — fixed rules, one right answer, and a chain of deductions to find it.',
   'puzzle': 'Puzzle games — match, sort and merge your way to a clear board.',
-  'halloween': 'Halloween games — haunted mazes, zombie rounds and spooky-season chaos.',
+  'halloween': 'Halloween games — a haunted maze, zombie rounds and spooky-season chaos.',
   'monster': 'Monster games — creatures, chases and spooky showdowns.',
   'zombie': 'Zombie games — hold the line against the horde, round after round.',
   'animal': 'Animal games — creatures great and small, from ducks to dinosaurs.',
@@ -178,7 +178,7 @@ const jsonLd = [
               name: 'How do .io games work in multiplayer matches?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, obby escapes and a keyboard speed-run you play at your own pace.',
+                text: 'Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, an obby escape and a keyboard speed-run you play at your own pace.',
               },
             },
           ]
@@ -395,6 +395,53 @@ const jsonLd = [
     </section>
   )}
 
+  {hub.slug === 'running-games' && (
+    <section class="top-picks">
+      <h3>Running games for a real challenge</h3>
+      <p>Three games on this shelf that call themselves a challenge — each one in its own description.</p>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Why it's a challenge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href={u('games/geometry-arrow-wave-rush/')}>Geometry Arrow Wave Rush</a></td>
+              <td>Pass through narrow gaps without hitting obstacles as the speed increases.</td>
+            </tr>
+            <tr>
+              <td><a href={u('games/rainbow-ball-runner-2048/')}>Rainbow Ball Runner 2048</a></td>
+              <td>Roll, dodge obstacles and collect matching balls on increasingly challenging levels.</td>
+            </tr>
+            <tr>
+              <td><a href={u('games/ambidieztro/')}>Ambidieztro</a></td>
+              <td>Control two characters at the same time, one with each hand.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  {hub.slug === 'halloween-games' && (
+    <section class="top-picks">
+      <h3>Zombie shooting games</h3>
+      <ol>
+        <li>
+          <a href={u('games/zombie-barrage/')}>Zombie Barrage</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Zombie Barrage is a top-down zombie defense game.</span>
+        </li>
+        <li>
+          <a href={u('games/shooter-soldiers-vs-zombies/')}>Shooter: Soldiers vs Zombies</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Shooter: Soldiers vs Zombies is a free online first-person shooter where you fight alongside AI soldiers against zombie hordes.</span>
+        </li>
+      </ol>
+    </section>
+  )}
+
   {typesGroups.length >= 2 && (
     <section class="top-picks">
       <h2>Types of {hub.h1}</h2>
@@ -458,7 +505,7 @@ const jsonLd = [
       <details>
         <summary>How do .io games work in multiplayer matches?</summary>
         <p>
-          Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, obby escapes and a keyboard speed-run you play at your own pace.
+          Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, an obby escape and a keyboard speed-run you play at your own pace.
         </p>
       </details>
     )}
