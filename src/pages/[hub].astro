@@ -178,7 +178,15 @@ const jsonLd = [
               name: 'How do .io games work in multiplayer matches?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, an obby escape and a keyboard speed-run you play at your own pace.',
+                text: 'Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — a merge puzzle, building games and a chopping game, an obby escape and a keyboard speed-run you play at your own pace.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'What is the difference between multiplayer games and 2 player games?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Two-player games are played on the same screen, sharing one keyboard — one player on WASD, the other on the arrow keys. Multiplayer games connect you with other players online — on this shelf, Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo.',
               },
             },
           ]
@@ -502,12 +510,20 @@ const jsonLd = [
       </p>
     </details>
     {hub.slug === 'io-games' && (
-      <details>
-        <summary>How do .io games work in multiplayer matches?</summary>
-        <p>
-          Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — merge puzzles, building and chopping games, an obby escape and a keyboard speed-run you play at your own pace.
-        </p>
-      </details>
+      <>
+        <details>
+          <summary>How do .io games work in multiplayer matches?</summary>
+          <p>
+            Some of them are. Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo — a merge puzzle, building games and a chopping game, an obby escape and a keyboard speed-run you play at your own pace.
+          </p>
+        </details>
+        <details>
+          <summary>What is the difference between multiplayer games and 2 player games?</summary>
+          <p>
+            Two-player games are played on the same screen, sharing one keyboard — one player on WASD, the other on the arrow keys. Multiplayer games connect you with other players online — on this shelf, Online KitPvP pits you against real players, GORILGO FPS is an online shooter, and Ligmar Online is a shared-world MMORPG. The rest of this shelf is solo.
+          </p>
+        </details>
+      </>
     )}
     {hub.slug === 'driving-games' && (
       <details>

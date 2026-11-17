@@ -23,9 +23,9 @@ export const hubs = [
     slug: 'math-games',
     shelf: 'math',
     h1: 'Math Games',
-    tagline: 'Numbers, logic and a merge puzzle that sneak in a workout for your brain.',
+    tagline: 'A 2048 runner and a merge puzzle that sneak in a workout for your brain.',
     banner: 'bg-grid',
-    metaTitle: 'Math Games Unblocked — Free Number, Logic & Puzzle Games | TabArcade',
+    metaTitle: 'Math Games Unblocked — Free 2048 Runner & Merge Puzzle | TabArcade',
     metaDescription:
       'Free math browser games: a 2048 runner and a merge puzzle that work on school Chromebooks. No downloads, no sign-up.',
     intro: [
@@ -51,14 +51,14 @@ export const hubs = [
     slug: 'classroom-games',
     shelf: 'classroom',
     h1: 'Classroom Games',
-    tagline: 'Quick break rounds of racing, puzzles, platformers and .io games — free periods were made for this.',
+    tagline: 'Quick break rounds of racing, platformers and .io games — free periods were made for this.',
     banner: 'bg-party',
     metaTitle: 'Classroom Games — Free Browser Games for School Breaks | TabArcade',
     metaDescription:
-      'Classroom-friendly free browser games for school breaks: racing, puzzles, .io rounds, sports and platformers on Chromebooks. No downloads, no sign-up.',
+      'Classroom-friendly free browser games for school breaks: racing, .io rounds, sports and platformers on Chromebooks. No downloads, no sign-up.',
     intro: [
       `A good classroom game has a specific job: fill a break, a finished-assignment gap, or a free period without any hassle. That means quick to load, easy to learn, and simple to close the moment the bell rings. This shelf collects 21 browser games tuned for school breaks, running smoothly on Chromebooks, laptops and phones with zero downloads or accounts.`,
-      `Across the collection you will find fast racing and driving challenges, number and logic puzzles, obby platformers, quick sports rounds, and bite-sized .io sessions. Every title opens right in your browser tab, and each game page includes clear controls and goal summaries so you can jump straight into the action and wrap up when class resumes.`,
+      `Across the collection you will find fast racing and driving challenges, obby platforming, quick sports rounds, and bite-sized .io sessions. Every title opens right in your browser tab, and each game page includes clear controls and goal summaries so you can jump straight into the action and wrap up when class resumes.`,
     ],
   },
   {
@@ -85,8 +85,8 @@ export const hubs = [
     metaDescription:
       'Free .io browser games: an arena battler, building games, an obby escape and a shooting round that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across merge puzzles, building and idle clickers, an arena shooter, and an obstacle obby escape. Every round is self-contained and loads in seconds right inside your browser tab.`,
-      `Our .io shelf rounds up the varied titles in the TabArcade catalog, from an arena battler and an FPS shooter to building games, keycap pyramids, and speed keyboard escapes. Most sessions are quick to start — a single round fits a class break — while the merge and building titles run longer at your own pace. Because everything runs directly in the browser, these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a game and jump in.`,
+      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across a merge puzzle, building games, an arena shooter, and an obstacle obby escape. Every round is self-contained and loads in seconds right inside your browser tab.`,
+      `Our .io shelf rounds up the varied titles in the TabArcade catalog, from an arena battler and an FPS shooter to building games, a keycap pyramid, and a speed keyboard escape. Most sessions are quick to start — a single round fits a class break — while the merge and building titles run longer at your own pace. Because everything runs directly in the browser, these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a game and jump in.`,
     ],
   },
   {
