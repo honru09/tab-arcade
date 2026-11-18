@@ -16,7 +16,7 @@ export const hubs = [
       'Free browser games that load in a normal tab with no downloads or sign-ups. Racing, running, puzzle and .io games that work on school Chromebooks.',
     intro: [
       `This is the shelf we built TabArcade around: free games that open in an ordinary browser tab and start in seconds. There is nothing to download, nothing to install, and no account to create — which is exactly what you need on a school Chromebook during lunch, a free period, or the last ten minutes of a study hall. Every game here streams straight from the page, so a borrowed or school-issued laptop is all it takes.`,
-      `Inside you will find the genres students actually ask for: an endless sledding run and a drifting game for quick rounds, puzzle and math games that stretch a little longer, sports titles, and quick .io rounds — plus one arena battler against real players. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
+      `Inside you will find the genres students actually ask for: an endless sledding run and a drifting game for quick rounds, puzzle games that stretch a little longer, sports titles, and quick .io rounds — plus one arena battler against real players. If you are not sure where to start, begin with the featured picks at the top — they are our featured picks, in shelf order. Everything runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on every game page gives you the biggest play area your screen allows.`,
     ],
   },
   {
@@ -69,10 +69,10 @@ export const hubs = [
     banner: 'bg-stadium',
     metaTitle: '2 Player Games Unblocked — Play Side by Side in Your Browser | TabArcade',
     metaDescription:
-      'Free 2 player browser games for Chromebooks: head-to-head duels and shared-keyboard matches. No downloads, no sign-up.',
+      'Free 2 player browser games for Chromebooks: a head-to-head duel and shared-keyboard matches. No downloads, no sign-up.',
     intro: [
-      `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook into a tournament: head-to-head duels and shared-keyboard matches where a game supports them, plus .io rounds. This shelf collects the TabArcade games that support head-to-head duels, shared-keyboard matches, and .io rounds.`,
-      `Start with the battle and duel titles if you want instant bragging rights — arena fights and quick duel games explain themselves in seconds and finish in minutes, which makes them perfect for lunch-table championships. Every game runs in the browser with no downloads or accounts, and each game page outlines the controls and instructions before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
+      `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook into a tournament: a head-to-head duel and shared-keyboard matches where a game supports them, plus .io rounds. This shelf collects the TabArcade games that support a head-to-head duel, shared-keyboard matches, and .io rounds.`,
+      `Start with the duel title if you want instant bragging rights — arena duels explain themselves in seconds and finish in minutes, which makes them perfect for lunch-table championships. Every game runs in the browser with no downloads or accounts, and each game page outlines the controls and instructions before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
     ],
   },
   {
@@ -140,9 +140,9 @@ export const hubs = [
     banner: 'bg-space',
     metaTitle: 'Halloween Games — Free Spooky Browser Games, No Download | TabArcade',
     metaDescription:
-      'Free Halloween browser games: a haunted maze, zombie defense, ghost hunts and trick-or-treat chaos. No downloads, no sign-up — play on Chromebook, PC or phone.',
+      'Free Halloween browser games: a haunted maze, zombie defense, ghost games and trick-or-treat chaos. No downloads, no sign-up — play on Chromebook, PC or phone.',
     intro: [
-      `October is the one month when the spooky shelf gets to run the arcade. This page gathers TabArcade's Halloween lineup: haunted-house escapes, ghost hunts, zombie defenses, monster racers, and a trick-or-treat carnival for players who prefer their scares with candy. Some lean creepy, some lean silly — all of them load in a normal browser tab with nothing to download and no account to create.`,
+      `October is the one month when the spooky shelf gets to run the arcade. This page gathers TabArcade's Halloween lineup: a horror-maze escape, ghost games, a zombie defense, monster racers, and a trick-or-treat carnival for players who prefer their scares with candy. Some lean creepy, some lean silly — all of them load in a normal browser tab with nothing to download and no account to create.`,
       `Start at the top if you want the full haunted-house treatment, or drop into the zombie and monster games for faster rounds between classes. Every title runs on Chromebooks, Windows, Mac, and phones, and the fullscreen button on each game page gives you the biggest play area your screen allows. Playing after dark is optional but encouraged. When the season ends, the running, driving, and puzzle shelves are waiting — the ghosts understand.`,
     ],
   },

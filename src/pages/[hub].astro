@@ -403,6 +403,37 @@ const jsonLd = [
     </section>
   )}
 
+  {hub.slug === 'games-like-cool-math-games' && (
+    <section class="top-picks">
+      <h3>Plan your next move</h3>
+      <p>Three games on this shelf that reward thinking ahead — each one says so in its own description.</p>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Why play it?</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href={u('games/boombitz-bomb-chips/')}>BoomBitz: Bomb Chips</a></td>
+              <td>Plan your moves carefully, discover special power-ups, and use smart strategies to clear tricky layouts.</td>
+            </tr>
+            <tr>
+              <td><a href={u('games/animals-brick/')}>Animals Brick</a></td>
+              <td>Complete each level's objective, plan your moves carefully, and avoid filling all seven tile slots without making a match.</td>
+            </tr>
+            <tr>
+              <td><a href={u('games/warehouse-tetris-3d/')}>Warehouse Tetris 3D</a></td>
+              <td>Rotate pieces, plan every move, avoid empty gaps, and try to achieve the highest packing efficiency.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
   {hub.slug === 'running-games' && (
     <section class="top-picks">
       <h3>Running games for a real challenge</h3>
