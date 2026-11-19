@@ -30,7 +30,7 @@ export const hubs = [
       'Free math browser games: a 2048 runner and a merge puzzle that work on school Chromebooks. No downloads, no sign-up.',
     intro: [
       `Math games earn their place in the classroom because they are genuinely good games that happen to run on numbers. The merge-and-plan thinking in 2048 rewards the core skills a math class tries to teach — estimation, sequencing, and thinking two moves ahead. Teachers know it, which is why number-focused games are a fixture on school laptops.`,
-      `Our math shelf is small and focused: two number games — a fast-paced 2048 runner and a merge puzzle. Both run entirely in a regular browser tab on a Chromebook, with no downloads, no installs, and no accounts required. Each game is built for quick five-minute rounds between classes. Every title is free, and the How to Play section on each game page explains the goal and controls before you start.`,
+      `Our math shelf is small and focused: two games — a fast-paced 2048 runner and a merge puzzle. Both run entirely in a regular browser tab on a Chromebook, with no downloads, no installs, and no accounts required. Each game is built for quick five-minute rounds between classes. Every title is free, and the How to Play section on each game page explains the goal and controls before you start.`,
     ],
   },
   {
@@ -72,7 +72,7 @@ export const hubs = [
       'Free 2 player browser games for Chromebooks: a head-to-head duel and shared-keyboard matches. No downloads, no sign-up.',
     intro: [
       `Everything is better with a rival sitting next to you. Two-player games turn one Chromebook into a tournament: a head-to-head duel and shared-keyboard matches where a game supports them, plus .io rounds. This shelf collects the TabArcade games that support a head-to-head duel, shared-keyboard matches, and .io rounds.`,
-      `Start with the duel title if you want instant bragging rights — arena duels explain themselves in seconds and finish in minutes, which makes them perfect for lunch-table championships. Every game runs in the browser with no downloads or accounts, and each game page outlines the controls and instructions before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
+      `Start with the duel title if you want instant bragging rights — the arena duel explains itself in seconds and finishes in minutes, which makes it perfect for lunch-table championships. Every game runs in the browser with no downloads or accounts, and each game page outlines the controls and instructions before you start, so nobody loses the first round to a keyboard mystery. Loser buys snacks, house rules apply.`,
     ],
   },
   {
@@ -107,14 +107,14 @@ export const hubs = [
     slug: 'running-games',
     shelf: 'running',
     h1: 'Running Games',
-    tagline: 'Speed runs, dash games and jumping challenges. One more try is never just one.',
+    tagline: 'Dash games, rush games and jumping challenges. One more try is never just one.',
     banner: 'bg-track',
-    metaTitle: 'Running Games Unblocked — Speed Runs & Dash Games | TabArcade',
+    metaTitle: 'Running Games Unblocked — Dash & Rush Games | TabArcade',
     metaDescription:
-      'Free running games in your browser: speed runs and dash games that work on Chromebooks. No download, no sign-up.',
+      'Free running games in your browser: dash and rush games that work on Chromebooks. No download, no sign-up.',
     intro: [
       `Running games distill gaming to its purest reflex test: the ground moves, the obstacles come, and you either react in time or you start again. It is the genre behind some of the most-played browser games in schools, because a run takes under a minute, failure is instant and funny, and the next attempt is always one click away. This shelf is TabArcade's home for the genre.`,
-      `You will find speed runs, dash and rush games, jumping and obstacle games, and platform games, all playable in a browser tab with no downloads. Most use just the arrow keys or a tap, so they are ideal Chromebook games — low hardware demands, high tension. The skill ceiling is what keeps people hooked: clean lines through an obstacle course at full speed feel exactly as good on attempt fifty as on attempt one. Each game page explains the controls and the goal, and lists similar runners at the bottom if you clear one and want a sterner test. On your marks.`,
+      `You will find dash and rush games, jumping and obstacle games, and platform games, all playable in a browser tab with no downloads. Most use just the arrow keys or a tap, so they are ideal Chromebook games — low hardware demands, high tension. The skill ceiling is what keeps people hooked: clean lines through an obstacle course at full speed feel exactly as good on attempt fifty as on attempt one. Each game page explains the controls and the goal, and lists similar runners at the bottom if you clear one and want a sterner test. On your marks.`,
     ],
   },
   {
@@ -128,7 +128,7 @@ export const hubs = [
       'Free logic and puzzle games like Cool Math Games, playable in your browser on Chromebooks and PC. No downloads, no sign-up — just thinking games.',
     intro: [
       `Cool Math Games taught a whole generation that "educational" and "fun" are not opposites — its mix of logic puzzles, strategy games, and number challenges became the default break-time site in thousands of schools. If you have finished its catalog, or your school laptop routine just needs fresh material, this shelf is the natural next stop: the same thinking-first genres, gathered from the TabArcade collection.`,
-      `Expect an escape-room puzzle, sorting and matching challenges, physics puzzlers and slow-burn logic challenges rather than twitch reflexes. These are games you can pause mid-thought when the teacher walks past, and pick up again without losing the thread — a genuinely useful property in a classroom. Everything here is free, runs in a normal browser tab on Chromebooks and home computers, and needs no account or download. Each game page explains the rules and controls up front, and the math shelf nearby is worth a look if the number games are your favorite flavor of thinking.`,
+      `Expect an escape-room puzzle, sorting and matching challenges, physics puzzlers and slow-burn logic challenges rather than twitch reflexes. These are games you can pause mid-thought when the teacher walks past, and pick up again without losing the thread — a genuinely useful property in a classroom. Everything here is free, runs in a normal browser tab on Chromebooks and home computers, and needs no account or download. Each game page explains the rules and controls up front, and the math shelf nearby is worth a look if that kind of thinking is your favorite flavor.`,
     ],
   },
   {
