@@ -79,9 +79,9 @@ export const hubs = [
     slug: 'io-games',
     shelf: 'io',
     h1: 'IO Games',
-    tagline: 'Arenas, builders and quick rounds — .io games in your browser.',
+    tagline: 'Arena action, builders and quick rounds — .io games in your browser.',
     banner: 'bg-space',
-    metaTitle: 'IO Games Unblocked — Arenas, Builders and Quick Rounds | TabArcade',
+    metaTitle: 'IO Games Unblocked — Arena Action, Builders and Quick Rounds | TabArcade',
     metaDescription:
       'Free .io browser games: an arena battler, building games, an obby escape and a shooting round that work on Chromebooks. No downloads, no sign-up.',
     intro: [
@@ -169,7 +169,7 @@ export const hubs = [
     icon: '❄️',
     metaTitle: 'Winter Games Unblocked — Free Snow & Sledding Games | TabArcade',
     metaDescription:
-      'Free winter and snow browser games: downhill sledding, snowball races and icy runs that work on Chromebooks. No downloads, no sign-up.',
+      'Free winter and snow browser games: downhill sledding, snowball races and an icy run that work on Chromebooks. No downloads, no sign-up.',
     intro: [
       `Winter games capture the best kind of cold: downhill speed, sliding turns, and the quiet rush of carving fresh tracks across a snowy slope. Whether you are dodging pine trees on a wooden sled, plowing frozen streets after a blizzard, or rolling a runaway snowball into an unstoppable boulder, the rules are simple and the restarts are instant. There is no snow gear to unpack and no cold toes to worry about — just grab the arrow keys and see how far down the mountain you can go before a tree branch says otherwise.`,
       `This shelf gathers TabArcade\'s winter and snow games in one place, built to run smoothly in an ordinary browser tab on Chromebooks, home laptops, and phones. None of them ask for a download, an install, or an account, so you can jump in for a fast run during a study break or settle in for a longer session. When a run goes wrong, the restart button is right there. The fullscreen button on each game page hides the browser frame so you can focus on the slope ahead. Bundle up, take the first drop, and see if your downhill line can beat your own best run.`,

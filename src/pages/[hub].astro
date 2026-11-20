@@ -50,7 +50,7 @@ const STOPLIST = new Set([
 ]);
 
 const TYPE_BLURBS: Record<string, string> = {
-  '.io': 'Browser .io games — arenas, builders and quick rounds that load in a tab, no lobby codes.',
+  '.io': 'Browser .io games — arena action, builders and quick rounds that load in a tab, no lobby codes.',
   'racing': 'Race against the clock or the pack — clean lines and sharp corners win.',
   'platform': 'Jump, climb and dodge through obstacle courses — timing beats speed.',
   'jumping': 'Jumping games built on timing — clear each gap or start the level again.',
@@ -142,7 +142,7 @@ const jsonLd = [
               name: 'Do 2 player games use one keyboard?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Some of them do — one player on WASD, the other on the arrow keys. Others take turns, race side by side, or play online. Every game page lists its own controls before you press play.',
+                text: 'Some of them do — one player on WASD, the other on the arrow keys. Others take turns or race side by side. Every game page lists its own controls before you press play.',
               },
             },
           ]
@@ -199,6 +199,18 @@ const jsonLd = [
               acceptedAnswer: {
                 '@type': 'Answer',
                 text: 'Practice one skill at a time: hold a slide in a drifter, then learn when to brake for a corner, then chase your best time. Every game page lists its controls before you press play, so you are never guessing which key does what.',
+              },
+            },
+          ]
+        : []),
+      ...(hub.slug === '2-player-games'
+        ? [
+            {
+              '@type': 'Question',
+              name: 'Can I play these games with a friend on the same computer?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'Yes — three of the nine games on this shelf say so in their own descriptions: Snow Rush 3D is playable in 1 and 2 players, Float for Brainrots lets you play solo or with a friend in 2 player mode, and Obby Rainbow Tower lets you race a friend side by side in 2 player mode. All three spell out controls for Player 1 and Player 2 — one on WASD, the other on the arrow keys. The other six say nothing about playing with a friend in their descriptions.',
               },
             },
           ]
@@ -454,6 +466,37 @@ const jsonLd = [
     </section>
   )}
 
+  {hub.slug === 'games-like-cool-math-games' && (
+    <section class="top-picks">
+      <h3>Logic games for a real challenge</h3>
+      <p>Three games on this shelf that call themselves a challenge — each one in its own description.</p>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Why it's a challenge</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href={u('games/ambidieztro/')}>Ambidieztro</a></td>
+              <td>Ambidieztro is a unique skill game that challenges your coordination and ambidexterity.</td>
+            </tr>
+            <tr>
+              <td><a href={u('games/boombitz-bomb-chips/')}>BoomBitz: Bomb Chips</a></td>
+              <td>Match colorful chips, trigger exciting bomb blasts, and clear the board through fun and challenging levels.</td>
+            </tr>
+            <tr>
+              <td><a href={u('games/100-doors-mystery-room-escape/')}>100 Doors: Mystery Room Escape</a></td>
+              <td>Every room presents a unique mind-bending challenge featuring intricate mechanical gears, hidden keys, cryptic symbols, and secret keypad codes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
   {hub.slug === 'running-games' && (
     <section class="top-picks">
       <h3>Running games for a real challenge</h3>
@@ -538,7 +581,7 @@ const jsonLd = [
       <details>
         <summary>Do 2 player games use one keyboard?</summary>
         <p>
-          Some of them do — one player on WASD, the other on the arrow keys. Others take turns, race side by side, or play online. Every game page lists its own controls before you press play.
+          Some of them do — one player on WASD, the other on the arrow keys. Others take turns or race side by side. Every game page lists its own controls before you press play.
         </p>
       </details>
     )}
@@ -581,6 +624,14 @@ const jsonLd = [
         <summary>How do I get better at driving games?</summary>
         <p>
           Practice one skill at a time: hold a slide in a drifter, then learn when to brake for a corner, then chase your best time. Every game page lists its controls before you press play, so you are never guessing which key does what.
+        </p>
+      </details>
+    )}
+    {hub.slug === '2-player-games' && (
+      <details>
+        <summary>Can I play these games with a friend on the same computer?</summary>
+        <p>
+          Yes — three of the nine games on this shelf say so in their own descriptions: Snow Rush 3D is playable in 1 and 2 players, Float for Brainrots lets you play solo or with a friend in 2 player mode, and Obby Rainbow Tower lets you race a friend side by side in 2 player mode. All three spell out controls for Player 1 and Player 2 — one on WASD, the other on the arrow keys. The other six say nothing about playing with a friend in their descriptions.
         </p>
       </details>
     )}
