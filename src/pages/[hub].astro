@@ -63,9 +63,9 @@ const TYPE_BLURBS: Record<string, string> = {
   'logic': 'Logic games — fixed rules, one right answer, and a chain of deductions to find it.',
   'puzzle': 'Puzzle games — match, sort and merge your way to a clear board.',
   'halloween': 'Halloween games — a haunted maze, zombie rounds and spooky-season chaos.',
-  'monster': 'Monster games — creatures, chases and spooky showdowns.',
+  'monster': 'Monster games — creatures and spooky showdowns.',
   'zombie': 'Zombie games — hold the line against the horde, round after round.',
-  'animal': 'Animal games — creatures great and small, from ducks to dinosaurs.',
+  'animal': 'Animal games — creatures great and small, ready to play in your browser.',
   'snow': 'Snow games — icy tracks, snowball runs and winter driving.',
 };
 
@@ -201,6 +201,14 @@ const jsonLd = [
                 text: 'Practice one skill at a time: hold a slide in a drifter, then learn when to brake for a corner, then chase your best time. Every game page lists its controls before you press play, so you are never guessing which key does what.',
               },
             },
+            {
+              '@type': 'Question',
+              name: 'Can I play driving games with a friend?',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: "One of the 24 games on this shelf says so in its description: Obby Rainbow Tower lets you race a friend side by side in 2 player mode — Player 1 on WASD, Player 2 on the arrow keys. Roadster Dash: Halloween Night lists controls for Player 1 and Player 2, but its description doesn't offer a friend mode. The other 22 say nothing about playing with a friend in their descriptions.",
+              },
+            },
           ]
         : []),
       ...(hub.slug === '2-player-games'
@@ -304,6 +312,26 @@ const jsonLd = [
         <li>
           <a href={u('games/roadster-dash-halloween-night/')}>Roadster Dash: Halloween Night</a>
           <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Roadster Dash: Halloween Night is a 3D arcade racing game with a flying car!</span>
+        </li>
+      </ol>
+    </section>
+  )}
+
+  {hub.slug === 'driving-games' && (
+    <section class="top-picks">
+      <h3>Drift racing games</h3>
+      <ol>
+        <li>
+          <a href={u('games/nitro-racing-gear/')}>Nitro Racing Gear</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Hit the road in Nitro Racing Gear, a high-speed arcade racing game!</span>
+        </li>
+        <li>
+          <a href={u('games/tiny-track-rally/')}>Tiny Track Rally</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Race tiny toy cars in this colourful 3D arcade racer!</span>
+        </li>
+        <li>
+          <a href={u('games/spooky-racing/')}>Spooky Racing</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Spooky Racing is a Halloween kart race in full 3D!</span>
         </li>
       </ol>
     </section>
@@ -620,12 +648,20 @@ const jsonLd = [
       </>
     )}
     {hub.slug === 'driving-games' && (
-      <details>
-        <summary>How do I get better at driving games?</summary>
-        <p>
-          Practice one skill at a time: hold a slide in a drifter, then learn when to brake for a corner, then chase your best time. Every game page lists its controls before you press play, so you are never guessing which key does what.
-        </p>
-      </details>
+      <>
+        <details>
+          <summary>How do I get better at driving games?</summary>
+          <p>
+            Practice one skill at a time: hold a slide in a drifter, then learn when to brake for a corner, then chase your best time. Every game page lists its controls before you press play, so you are never guessing which key does what.
+          </p>
+        </details>
+        <details>
+          <summary>Can I play driving games with a friend?</summary>
+          <p>
+            One of the 24 games on this shelf says so in its description: Obby Rainbow Tower lets you race a friend side by side in 2 player mode — Player 1 on WASD, Player 2 on the arrow keys. Roadster Dash: Halloween Night lists controls for Player 1 and Player 2, but its description doesn't offer a friend mode. The other 22 say nothing about playing with a friend in their descriptions.
+          </p>
+        </details>
+      </>
     )}
     {hub.slug === '2-player-games' && (
       <details>
