@@ -54,14 +54,14 @@ const TYPE_BLURBS: Record<string, string> = {
   'racing': 'Race against the clock or the pack — clean lines and sharp corners win.',
   'platform': 'Jump, climb and dodge through obstacle courses — timing beats speed.',
   'jumping': 'Jumping games built on timing — clear each gap or start the level again.',
-  'adventure': 'Explore, collect and push forward through themed worlds and quests.',
+  'adventure': 'Explore, collect and push forward through themed worlds.',
   'multiplayer': 'Play against or alongside other players, on one keyboard or online.',
   'car': 'Car games — driving and parking challenges behind the wheel.',
   'driving': 'Driving games — steer, drift and park your way through traffic and tracks.',
   'simulation': 'Simulation games — run the job, from driving a truck to tending a farm.',
-  'brain': 'Brain games — logic and memory challenges that reward thinking ahead.',
+  'brain': 'Brain games — puzzles that reward thinking ahead.',
   'logic': 'Logic games — fixed rules, one right answer, and a chain of deductions to find it.',
-  'puzzle': 'Puzzle games — match, sort and merge your way to a clear board.',
+  'puzzle': 'Puzzle games — match and sort your way to a clear board.',
   'halloween': 'Halloween games — a haunted maze, zombie rounds and spooky-season chaos.',
   'monster': 'Monster games — creatures and spooky showdowns.',
   'zombie': 'Zombie games — hold the line against the horde, round after round.',
@@ -332,6 +332,26 @@ const jsonLd = [
         <li>
           <a href={u('games/spooky-racing/')}>Spooky Racing</a>
           <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Spooky Racing is a Halloween kart race in full 3D!</span>
+        </li>
+      </ol>
+    </section>
+  )}
+
+  {hub.slug === 'driving-games' && (
+    <section class="top-picks">
+      <h3>Driving simulator games</h3>
+      <ol>
+        <li>
+          <a href={u('games/mud-truck-simulator-game/')}>Mud Truck Simulator Game</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Get ready for an exciting offroad driving adventure with Mud Truck Simulator Game! Take control of powerful trucks, drive through muddy roads,…</span>
+        </li>
+        <li>
+          <a href={u('games/bus-simulator-game-2026/')}>Bus Simulator Game 2026</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Welcome to the Bus Simulator Game 2026. This is a fun and exciting game where you drive a big bus on rough and bumpy roads…</span>
+        </li>
+        <li>
+          <a href={u('games/midnight-valet/')}>Midnight Valet</a>
+          <span class="hook" style="display:block;color:var(--muted);font-size:14px;font-weight:400;margin-top:2px;">Midnight Valet is a 3D valet parking simulator.</span>
         </li>
       </ol>
     </section>
