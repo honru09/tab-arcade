@@ -63,7 +63,7 @@ const TYPE_BLURBS: Record<string, string> = {
   'logic': 'Logic games — fixed rules, one right answer, and a chain of deductions to find it.',
   'puzzle': 'Puzzle games — match and sort your way to a clear board.',
   'halloween': 'Halloween games — a haunted maze, zombie rounds and spooky-season chaos.',
-  'monster': 'Monster games — creatures and spooky showdowns.',
+  'monster': 'Monster games — creatures and a spooky showdown.',
   'zombie': 'Zombie games — hold the line against the horde, round after round.',
   'animal': 'Animal games — creatures great and small, ready to play in your browser.',
   'snow': 'Snow games — icy tracks, snowball runs and winter driving.',
@@ -538,6 +538,37 @@ const jsonLd = [
             <tr>
               <td><a href={u('games/100-doors-mystery-room-escape/')}>100 Doors: Mystery Room Escape</a></td>
               <td>Every room presents a unique mind-bending challenge featuring intricate mechanical gears, hidden keys, cryptic symbols, and secret keypad codes.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  {hub.slug === 'games-like-cool-math-games' && (
+    <section class="top-picks">
+      <h3>Drawing games</h3>
+      <p>Three games on this shelf where drawing is the game — each one says so in its own description.</p>
+      <div style="overflow-x:auto;">
+        <table>
+          <thead>
+            <tr>
+              <th>Game</th>
+              <th>Why it's a drawing game</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><a href={u('games/rubber-doodle/')}>Rubber Doodle</a></td>
+              <td>Rubber Doodle is a physics puzzle where every line you draw turns into a rubber band.</td>
+            </tr>
+            <tr>
+              <td><a href={u('games/fast-connect-one-line-blitz/')}>Fast Connect: One Line Blitz</a></td>
+              <td>Draw a single continuous path from start to finish, fill every tile, and avoid forbidden blocks without crossing your own path.</td>
+            </tr>
+            <tr>
+              <td><a href={u('games/draw-path-to-finish/')}>Draw Path To Finish</a></td>
+              <td>Draw a line that becomes the route for her moving platform, then watch whether she can make it to the finish.</td>
             </tr>
           </tbody>
         </table>

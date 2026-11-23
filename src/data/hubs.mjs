@@ -85,7 +85,7 @@ export const hubs = [
     metaDescription:
       'Free .io browser games: an arena battler, building games, an obby escape and a shooting round that work on Chromebooks. No downloads, no sign-up.',
     intro: [
-      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across a merge puzzle, building games, an arena shooter, and an obstacle obby escape. Every round is self-contained and loads in seconds right inside your browser tab.`,
+      `.io games are built for instant browser play: click a link and you are straight into the action — no lobby codes, no downloads, and no waiting for updates. The genre has expanded across a merge puzzle, building games, an arena battler and an FPS shooter, and an obstacle obby escape. Every round is self-contained and loads in seconds right inside your browser tab.`,
       `Our .io shelf rounds up the varied titles in the TabArcade catalog, from an arena battler and an FPS shooter to building games, a keycap pyramid, and a speed keyboard escape. Most sessions are quick to start — a single round fits a class break — while the merge and building titles run longer at your own pace. Because everything runs directly in the browser, these games were built to run on exactly the kind of modest Chromebook schools issue. Each game page explains the objective and controls, and the fullscreen button helps when the arena gets crowded. Pick a game and jump in.`,
     ],
   },
